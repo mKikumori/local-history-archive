@@ -1,7 +1,7 @@
 package com.example.local_history_archive;
 
 import javafx.application.Application;
-import javafx.fxml.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -11,11 +11,10 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
-        stage.setTitle("Home page");
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        stage.setTitle("Unlogged in Homepage");
         stage.setScene(scene);
         stage.show();
-
     }
 
     public static void main(String[] args) {
