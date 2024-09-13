@@ -40,7 +40,7 @@
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
             </Label>
-            <Button mnemonicParsing="false" text="Sign In">
+            <Button mnemonicParsing="false" onAction="#goToSignInPage" text="Sign In">
                <HBox.margin>
                   <Insets left="60.0" top="20.0" />
                </HBox.margin>
