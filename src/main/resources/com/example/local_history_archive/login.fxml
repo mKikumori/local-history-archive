@@ -106,7 +106,6 @@
             <Font name="Arial" size="11.0" />
          </font>
       </TextField>
-      <TextField layoutX="335.0" layoutY="434.0" prefHeight="44.0" prefWidth="353.0" promptText="Password" />
       <Label layoutX="338.0" layoutY="318.0" text="Enter Email">
          <font>
             <Font name="Arial" size="12.0" />
@@ -152,6 +151,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <PasswordField layoutX="340.0" layoutY="435.0" prefHeight="44.0" prefWidth="353.0" promptText="Password" />
 
    </children>
 </AnchorPane>
