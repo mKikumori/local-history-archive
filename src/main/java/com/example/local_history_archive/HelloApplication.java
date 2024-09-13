@@ -16,6 +16,18 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    @Override
+    public void goToSignInPage(java.fx.event.ActionEvent event){
+            FXMLLoader fxmlLoader = new FXMLLoader(get.class().getResource("login.fxml"));
+            parent loginroot = fxmlLoader.load();
+
+            Stage stage = (Stage)(javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            Scene loginScene = new Scene(loginroot);
+            stage.setScene(loginScene);
+            stage,setTitle("Login Page");
+            stage.show();
+    }
 
     public static void main(String[] args) {
         launch();
