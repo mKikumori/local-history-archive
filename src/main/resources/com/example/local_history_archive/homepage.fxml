@@ -1,58 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.HelloController">
    <children>
-      <!-- Navigation Bar-->
-      <HBox layoutY="-2.0" prefHeight="70.0" prefWidth="1000.0">
+      <Group layoutX="7.0" layoutY="-2.0">
          <children>
             <ImageView fitHeight="70.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField promptText="Looking for something?">
-               <HBox.margin>
-                  <Insets left="70.0" top="20.0" />
-               </HBox.margin>
+            <TextField layoutX="174.0" layoutY="20.0" promptText="Looking for something?">
                <padding>
                   <Insets bottom="3.0" left="3.0" right="50.0" top="3.0" />
                </padding>
             </TextField>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="5.0" top="15.0" />
-               </HBox.margin>
-            </ImageView>
-            <Label accessibleRole="BUTTON" text="Upload" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="170.0" top="20.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Colletions" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Settings" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#goToSignInPage" text="Sign In">
-               <HBox.margin>
-                  <Insets left="60.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Register">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="367.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+            <Label accessibleRole="BUTTON" layoutX="696.0" layoutY="23.0" text="Upload" textAlignment="CENTER" />
+            <Label layoutX="745.0" layoutY="23.0" text="Colletions" textAlignment="CENTER" />
+            <Label layoutX="807.0" layoutY="23.0" text="Settings" textAlignment="CENTER" />
+            <Button disable="true" layoutX="619.0" layoutY="20.0" mnemonicParsing="false" onAction="#goToSignInPage" prefHeight="25.0" prefWidth="60.0" text="Home" />
          </children>
-
-      </HBox>
+      </Group>
       <!-- F-->
       <GridPane hgap="10.0" layoutX="33.0" layoutY="91.0" prefHeight="757.0" prefWidth="935.0" vgap="10.0">
         <columnConstraints>
@@ -90,6 +62,7 @@
          </children>
       </GridPane>
       <Pagination layoutX="360.0" layoutY="873.0" prefHeight="30.0" prefWidth="282.0" />
+      <Circle fill="#ededed5c" layoutX="899.0" layoutY="31.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
 
    </children>
 </AnchorPane>
