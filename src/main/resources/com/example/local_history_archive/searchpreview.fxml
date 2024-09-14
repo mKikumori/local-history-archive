@@ -82,6 +82,8 @@
             <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="304.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          </children>
       </GridPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000033" height="722.0" layoutY="81.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1280.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="283.0" layoutX="443.0" layoutY="261.0" stroke="TRANSPARENT" strokeType="INSIDE" width="523.0" />
 
    </children>
 </AnchorPane>

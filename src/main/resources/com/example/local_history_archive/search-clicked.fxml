@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.HelloController">
+   <children>
+      <Group layoutX="14.0" layoutY="16.0">
+         <children>
+            <ButtonBar layoutX="1021.0" layoutY="6.0" prefHeight="40.0" prefWidth="209.0">
+              <buttons>
+                  <Button fx:id="signInButton" mnemonicParsing="false" onAction="#goToSignInPage" prefHeight="29.0" prefWidth="109.0" text="Sign In" />
+                  <Button fx:id="signupButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="92.0" text="Register" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar layoutX="643.0" layoutY="13.0">
+               <buttons>
+                  <Button mnemonicParsing="false" text="Home" />
+                  <Button mnemonicParsing="false" text="Upload" />
+                  <Button mnemonicParsing="false" text="Collections" />
+                  <Button mnemonicParsing="false" text="Settings" />
+               </buttons>
+            </ButtonBar>
+            <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" text="Search Query" />
+            <ImageView fitHeight="64.0" fitWidth="227.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/logo1.png" />
+               </image></ImageView>
+            <ImageView fitHeight="19.0" fitWidth="17.0" layoutX="544.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/search%20icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Line endX="218.0" layoutX="1062.0" layoutY="80.0" startX="-1062.0" stroke="#8f8f8f96" />
+      <Separator layoutX="3.0" layoutY="444.0" prefHeight="1.0" prefWidth="1281.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="253.0" layoutX="176.0" layoutY="134.0" stroke="TRANSPARENT" strokeType="INSIDE" width="428.0" />
+      <ImageView fitHeight="253.0" fitWidth="428.0" layoutX="176.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <ButtonBar layoutX="178.0" layoutY="393.0" prefHeight="40.0" prefWidth="396.0">
+        <buttons>
+          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Save to Collection" />
+            <Button mnemonicParsing="false" text="Preview" />
+            <Button mnemonicParsing="false" text="Download" />
+        </buttons>
+      </ButtonBar>
+      <Label layoutX="640.0" layoutY="143.0" text="Document Title">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="644.0" layoutY="183.0" text="Date of Event">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="644.0" layoutY="203.0" text="Category">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="644.0" layoutY="244.0" text="Description for all the yappin that will happen grahh" />
+      <Button layoutX="47.0" layoutY="109.0" mnemonicParsing="false" text="Back" />
+      <Label layoutX="573.0" layoutY="461.0" text="Suggested Contents">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <HBox layoutX="94.0" layoutY="504.0" prefHeight="238.0" prefWidth="1137.0">
+         <children>
+            <GridPane hgap="20.0" prefHeight="238.0" prefWidth="1142.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="238.0" prefWidth="375.0" />
+                  <Button mnemonicParsing="false" prefHeight="275.0" prefWidth="366.0" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" prefHeight="324.0" prefWidth="583.0" GridPane.columnIndex="2" />
+                  <ImageView fitHeight="202.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                  <ImageView fitHeight="202.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="202.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+
+   </children>
+</AnchorPane>
