@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class HelloController {
@@ -12,8 +13,8 @@ public class HelloController {
     @FXML
     private void goToSignInPage() {
         try {
-            // Load the Sign In page FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+            // Load the Sign-In page FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign-in-view.fxml"));
             Parent signInRoot = fxmlLoader.load();
 
             // Get the current stage
@@ -22,10 +23,10 @@ public class HelloController {
             // Set the scene to the sign-in page
             Scene signInScene = new Scene(signInRoot);
             stage.setScene(signInScene);
-            stage.setTitle("Sign In Page");
+            stage.setTitle("Sign In");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the error appropriately
+            e.printStackTrace();
         }
     }
 }
