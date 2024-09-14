@@ -48,7 +48,7 @@
       <ComboBox layoutX="624.0" layoutY="510.0" prefHeight="31.0" prefWidth="227.0" promptText="Choose category" />
       <ButtonBar layoutX="827.0" layoutY="602.0" prefHeight="40.0" prefWidth="247.0">
         <buttons>
-          <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="136.0" text="Discard" />
+          <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" text="Discard" />
             <Button mnemonicParsing="false" prefHeight="37.0" text="Publish" />
         </buttons>
       </ButtonBar>
