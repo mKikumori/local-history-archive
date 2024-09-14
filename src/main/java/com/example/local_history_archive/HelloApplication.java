@@ -1,20 +1,18 @@
 package com.example.local_history_archive;
 
-import com.example.local_history_archive.model.UserAccountDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.*;
 
 import java.io.IOException;
 
-// Shouldn't change
 public class HelloApplication extends Application {
-
-    public static final String TITLE = "Address Book";
-    public static final int WIDTH = 1000;
+    public static final String TITLE = "Local History Archive";
+    public static final int WIDTH = 1280;
     public static final int HEIGHT = 800;
-
+    
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -23,7 +21,8 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
