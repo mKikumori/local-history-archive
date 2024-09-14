@@ -50,19 +50,30 @@
             <Font size="11.0" />
          </font>
       </Label>
-      <Label layoutX="328.0" layoutY="624.0" text="Upload Guidelines">
+      <Label layoutX="328.0" layoutY="620.0" text="Upload Guidelines">
          <font>
             <Font name="System Bold" size="11.0" />
          </font>
       </Label>
-      <Label layoutX="278.0" layoutY="623.0" text="view our" />
-      <TextField layoutX="582.0" layoutY="183.0" prefHeight="36.0" prefWidth="319.0" promptText="Enter Title" />
-      <TextArea layoutX="582.0" layoutY="246.0" prefHeight="164.0" prefWidth="319.0" promptText="Enter a description..." />
-      <DatePicker layoutX="582.0" layoutY="436.0" prefHeight="36.0" prefWidth="174.0" />
-      <ComboBox layoutX="582.0" layoutY="501.0" prefHeight="30.0" prefWidth="174.0" />
-      <CheckBox layoutX="582.0" layoutY="561.0" mnemonicParsing="false" text="CheckBox" />
-      <CheckBox layoutX="669.0" layoutY="561.0" mnemonicParsing="false" text="CheckBox" />
-      <CheckBox layoutX="756.0" layoutY="561.0" mnemonicParsing="false" text="CheckBox" />
+      <Label layoutX="278.0" layoutY="619.0" text="view our" />
+      <TextField layoutX="582.0" layoutY="172.0" prefHeight="36.0" prefWidth="319.0" promptText="Enter Title" />
+      <TextArea layoutX="582.0" layoutY="244.0" prefHeight="164.0" prefWidth="319.0" promptText="Enter a description..." />
+      <DatePicker layoutX="582.0" layoutY="436.0" prefHeight="36.0" prefWidth="174.0" promptText="Sekect Date" />
+      <ComboBox layoutX="582.0" layoutY="501.0" prefHeight="30.0" prefWidth="174.0" promptText="Choose categories" />
+      <CheckBox layoutX="582.0" layoutY="564.0" mnemonicParsing="false" text="Art" />
+      <CheckBox layoutX="669.0" layoutY="566.0" mnemonicParsing="false" text="Biography" />
+      <CheckBox layoutX="756.0" layoutY="567.0" mnemonicParsing="false" text="CheckBox" />
+      <Label layoutX="582.0" layoutY="152.0" text="Title" />
+      <Label layoutX="580.0" layoutY="220.0" text="Description" />
+      <Label layoutX="580.0" layoutY="417.0" text="Date of the Historical Event" />
+      <Label layoutX="580.0" layoutY="482.0" text="Categories" />
+      <Label layoutX="580.0" layoutY="542.0" text="Tags" />
+      <ButtonBar layoutX="717.0" layoutY="640.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="124.0" text="Discard" />
+            <Button disable="true" mnemonicParsing="false" prefHeight="35.0" text="Publish" />
+        </buttons>
+      </ButtonBar>
 
    </children>
 </AnchorPane>
