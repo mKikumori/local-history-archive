@@ -12,18 +12,13 @@
       <Pagination layoutX="527.0" layoutY="742.0" prefHeight="30.0" prefWidth="282.0" />
       <Group layoutX="14.0" layoutY="16.0">
          <children>
-            <ButtonBar layoutX="1021.0" layoutY="6.0" prefHeight="40.0" prefWidth="209.0">
-              <buttons>
-                  <Button fx:id="signInButton" mnemonicParsing="false" onAction="#goToSignInPage" prefHeight="29.0" prefWidth="109.0" text="Sign In" />
-                  <Button fx:id="signupButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="92.0" text="Register" />
-              </buttons>
-            </ButtonBar>
-            <ButtonBar layoutX="643.0" layoutY="13.0">
+            <ButtonBar layoutX="785.0" layoutY="13.0">
                <buttons>
                   <Button mnemonicParsing="false" text="Home" />
                   <Button mnemonicParsing="false" text="Upload" />
                   <Button mnemonicParsing="false" text="Collections" />
                   <Button mnemonicParsing="false" text="Settings" />
+                  <Button mnemonicParsing="false" text="Profile" />
                </buttons>
             </ButtonBar>
             <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" text="Search Query" />

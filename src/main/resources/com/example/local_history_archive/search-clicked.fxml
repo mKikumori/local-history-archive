@@ -11,18 +11,13 @@
    <children>
       <Group layoutX="14.0" layoutY="16.0">
          <children>
-            <ButtonBar layoutX="1021.0" layoutY="6.0" prefHeight="40.0" prefWidth="209.0">
-              <buttons>
-                  <Button fx:id="signInButton" mnemonicParsing="false" onAction="#goToSignInPage" prefHeight="29.0" prefWidth="109.0" text="Sign In" />
-                  <Button fx:id="signupButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="92.0" text="Register" />
-              </buttons>
-            </ButtonBar>
-            <ButtonBar layoutX="643.0" layoutY="13.0">
+            <ButtonBar layoutX="786.0" layoutY="13.0">
                <buttons>
                   <Button mnemonicParsing="false" text="Home" />
                   <Button mnemonicParsing="false" text="Upload" />
                   <Button mnemonicParsing="false" text="Collections" />
                   <Button mnemonicParsing="false" text="Settings" />
+                  <Button mnemonicParsing="false" text="Profile" />
                </buttons>
             </ButtonBar>
             <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" text="Search Query" />
@@ -53,17 +48,16 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <Label layoutX="644.0" layoutY="183.0" text="Date of Event">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
+      <Label layoutX="644.0" layoutY="183.0" text="Date of Event" />
       <Label layoutX="644.0" layoutY="203.0" text="Category">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="644.0" layoutY="244.0" text="Description for all the yappin that will happen grahh" />
+      <Label layoutX="644.0" layoutY="244.0" text="Description for all the yappin that will happen grahh">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
       <Button layoutX="47.0" layoutY="109.0" mnemonicParsing="false" text="Back" />
       <Label layoutX="573.0" layoutY="461.0" text="Suggested Contents">
          <font>
