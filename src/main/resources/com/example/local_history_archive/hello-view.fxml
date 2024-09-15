@@ -62,10 +62,19 @@
                   </ImageView>
                    <ButtonBar layoutX="643.7999877929688" layoutY="19.0">
                        <buttons>
-                           <Button disable="true" mnemonicParsing="false" text="Home" />
-                           <Button mnemonicParsing="false" onAction="#goToSignInPage" text="Upload" />
-                           <Button mnemonicParsing="false" onAction="#goToSignInPage" text="Collections" />
-                           <Button mnemonicParsing="false" onAction="#goToSignInPage" text="Settings" />
+                           <Button disable="true" mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Home" />
+                           <Button mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                           <Button mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" text="Collections">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                           <Button mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" text="Settings">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
                        </buttons>
                    </ButtonBar>
                   <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0">
