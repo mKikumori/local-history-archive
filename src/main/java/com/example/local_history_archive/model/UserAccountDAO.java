@@ -11,7 +11,7 @@ public class UserAccountDAO {
         connection = DatabaseConnection.getInstance();
     }
 
-    public void createTable() {
+    public void createUserTable() {
         try {
             Statement createTable = connection.createStatement();
             createTable.execute(
