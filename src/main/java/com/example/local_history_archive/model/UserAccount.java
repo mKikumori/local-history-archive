@@ -51,6 +51,8 @@ public class UserAccount {
         return profile_pic;
     }
 
+    public void setUser_id(int user_id) { this.user_id = user_id; }
+
     public void setUsername(String username) {
         this.username = username;
     }
