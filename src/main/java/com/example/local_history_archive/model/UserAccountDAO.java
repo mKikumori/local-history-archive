@@ -9,7 +9,7 @@ public class UserAccountDAO {
 
     public UserAccountDAO() {
         try {
-            // 메모리 기반 SQLite 데이터베이스에 연결
+            // Connect to a memory-based SQLite database
             connection = DriverManager.getConnection("jdbc:sqlite::memory:");
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
