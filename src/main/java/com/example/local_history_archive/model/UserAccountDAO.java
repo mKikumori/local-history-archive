@@ -8,7 +8,12 @@ public class UserAccountDAO {
     private Connection connection;
 
     public UserAccountDAO() {
-        connection = DatabaseConnection.getInstance();
+        try {
+            // 메모리 기반 SQLite 데이터베이스에 연결
+            connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
     }
 
     public void createUserTable() {
@@ -30,7 +35,26 @@ public class UserAccountDAO {
         }
     }
 
-    public void newUser(UserAccount userAccount) {
+    // Email Duplicate Check
+    public boolean isEmailDuplicate(String userEmail){
+        try {
+            PreparedStatement checkEmailStmt;
+            checkEmailStmt = connection.prepareStatement("SELECT * FROM userAccounts WHERE user_email = ?");
+            checkEmailStmt.setString(1, userEmail);
+            ResultSet rs = checkEmailStmt.executeQuery();
+            return rs.next();
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
+        return false;
+    }
+
+    // Checking Email Duplicate while registration
+    public boolean newUser(UserAccount userAccount) {
+        if (isEmailDuplicate(userAccount.getUserEmail())) {
+            System.out.println("There is duplicated Email: " + userAccount.getUserEmail());
+            return false;
+        }
         try {
             PreparedStatement newUserAccount = connection.prepareStatement(
                     "INSERT INTO userAccounts (user_email, username, password, bio, profile_pic, created_at) "
@@ -47,6 +71,7 @@ public class UserAccountDAO {
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
+        return false;
     }
 
     public void updateUser(UserAccount userAccount) {

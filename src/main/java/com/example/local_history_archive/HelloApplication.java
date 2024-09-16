@@ -1,6 +1,6 @@
 package com.example.local_history_archive;
 
-import com.example.local_history_archive.model.UserAccountDAO;
+import com.example.local_history_archive.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
