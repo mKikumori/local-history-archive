@@ -51,4 +51,23 @@ public class SignUpTest {
 
         assertEquals(1, duplicateCount, "Duplicate emails should not be added twice.");
     }
+
+    // 3. Error handling when attempting to sign up with a duplicate username (duplicates are not added)
+    @Test
+    public void testSignUpDuplicateUsername() {
+        UserAccount firstUser = new UserAccount("duplicate@example.com", "user1", "password123", "This is a bio", "profilePic.jpg");
+        userAccountDAO.newUser(firstUser);
+
+        // Add a second user with a duplicate username
+        UserAccount duplicateUser = new UserAccount("duplicateusername@example.com", "user1", "password456", "Another bio", "profilePic2.jpg");
+        userAccountDAO.newUser(duplicateUser);
+
+        // Make sure no users are added with the same username
+        List<UserAccount> allAccounts = userAccountDAO.getAll();
+        long duplicateCount = allAccounts.stream()
+                .filter(account -> account.getUsername().equals("user1"))
+                .count();
+
+        assertEquals(1, duplicateCount, "Duplicate username should not be added twice.");
+    }
 }
