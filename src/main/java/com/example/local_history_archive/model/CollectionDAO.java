@@ -28,6 +28,25 @@ public class CollectionDAO {
             System.err.println(SQLEx);
         }
     }
+    public List<Collection> getAll() {
+        List<Collection> collections = new ArrayList<>();
+        try {
+            Statement getAll = connection.createStatement();
+            ResultSet rs = getAll.executeQuery("SELECT * FROM Collections");
+
+            while (rs.next()) {
+                collections.add(
+                        new Collection(
+                                rs.getInt("collection_id"),
+                                rs.getString("collection_name")
+                        )
+                );
+            }
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
+        return collections;
+    }
 
     public void newCollection(Collection Collection) {
         try {
