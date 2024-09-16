@@ -1,60 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
    <children>
-      <!-- Navigation Bar-->
-      <HBox layoutY="-2.0" prefHeight="70.0" prefWidth="1000.0">
-         <children>
-            <ImageView fitHeight="70.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField promptText="Looking for something?">
-               <HBox.margin>
-                  <Insets left="70.0" top="20.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="3.0" left="3.0" right="50.0" top="3.0" />
-               </padding>
-            </TextField>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="5.0" top="15.0" />
-               </HBox.margin>
-            </ImageView>
-            <Label accessibleRole="BUTTON" text="Upload" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="170.0" top="20.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Colletions" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Label>
-            <Label text="Settings" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" fx:id="loginBtn" onAction="#onLoginBtnClick" text="Sign In">
-               <HBox.margin>
-                  <Insets left="60.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" fx:id="registerBtn" onAction="#onRegisterBtnClick" text="Register">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-
-      </HBox>
       <!-- F-->
-      <GridPane hgap="10.0" layoutX="33.0" layoutY="91.0" prefHeight="757.0" prefWidth="935.0" vgap="10.0">
+      <GridPane hgap="10.0" layoutX="25.0" layoutY="100.0" prefHeight="640.0" prefWidth="1223.0" vgap="10.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,28 +24,57 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="187.0" prefWidth="227.0">
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="241.0" prefWidth="338.0">
                <font>
                   <Font size="1.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="193.0" prefWidth="226.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="220.0" prefWidth="227.0" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="232.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="238.0" prefWidth="227.0" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="226.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="216.0" prefWidth="226.0" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="217.0" prefWidth="226.0" GridPane.columnIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="218.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="212.0" prefWidth="226.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="224.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="215.0" prefWidth="226.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="239.0" prefWidth="227.0" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="262.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="241.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="266.0" prefWidth="226.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="381.0" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="302.0" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="329.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="314.0" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="296.0" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="350.0" GridPane.columnIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="317.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="315.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="344.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="326.0" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="347.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="291.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="329.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Pagination layoutX="360.0" layoutY="873.0" prefHeight="30.0" prefWidth="282.0" />
+      <Pagination layoutX="478.0" layoutY="748.0" prefHeight="30.0" prefWidth="282.0" />
+      <Group layoutX="14.0" layoutY="16.0">
+         <children>
+            <ButtonBar layoutX="1021.0" layoutY="6.0" prefHeight="40.0" prefWidth="209.0">
+              <buttons>
+                  <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#onLoginBtnClick" prefHeight="29.0" prefWidth="109.0" text="Sign In" />
+                  <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#onRegisterBtnClick" prefHeight="31.0" prefWidth="92.0" text="Register" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar layoutX="643.0" layoutY="13.0">
+               <buttons>
+                  <Button disable="true" mnemonicParsing="false" text="Home" />
+                  <Button mnemonicParsing="false" text="Upload" />
+                  <Button mnemonicParsing="false" text="Collections" />
+                  <Button mnemonicParsing="false" text="Settings" />
+               </buttons>
+            </ButtonBar>
+            <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" />
+            <ImageView fitHeight="64.0" fitWidth="227.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/logo1.png" />
+               </image></ImageView>
+            <ImageView fitHeight="19.0" fitWidth="17.0" layoutX="544.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/search_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Line endX="218.0" layoutX="1062.0" layoutY="80.0" startX="-1062.0" stroke="#8f8f8f96" />
 
    </children>
 </AnchorPane>

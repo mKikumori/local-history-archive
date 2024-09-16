@@ -1,0 +1,16 @@
+.custom-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.custom-button:hover {
+    -fx-background-color: #e0e0e0; /* Light grey background on hover */
+}
+
+.custom-button:focused {
+    -fx-background-color: #007bff;  /* Blue background when selected */
+    -fx-border-color: #007bff;      /* Blue border when selected */
+    -fx-border-width: 2px;          /* Border width when selected */
+    -fx-border-radius: 5px;         /* Border radius */
+}
