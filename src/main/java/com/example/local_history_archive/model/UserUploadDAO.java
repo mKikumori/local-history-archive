@@ -1,6 +1,5 @@
 package com.example.local_history_archive.model;
 
-import com.example.local_history_archive.controller.UserUpload;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

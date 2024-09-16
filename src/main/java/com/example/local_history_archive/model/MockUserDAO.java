@@ -1,11 +1,5 @@
 package com.example.local_history_archive.model;
 
-import com.example.local_history_archive.ImageToBase64;
-import com.example.local_history_archive.controller.UserUpload;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.List;
-
 public class MockUserDAO extends UserAccountDAO {
         // Create the database
         //UserAccountDAO userAccountDAO = new UserAccountDAO();
