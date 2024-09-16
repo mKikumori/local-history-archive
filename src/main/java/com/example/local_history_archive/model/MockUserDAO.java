@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.List;
 
 public class MockUserDAO extends UserAccountDAO {
+        // Create the database
         //UserAccountDAO userAccountDAO = new UserAccountDAO();
         //userAccountDAO.createTable();
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.RegisterController">
    <children>
       <!-- F-->
       <GridPane hgap="10.0" layoutX="25.0" layoutY="100.0" prefHeight="640.0" prefWidth="1223.0" vgap="10.0">
@@ -48,13 +48,18 @@
       <Pagination layoutX="478.0" layoutY="748.0" prefHeight="30.0" prefWidth="282.0" />
       <Group layoutX="14.0" layoutY="16.0">
          <children>
-            <ButtonBar layoutX="785.0" layoutY="13.0">
+            <ButtonBar layoutX="1021.0" layoutY="6.0" prefHeight="40.0" prefWidth="209.0">
+              <buttons>
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="109.0" text="Sign In" />
+                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="92.0" text="Register" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar layoutX="643.0" layoutY="13.0">
                <buttons>
                   <Button disable="true" mnemonicParsing="false" text="Home" />
                   <Button mnemonicParsing="false" text="Upload" />
                   <Button mnemonicParsing="false" text="Collections" />
                   <Button mnemonicParsing="false" text="Settings" />
-                  <Button mnemonicParsing="false" text="Profile" />
                </buttons>
             </ButtonBar>
             <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" />
@@ -64,12 +69,65 @@
                </image></ImageView>
             <ImageView fitHeight="19.0" fitWidth="17.0" layoutX="544.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/search%20icon.png" />
+                  <Image url="@../../../images/search_icon.png" />
                </image>
             </ImageView>
          </children>
       </Group>
       <Line endX="218.0" layoutX="1062.0" layoutY="80.0" startX="-1062.0" stroke="#8f8f8f96" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000032" height="800.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="1281.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="515.0" layoutX="448.0" layoutY="143.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="20.0" width="342.0" />
+      <Label layoutX="488.0" layoutY="220.0" text="Local History Archive">
+         <font>
+            <Font name="Old English Text MT" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="567.0" layoutY="199.0" text="Welcome to">
+         <font>
+            <Font name="Old English Text MT" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="605.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/book.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="492.0" layoutY="358.0" prefHeight="35.0" prefWidth="245.0" promptText="Email" fx:id="emailTextField" />
+      <PasswordField layoutX="493.0" layoutY="421.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" fx:id="passwordTextField" />
+      <Label layoutX="497.0" layoutY="341.0" text="Email" />
+      <Label layoutX="497.0" layoutY="404.0" text="Password" />
+      <Label layoutX="648.0" layoutY="468.0" text="Log In">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="499.0" layoutY="564.0" text="By continuing you agree to Local History Archive's" textFill="#949494">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="498.0" layoutY="579.0" text="Terms of Service">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label layoutX="582.0" layoutY="579.0" text="and acknowledge you've read our" textFill="#949494">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="583.0" layoutY="594.0" text="Privacy Policy.">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <TextField layoutX="492.0" layoutY="295.0" prefHeight="35.0" prefWidth="245.0" promptText="Full Name" fx:id="usernameTextField" />
+      <Label layoutX="498.0" layoutY="279.0" text="Your Full Name" />
+      <Label layoutX="551.0" layoutY="469.0" text="Already a member?">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Button layoutX="502.0" layoutY="500.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="233.0" text="Submit" fx:id="registerBtn" onAction="#registerSubmitBtn"/>
 
    </children>
 </AnchorPane>
