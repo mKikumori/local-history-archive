@@ -50,28 +50,28 @@ public class MockUserDAO extends UserAccountDAO {
 
         //userAccountDAO.close();
 
-    public static void main(String[] args) throws SQLException {
+    /*public static void main(String[] args) throws SQLException {
         UserUploadDAO userUploadDAO = new UserUploadDAO();
 
         // Create the uploads table
-        /*userUploadDAO.createUploadTable();
+        *//*userUploadDAO.createUploadTable();
 
         String imagePath = "src/main/resources/images/Colosseo_2020.jpg";
-        String image_file = ImageToBase64.encodeImageToBase64(imagePath);*/
+        String image_file = ImageToBase64.encodeImageToBase64(imagePath);*//*
 
         // Insert new uploads
         //userUploadDAO.newUpload(new UserUpload(2, "Colosseo Image Upload", "Historic buildings", "image", "Description", false, image_file));
         //userUploadDAO.newUpload(new UserUpload(3, "First Upload", "Category3", "document", "Another description", true, ""));
 
         // Retrieve all uploads
-        /*List<UserUpload> uploads = userUploadDAO.allUploads();
+        *//*List<UserUpload> uploads = userUploadDAO.allUploads();
         System.out.println("All uploads:");
         for (UserUpload upload : uploads) {
             System.out.println(upload);
-        }*/
+        }*//*
 
         // Retrieve an upload by ID
-        /*UserUpload uploadById = userUploadDAO.getUploadById(2);
+        *//*UserUpload uploadById = userUploadDAO.getUploadById(2);
         System.out.println("Upload with ID 2:");
         System.out.println(uploadById);
 
@@ -84,14 +84,14 @@ public class MockUserDAO extends UserAccountDAO {
 
             System.out.println("After update:");
             System.out.println(userUploadDAO.getUploadById(2));
-        }*/
+        }*//*
 
         // Get user_id by upload_id
-        /*int userId = userUploadDAO.getUserIdByUploadId(1);
-        System.out.println("User ID: " + userId);*/
+        *//*int userId = userUploadDAO.getUserIdByUploadId(1);
+        System.out.println("User ID: " + userId);*//*
 
         // Delete an upload
-        System.out.println("Before deleting upload with id = 2:");
+        *//*System.out.println("Before deleting upload with id = 2:");
         List<UserUpload> uploadsBeforeDelete = userUploadDAO.allUploads();
         for (UserUpload u : uploadsBeforeDelete) {
             System.out.println(u);
@@ -103,9 +103,9 @@ public class MockUserDAO extends UserAccountDAO {
         List<UserUpload> uploadsAfterDelete = userUploadDAO.allUploads();
         for (UserUpload u : uploadsAfterDelete) {
             System.out.println(u);
-        }
+        }*//*
 
         // Close the DAO
-        userUploadDAO.close();
-    }
+        //userUploadDAO.close();
+    }*/
 }
