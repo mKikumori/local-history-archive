@@ -49,12 +49,34 @@ public class UserAccountDAO {
         return false;
     }
 
+    // Username Duplicate Check
+    public boolean isUsernameDuplicate(String username) {
+        try {
+            PreparedStatement checkUsernameStmt = connection.prepareStatement("SELECT * FROM userAccounts WHERE username = ?");
+            checkUsernameStmt.setString(1, username);
+            ResultSet rs = checkUsernameStmt.executeQuery();
+            return rs.next();
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
+        return false;
+    }
+
     // Checking Email Duplicate while registration
     public boolean newUser(UserAccount userAccount) {
+
+        // Duplicate Email Checking
         if (isEmailDuplicate(userAccount.getUserEmail())) {
             System.out.println("There is duplicated Email: " + userAccount.getUserEmail());
             return false;
         }
+
+        // Duplicate Username Checking
+        if (isUsernameDuplicate(userAccount.getUsername())) {
+            System.out.println("There is a duplicated Username: " + userAccount.getUsername());
+            return false;
+        }
+
         try {
             PreparedStatement newUserAccount = connection.prepareStatement(
                     "INSERT INTO userAccounts (user_email, username, password, bio, profile_pic, created_at) "
@@ -66,12 +88,19 @@ public class UserAccountDAO {
             newUserAccount.setString(4, userAccount.getBio());
             newUserAccount.setString(5, userAccount.getProfilePic());
 
-            newUserAccount.execute();
+            // Add new user account to DB
+            int rowsAffected = newUserAccount.executeUpdate();
+
+            // If created successful (affected row = 1)
+            if (rowsAffected > 0) {
+                System.out.println("'" + userAccount.getUsername() + "'" + " account creation success.");
+                return true;  // Account creation success
+            }
 
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
-        return false;
+        return false; // Account creation failed
     }
 
     public void updateUser(UserAccount userAccount) {
