@@ -2,8 +2,7 @@ package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.ImageToBase64;
-import com.example.local_history_archive.model.UserUpload;
-import com.example.local_history_archive.model.UserUploadDAO;
+import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -116,22 +115,30 @@ public class UploadController implements Initializable {
 
     @FXML
     private void onPublishBtnClick() {
-        String title = uploadTitleTestField.getText();
-        String description = uploadDescriptionTextField.getText();
-        String category = (String) uploadCategory.getValue();
 
-        if (title.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Missing Information", "Please fill in the upload's name.");
-            return;
+        UserAccount currentUser = SessionManager.getCurrentUser();
+
+        if (currentUser != null) {
+            String title = uploadTitleTestField.getText();
+            int userId = currentUser.getUserId();
+            String description = uploadDescriptionTextField.getText();
+            String category = (String) uploadCategory.getValue();
+
+            if (title.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Information", "Please fill in the upload's name.");
+                return;
+            }
+
+            String fileBase64 = encodedFile;
+
+            UserUpload userUpload = new UserUpload(userId, title, category, fileType, description, false, fileBase64);
+
+            userUploadDAO = new UserUploadDAO();
+            userUploadDAO.newUpload(userUpload);
+            showAlert(Alert.AlertType.INFORMATION, "Upload Successful", "Your file has been published.");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Upload Error", "Please log in first.");
         }
-
-        String fileBase64 = encodedFile;
-
-        UserUpload userUpload = new UserUpload(3, title, category, fileType, description, false, fileBase64);
-
-        userUploadDAO = new UserUploadDAO();
-        userUploadDAO.newUpload(userUpload);
-        showAlert(Alert.AlertType.INFORMATION, "Upload Successful", "Your file has been published.");
     }
 
     @FXML

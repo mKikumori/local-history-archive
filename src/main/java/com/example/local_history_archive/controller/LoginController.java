@@ -1,6 +1,7 @@
 package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.HelloApplication;
+import com.example.local_history_archive.model.SessionManager;
 import com.example.local_history_archive.model.UserAccount;
 import com.example.local_history_archive.model.UserAccountDAO;
 import javafx.event.ActionEvent;
@@ -61,6 +62,8 @@ public class LoginController {
         }
 
         if (userAccount.getPassword().equals(password)) {
+
+            SessionManager.setCurrentUser(userAccount);
 
             showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + userAccount.getUsername() + "!");
 
