@@ -8,15 +8,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -42,6 +44,8 @@ public class UploadController implements Initializable {
     @FXML
     public ComboBox uploadCategory;
     @FXML
+    public ImageView uploadImage;
+    @FXML
     private String encodedFile;
 
     public String fileType;
@@ -53,6 +57,8 @@ public class UploadController implements Initializable {
         List<String> categories = Arrays.asList("Historical Events", "Natural disasters", "Cultural Heritage", "Local cuisine and recipes", "Architecture and Landmarks", "Old maps and plans",
                 "People and Personalities", "Government and Politics", "Photographs and Media", "War contributions and impacts", "Arts and Entertainment", "Natural resource usage");
         uploadCategory.getItems().addAll(categories);
+        Image placeholderImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image-placeholder.png")));
+        uploadImage.setImage(placeholderImage);
     }
 
     public void onHomeBtnClick() throws IOException {
@@ -93,6 +99,8 @@ public class UploadController implements Initializable {
             System.out.println("Selected file: " + filePath);
 
             if (filePath.endsWith(".jpg") || filePath.endsWith(".jpeg") || filePath.endsWith(".png")) {
+                Image image = new Image(file.toURI().toString());
+                uploadImage.setImage(image);
                 fileType = "image";
                 encodedFile = ImageToBase64.encodeImageToBase64(filePath);
                 System.out.println("Image successfully encoded to base64.");
