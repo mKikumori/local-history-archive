@@ -1,6 +1,5 @@
 package com.example.local_history_archive.model;
 
-import com.example.local_history_archive.controller.UserUpload;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,9 +132,9 @@ public class UserUploadDAO {
         } catch (SQLException SQLEx) {
             System.err.println("Error deleting upload: " + SQLEx.getMessage());
         }
-    } else {
-        System.err.println("Upload with ID " + upload_id + " does not exist or has no associated user.");
-    }
+        } else {
+            System.err.println("Upload with ID " + upload_id + " does not exist or has no associated user.");
+        }
     }
 
     public List<UserUpload> allUploads() {
@@ -202,6 +201,23 @@ public class UserUploadDAO {
                 System.err.println("Error closing statement: " + e.getMessage());
             }
         }
+    }
+
+    public String getImageDataByUploadId(int uploadId) {
+        String imageData = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT image_data FROM userUploads WHERE upload_id = ?"
+            );
+            preparedStatement.setInt(1, uploadId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                imageData = resultSet.getString("image_data");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching image data: " + e.getMessage());
+        }
+        return imageData;
     }
 
     public void close() {
