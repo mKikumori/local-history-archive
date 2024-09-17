@@ -7,17 +7,17 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.UploadController">
    <children>
       <Group layoutX="14.0" layoutY="16.0">
          <children>
             <ButtonBar layoutX="785.0" layoutY="13.0">
                <buttons>
-                  <Button mnemonicParsing="false" text="Home" />
+                  <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#onHomeBtnClick" text="Home" />
                   <Button disable="true" mnemonicParsing="false" text="Upload" />
-                  <Button mnemonicParsing="false" text="Collections" />
-                  <Button mnemonicParsing="false" text="Settings" />
-                  <Button mnemonicParsing="false" text="Profile" />
+                  <Button fx:id="collectionBtn" mnemonicParsing="false" onAction="#onCollectionsBtnClick" text="Collections" />
+                  <Button fx:id="settingsBtn" mnemonicParsing="false" text="Settings" />
+                  <Button fx:id="profileBtn" mnemonicParsing="false" text="Profile" />
                </buttons>
             </ButtonBar>
             <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" />
@@ -27,7 +27,7 @@
                </image></ImageView>
             <ImageView fitHeight="19.0" fitWidth="17.0" layoutX="544.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/search%20icon.png" />
+                  <Image url="@../../../images/search_icon.png" />
                </image>
             </ImageView>
          </children>
@@ -39,17 +39,15 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9b9b9" height="387.0" layoutX="267.0" layoutY="153.0" stroke="TRANSPARENT" strokeType="INSIDE" width="256.0" />
-      <ImageView fitHeight="387.0" fitWidth="256.0" layoutX="268.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="325.0" layoutY="553.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Upload File" />
-      <TextField layoutX="624.0" layoutY="168.0" prefHeight="38.0" prefWidth="355.0" promptText="Title" />
-      <TextArea layoutX="624.0" layoutY="233.0" prefHeight="181.0" prefWidth="450.0" promptText="Enter Description..." />
-      <DatePicker layoutX="624.0" layoutY="447.0" prefHeight="30.0" prefWidth="220.0" promptText="Select date" />
-      <ComboBox layoutX="624.0" layoutY="510.0" prefHeight="31.0" prefWidth="227.0" promptText="Choose category" />
+         <ImageView fx:id="uploadImage" fitHeight="273.0" fitWidth="256.0" layoutX="269.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" />
+         <Button fx:id="uploadBtn" layoutX="325.0" layoutY="553.0" mnemonicParsing="false" onAction="#onUploadBtnClick" prefHeight="31.0" prefWidth="143.0" text="Upload File" />
+         <TextField fx:id="uploadTitleTestField" layoutX="624.0" layoutY="168.0" prefHeight="38.0" prefWidth="355.0" promptText="Title" />
+         <TextArea fx:id="uploadDescriptionTextField" layoutX="624.0" layoutY="233.0" prefHeight="181.0" prefWidth="450.0" promptText="Enter Description..." />
+         <ComboBox fx:id="uploadCategory" layoutX="624.0" layoutY="510.0" prefHeight="31.0" prefWidth="227.0" promptText="Choose category" />
       <ButtonBar layoutX="827.0" layoutY="602.0" prefHeight="40.0" prefWidth="247.0">
         <buttons>
-          <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" text="Discard" />
-            <Button mnemonicParsing="false" prefHeight="37.0" text="Publish" />
+           <Button fx:id="discardBtn" mnemonicParsing="false" onAction="#onDiscardBtnClick" prefHeight="38.0" prefWidth="136.0" text="Discard" />
+           <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#onPublishBtnClick" prefHeight="37.0" text="Publish" />
         </buttons>
       </ButtonBar>
       <Label layoutX="626.0" layoutY="145.0" text="Title" />
