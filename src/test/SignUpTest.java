@@ -12,7 +12,7 @@ public class SignUpTest {
     public void setUp(){
         // Create a table before testing, and initialise the testing environment
         userAccountDAO = new UserAccountDAO();
-        userAccountDAO.createUserTable();
+        userAccountDAO.createTable();
     }
 
     @AfterEach
