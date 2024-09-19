@@ -56,6 +56,16 @@ public class UserAccountDAO {
         return password;
     }
 
+    //Sign in
+    public UserAccount signIn(String userEmail, String password) {
+        UserAccount user = getByEmail(userEmail);  // Retrieve the user by email
+        if (user != null && user.getPassword().equals(password)) {  // Check if the password matches
+            return user;  // Successful sign-in
+        }
+        return null;  // Sign-in failed
+    }
+
+
 
     // Email Duplicate Check
     public boolean isEmailDuplicate(String userEmail){

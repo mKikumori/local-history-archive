@@ -64,4 +64,11 @@ public class SignInTest {
         assertNull(emptyUser, "User should not be found with an empty email.");
     }
 
+    // Test signing in with a non-existent email
+    @Test
+    public void testSignInNonExistentEmail() {
+        UserAccount result = userAccountDAO.signIn("nonexistentemail@example.com", "anyPassword");
+        assertNull(result, "User should not be found for an email that doesn't exist.");
+    }
+
 }
