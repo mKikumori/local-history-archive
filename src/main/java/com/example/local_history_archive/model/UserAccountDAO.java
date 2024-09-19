@@ -57,12 +57,14 @@ public class UserAccountDAO {
         return false;
     }
 
+    // Valid username checking
     public boolean isValidUsername(String username) {
-        // 사용자 이름이 알파벳, 숫자, 밑줄(_), 하이픈(-)으로만 이루어진 경우만 허용
-        String usernamePattern = "^[a-zA-Z0-9_-]{3,20}$";  // 3자 이상 20자 이하
+        // Only usernames that consist of alphabets, numbers, underscores (_), and hyphens (-) are allowed.
+        String usernamePattern = "^[a-zA-Z0-9_-]{3,20}$";  // 3 characters or more and 20 characters or less
         return username.matches(usernamePattern);
     }
 
+    // Checking email format
     public boolean isValidEmail(String email) {
         String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         return email.matches(emailPattern);
@@ -71,7 +73,7 @@ public class UserAccountDAO {
     // Checking Email Duplicate while registration
     public boolean newUser(UserAccount userAccount) {
 
-        // 필수 필드가 비어있는지 확인
+        // Check if required fields are empty
         if (userAccount.getUserEmail() == null || userAccount.getUserEmail().isEmpty()) {
             System.out.println("Email cannot be empty.");
             return false;
@@ -87,13 +89,13 @@ public class UserAccountDAO {
             return false;
         }
 
-        // 사용자 이름이 비정상적인지 확인
+        // Check if the username is invalid
         if (!isValidUsername(userAccount.getUsername())) {
             System.out.println("Invalid Username: " + userAccount.getUsername());
             return false;
         }
 
-        // 사용자 이름이 비정상적인지 확인
+        // Check if the email is invalid
         if (!isValidEmail(userAccount.getUserEmail())) {
             System.out.println("Invalid Email: " + userAccount.getUserEmail());
             return false;
