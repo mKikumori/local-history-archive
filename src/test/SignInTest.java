@@ -64,3 +64,4 @@ public class SignInTest {
         assertNull(emptyUser, "User should not be found with an empty email.");
     }
 
+}

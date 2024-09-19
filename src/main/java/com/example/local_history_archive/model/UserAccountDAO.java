@@ -34,6 +34,28 @@ public class UserAccountDAO {
             System.err.println(SQLEx);
         }
     }
+    // Method for password recovery by email
+    public String recoverPassword(String userEmail) {
+        String password = null;
+
+        String sql = "SELECT *  FROM userAccounts WHERE user_email = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, userEmail); // Bind the email to the query
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    password = rs.getString("password");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error recovering password: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return password;
+    }
+
 
     // Email Duplicate Check
     public boolean isEmailDuplicate(String userEmail){
