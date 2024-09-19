@@ -1,6 +1,4 @@
-package com.example.local_history_archive.controller;
-
-import com.example.local_history_archive.model.CollectionDAO;
+package com.example.local_history_archive.model;
 
 public class SearchResult {
 
