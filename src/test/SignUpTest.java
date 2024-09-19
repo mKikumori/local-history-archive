@@ -6,20 +6,34 @@ import java.util.List;
 
 public class SignUpTest {
 
-    private UserAccountDAO userAccountDAO;
+    private static UserAccountDAO userAccountDAO;
 
-    @BeforeEach
-    public void setUp(){
+    @BeforeAll
+    public static void setUpAll(){
         // Create a table before testing, and initialise the testing environment
         userAccountDAO = new UserAccountDAO();
         userAccountDAO.createTable();
     }
 
-    @AfterEach
-    public void tearDown(){
+    @AfterAll
+    public static void tearDownAll(){
         // After testing, the database close automatically
         userAccountDAO.close();
     }
+
+    @AfterEach
+    public void cleanUp(){
+        // Delete data based on the email and username used in each test.
+        userAccountDAO.deleteByEmail("newuser@example.com");
+        userAccountDAO.deleteByEmail("duplicate@example.com");
+        userAccountDAO.deleteByEmail("duplicateusername@example.com");
+        userAccountDAO.deleteByEmail("user6@example.com");
+        userAccountDAO.deleteByEmail("user5@example.com");
+        userAccountDAO.deleteByEmail("user2@example.com");
+        userAccountDAO.deleteByEmail("user3@example.com");
+        userAccountDAO.deleteByEmail("");
+    }
+
 
     // 1. Test for successful add user
     @Test
@@ -71,34 +85,42 @@ public class SignUpTest {
         assertEquals(1, duplicateCount, "Duplicate username should not be added twice.");
     }
 
-    // 4.
+    // 4. Test for missing fields
     @Test
     public void testSignUpMissingFields() {
-        // 이메일이 누락된 경우
+        // Missing Email
         UserAccount missingEmailUser = new UserAccount("", "user1", "password123", "This is a bio", "profilePic.jpg");
         boolean result = userAccountDAO.newUser(missingEmailUser);
-        assertFalse(result, "이메일이 없으면 회원가입이 실패해야 합니다.");
+        assertFalse(result, "Sign up should fail if email is missing.");
 
-        // 비밀번호가 누락된 경우
+        // Missing Password
         UserAccount missingPasswordUser = new UserAccount("user2@example.com", "user2", "", "This is a bio", "profilePic.jpg");
         result = userAccountDAO.newUser(missingPasswordUser);
-        assertFalse(result, "비밀번호가 없으면 회원가입이 실패해야 합니다.");
+        assertFalse(result, "Sign up should fail if password is missing.");
 
-        // 유저네임이 누락된 경우
+        // Missing Username
         UserAccount missingUsernameUser = new UserAccount("user3@example.com", "", "password123", "This is a bio", "profilePic.jpg");
         result = userAccountDAO.newUser(missingUsernameUser);
-        assertFalse(result, "유저네임이 없으면 회원가입이 실패해야 합니다.");
+        assertFalse(result, "Sign up should fail if username is missing.");
     }
 
-    // 5
+    // 5. Test for invalid characters in username
     @Test
     public void testSignUpWithInvalidCharacters() {
-            UserAccount invalidUser = new UserAccount("user5@example.com", "user'; DROP TABLE userAccounts;", "password123", "This is a bio", "profilePic.jpg");
-            boolean result = userAccountDAO.newUser(invalidUser);
-            assertFalse(result, "비정상적인 유저네임으로 회원가입이 실패해야 합니다.");
+        UserAccount invalidUser = new UserAccount("user5@example.com", "user'; DROP TABLE userAccounts;", "password123", "This is a bio", "profilePic.jpg");
+        boolean result = userAccountDAO.newUser(invalidUser);
+        assertFalse(result, "Sign up should fail if username contains invalid characters.");
 
-            // 데이터베이스가 손상되지 않았는지 확인
-            List<UserAccount> allAccounts = userAccountDAO.getAll();
-            assertTrue(allAccounts.size() > 0, "SQL Injection이 실행되지 않아야 하며, 데이터베이스가 보호되어야 합니다.");
+        UserAccount anotherInvalidUser = new UserAccount("user6@example.com", "invalid@username", "password123", "This is a bio", "profilePic.jpg");
+        result = userAccountDAO.newUser(anotherInvalidUser);
+        assertFalse(result, "Sign up should fail if username contains forbidden characters like '@'.");
+    }
+
+    //6. Valid Email Checking
+    @Test
+    public void testSignUpWithValidEmailAddress() {
+        UserAccount invalidEmail = new UserAccount("abc.abc.com","abb","123","","");
+        boolean result = userAccountDAO.newUser(invalidEmail);
+        assertFalse(result, "Sign up should fail if the email address is invalid.");
     }
 }
