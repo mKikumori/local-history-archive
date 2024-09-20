@@ -55,4 +55,28 @@ public class PasswordRecoveryTest {
         String emptyUser = userAccountDAO.recoverPassword("");
         assertNull(emptyUser, "User should not be found with an empty email.");
     }
+    // Test changing the password successfully
+    @Test
+    public void testChangePasswordSuccess() {
+        // Change the password for the existing user
+        boolean isPasswordChanged = userAccountDAO.changePassword("testemail@example.com", "newPassword456");
+
+        // Assert that the password change was successful
+        assertTrue(isPasswordChanged, "Password should be changed successfully.");
+
+        // Verify the new password works for sign-in
+        UserAccount user = userAccountDAO.signIn("testemail@example.com", "newPassword456");
+        assertNotNull(user, "User should be able to sign in with the new password.");
+        assertEquals("testuser", user.getUsername(), "Username should match the expected value.");
+    }
+
+    // Test changing the password for a non-existent email
+    @Test
+    public void testChangePasswordNonExistentEmail() {
+        // Try to change the password for an email not in the database
+        boolean isPasswordChanged = userAccountDAO.changePassword("nonexistent@example.com", "newPassword456");
+
+        // Assert that the password change should fail
+        assertFalse(isPasswordChanged, "Password should not be changed for a non-existent email.");
+    }
 }

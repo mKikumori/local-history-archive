@@ -56,6 +56,24 @@ public class UserAccountDAO {
         return password;
     }
 
+    //method for changing password
+    public boolean changePassword(String userEmail, String newPassword) {
+        String sql = "UPDATE userAccounts SET password = ? WHERE user_email = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, newPassword);  // Bind the new password
+            pstmt.setString(2, userEmail);    // Bind the email
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;  // Return true if the password was successfully changed
+        } catch (SQLException e) {
+            System.out.println("Error changing password: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     //Sign in
     public UserAccount signIn(String userEmail, String password) {
         UserAccount user = getByEmail(userEmail);  // Retrieve the user by email
