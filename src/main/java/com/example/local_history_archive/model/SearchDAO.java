@@ -6,8 +6,6 @@ import java.util.List;
 
 public class SearchDAO {
     private Connection connection;
-
-    // Constructor to initialize the connection
     public SearchDAO(Connection connection) {
         this.connection = connection;
     }
@@ -19,9 +17,8 @@ public class SearchDAO {
                 "SELECT 'Collection' AS type, collection_id AS id, collection_name AS result FROM Collections WHERE collection_name LIKE ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
-            preparedStatement.setString(1, "%" + searchQuery + "%");  // Set parameter for Users table
-            preparedStatement.setString(2, "%" + searchQuery + "%");  // Set parameter for Collections table
-
+            preparedStatement.setString(1, "%" + searchQuery + "%");
+            preparedStatement.setString(2, "%" + searchQuery + "%");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 results.add(new SearchResult(
@@ -43,8 +40,8 @@ public class SearchDAO {
                 "SELECT 'Collection' AS type, collection_id AS id, collection_name AS result FROM Collections WHERE collection_name LIKE ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
-            preparedStatement.setString(1, "%" + searchQuery + "%");  // Set parameter for Users table
-            preparedStatement.setString(2, "%" + searchQuery + "%");  // Set parameter for Collections table
+            preparedStatement.setString(1, "%" + searchQuery + "%");
+            preparedStatement.setString(2, "%" + searchQuery + "%");
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
