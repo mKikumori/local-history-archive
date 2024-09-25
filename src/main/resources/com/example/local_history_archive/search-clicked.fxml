@@ -39,7 +39,6 @@
       <ButtonBar layoutX="178.0" layoutY="393.0" prefHeight="40.0" prefWidth="396.0">
         <buttons>
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Save to Collection" />
-            <Button mnemonicParsing="false" text="Preview" />
             <Button mnemonicParsing="false" text="Download" />
         </buttons>
       </ButtonBar>
