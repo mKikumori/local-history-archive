@@ -2,6 +2,7 @@ package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.model.UserUpload;
+import com.example.local_history_archive.Base64ToImage;
 import com.example.local_history_archive.model.UserUploadDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,10 +57,8 @@ public class HomeController {
 
             if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
 
-                byte[] imageBytes = Base64.getDecoder().decode(upload.getImageData());
-                InputStream imageStream = new ByteArrayInputStream(imageBytes);
+                Image image = Base64ToImage.base64ToImage(upload.getImageData());
 
-                Image image = new Image(imageStream);
                 imageView.setImage(image);
                 imageView.setFitHeight(100);
                 imageView.setPreserveRatio(true);
@@ -93,8 +92,8 @@ public class HomeController {
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
 
         // Pass the upload object to the next controller
-        /*UploadDetailsController controller = fxmlLoader.getController();
-        controller.setUpload(upload);*/
+        UploadDetailsController controller = fxmlLoader.getController();
+        controller.setUpload(upload);
 
         stage.setScene(scene);
     }

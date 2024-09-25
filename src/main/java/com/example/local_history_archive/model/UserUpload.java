@@ -10,9 +10,10 @@ public class UserUpload {
     private String upload_description;
     private boolean is_pinned;
     private String image_data;
+    private String uploadedAt;
 
 
-    public UserUpload(int upload_id, int user_id, String upload_name, String upload_categories, String upload_type, String upload_description, boolean is_pinned, String image_data) {
+    public UserUpload(int upload_id, int user_id, String upload_name, String upload_categories, String upload_type, String upload_description, boolean is_pinned, String image_data, String uploadedAt) {
         this.upload_id = upload_id;
         this.user_id = user_id;
         this.upload_name = upload_name;
@@ -21,10 +22,11 @@ public class UserUpload {
         this.upload_description = upload_description;
         this.is_pinned = is_pinned;
         this.image_data = image_data;
+        this.uploadedAt = uploadedAt;
     }
 
     // Constructor without upload_id
-    public UserUpload(int user_id, String upload_name, String upload_categories, String upload_type, String upload_description, boolean is_pinned, String image_data) {
+    public UserUpload(int user_id, String upload_name, String upload_categories, String upload_type, String upload_description, boolean is_pinned, String image_data, String uploadedAt) {
         this.user_id = user_id;
         this.upload_name = upload_name;
         this.upload_categories = upload_categories;
@@ -32,6 +34,7 @@ public class UserUpload {
         this.upload_description = upload_description;
         this.is_pinned = is_pinned;
         this.image_data = image_data;
+        this.uploadedAt = uploadedAt;
     }
 
 
@@ -99,6 +102,10 @@ public class UserUpload {
         this.image_data = image_data;
     }
 
+    public String getUploadedAt() {
+        return uploadedAt;
+    }
+
 
     @Override
     public String toString() {
@@ -110,7 +117,8 @@ public class UserUpload {
                 ", upload_type='" + upload_type + '\'' +
                 ", upload_description='" + upload_description + '\'' +
                 ", is_pinned=" + is_pinned + '\'' +
-                ", image_data=" + image_data +
+                ", image_data=" + image_data + '\'' +
+                ", uploadedAt=" + uploadedAt +
                 '}';
     }
 }

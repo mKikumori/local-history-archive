@@ -132,14 +132,14 @@ public class UploadController implements Initializable {
             String description = uploadDescriptionTextField.getText();
             String category = (String) uploadCategory.getValue();
 
-            if (title.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Missing Information", "Please fill in the upload's name.");
+            if (title.isEmpty() || description.isEmpty() || category == null || fileType == null) {
+                showAlert(Alert.AlertType.ERROR, "Missing Information", "Please fill in all the fields.");
                 return;
             }
 
             String fileBase64 = encodedFile;
 
-            UserUpload userUpload = new UserUpload(userId, title, category, fileType, description, false, fileBase64);
+            UserUpload userUpload = new UserUpload(userId, title, category, fileType, description, false, fileBase64, null);
 
             userUploadDAO = new UserUploadDAO();
             userUploadDAO.newUpload(userUpload);

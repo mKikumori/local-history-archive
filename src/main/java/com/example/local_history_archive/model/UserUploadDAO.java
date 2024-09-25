@@ -152,7 +152,8 @@ public class UserUploadDAO {
                         rs.getString("upload_type"),
                         rs.getString("upload_description"),
                         rs.getBoolean("is_pinned"),
-                        rs.getString("image_data")
+                        rs.getString("image_data"),
+                        rs.getString("uploaded_at")
                 ));
             }
         } catch (SQLException SQLEx) {
@@ -178,7 +179,8 @@ public class UserUploadDAO {
                         rs.getString("upload_type"),
                         rs.getString("upload_description"),
                         rs.getBoolean("is_pinned"),
-                        rs.getString("image_data")
+                        rs.getString("image_data"),
+                        rs.getString("uploaded_at")
                 );
             }
         } catch (SQLException SQLEx) {

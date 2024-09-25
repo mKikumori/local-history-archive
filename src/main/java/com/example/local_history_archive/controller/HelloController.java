@@ -90,8 +90,8 @@ public class HelloController {
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
 
         // Pass the upload object to the next controller
-        /*UploadDetailsController controller = fxmlLoader.getController();
-        controller.setUpload(upload);*/
+        UploadDetailsController controller = fxmlLoader.getController();
+        controller.setUpload(upload);
 
         stage.setScene(scene);
     }
