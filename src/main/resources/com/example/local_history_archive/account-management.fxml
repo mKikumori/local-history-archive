@@ -34,35 +34,40 @@
       </Group>
       <Line endX="218.0" layoutX="1062.0" layoutY="80.0" startX="-1062.0" stroke="#8f8f8f96" />
       <Line endX="-37.5" endY="-71.5" layoutX="238.0" layoutY="152.0" startX="-37.5" startY="648.0" stroke="#8f8f8f96" />
-      <Label layoutX="236.0" layoutY="103.0" text="Edit Profile">
+      <Label layoutX="236.0" layoutY="103.0" text="Account Management">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField layoutX="254.0" layoutY="309.0" prefHeight="38.0" prefWidth="298.0" promptText="Display Text" />
+      <TextField layoutX="252.0" layoutY="219.0" prefHeight="38.0" prefWidth="334.0" promptText="Edit Email" />
       <ButtonBar layoutX="552.0" layoutY="531.0" prefHeight="40.0" prefWidth="247.0">
         <buttons>
           <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" text="Reset" />
             <Button mnemonicParsing="false" prefHeight="37.0" text="Save" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="256.0" layoutY="289.0" text="Display Name" />
-      <Label layoutX="254.0" layoutY="137.0" text="Keep your personal details private, information you add " />
-      <Label layoutX="254.0" layoutY="154.0" text="here is visible to anyone who can view your profile." />
-      <Circle fill="#949494" layoutX="277.0" layoutY="239.0" radius="36.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <Button layoutX="326.0" layoutY="220.0" mnemonicParsing="false" text="Change" />
-      <Label layoutX="260.0" layoutY="184.0" text="Photo" />
-      <Label layoutX="254.0" layoutY="367.0" text="First Name" />
-      <Label layoutX="423.0" layoutY="367.0" text="Last Name" />
-      <TextField layoutX="252.0" layoutY="388.0" prefHeight="38.0" prefWidth="141.0" promptText="First Name" />
-      <TextField layoutX="412.0" layoutY="388.0" prefHeight="38.0" prefWidth="142.0" promptText="Last Name" />
-      <Label layoutX="254.0" layoutY="440.0" text="Show Profile">
+      <Label layoutX="258.0" layoutY="198.0" text="Email" />
+      <Label layoutX="254.0" layoutY="137.0" text="Make changes to your personal information or account type." />
+      <Label layoutX="239.0" layoutY="172.0" text="Your Account">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="258.0" layoutY="267.0" text="Password" />
+      <TextField layoutX="255.0" layoutY="287.0" prefHeight="38.0" prefWidth="236.0" promptText="Password" />
+      <Label layoutX="242.0" layoutY="350.0" text="Deactivation and Deletion">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="256.0" layoutY="458.0" text="Allow other users to see your profile" />
-      <ToggleButton layoutX="479.0" layoutY="445.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Public" />
+      <Label layoutX="257.0" layoutY="383.0" text="Deactivate Account" />
+      <Button layoutX="510.0" layoutY="289.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="Change" />
+      <Label layoutX="258.0" layoutY="401.0" text="Temporarily hide your profile, " textFill="#949494" />
+      <Label layoutX="258.0" layoutY="415.0" text="collections, and uploads." textFill="#949494" />
+      <Button layoutX="458.0" layoutY="379.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="Deactivate Account" />
+      <Label layoutX="258.0" layoutY="455.0" text="Delete Account" />
+      <Label layoutX="263.0" layoutY="473.0" text="Permanently delete your account" textFill="#949494" />
+      <Label layoutX="263.0" layoutY="487.0" />
+      <Button layoutX="459.0" layoutY="451.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="Delete Account" />
 
    </children>
 </AnchorPane>
