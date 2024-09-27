@@ -106,6 +106,21 @@
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000033" height="722.0" layoutY="81.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1280.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="283.0" layoutX="443.0" layoutY="261.0" stroke="TRANSPARENT" strokeType="INSIDE" width="523.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="250.0" layoutX="459.0" layoutY="274.0" stroke="TRANSPARENT" strokeType="INSIDE" width="182.0" />
+      <Label layoutX="662.0" layoutY="282.0" text="Document Title">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="662.0" layoutY="312.0" text="Category:" />
+      <Label layoutX="662.0" layoutY="340.0" text="Date Published">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="662.0" layoutY="360.0" text="Date Placeholder" />
+      <Label layoutX="662.0" layoutY="394.0" text="Mini Preview of Description " />
+      <Button layoutX="832.0" layoutY="472.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="106.0" styleClass="btn" stylesheets="@styles.css" text="View Document" />
 
    </children>
 </AnchorPane>
