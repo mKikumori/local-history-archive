@@ -79,6 +79,25 @@
             <Button mnemonicParsing="false" prefHeight="38.0" styleClass="btn" text="Create" />
         </buttons>
       </ButtonBar>
+      <Group layoutX="25.0" layoutY="166.49288940429688">
+         <children>
+            <Group layoutX="18.0" layoutY="3.507110595703125">
+               <children>
+                  <Button mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Upload Document" />
+                  <Button layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Create Collection">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+               </children>
+            </Group>
+            <Group layoutX="12.0" layoutY="7.0">
+               <children>
+                  <Line endX="-4.5928497314453125" endY="84.12130737304688" fill="#949494" layoutX="4.592861175537109" layoutY="2.0" startX="-4.5928497314453125" startY="-7.0" stroke="#949494" />
+                  <Circle fill="WHITE" layoutY="39.007110595703125" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </Group>
+         </children>
+      </Group>
 
    </children>
 </AnchorPane>
