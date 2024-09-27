@@ -28,14 +28,14 @@
                </image>
             </ImageView>
 
-            <TextField layoutX="59.0" layoutY="182.0" prefHeight="35.0" prefWidth="245.0" promptText="Email" />
-            <PasswordField layoutX="55.0" layoutY="264.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" />
+            <TextField layoutX="59.0" layoutY="182.0" prefHeight="35.0" prefWidth="245.0" promptText="Email" styleClass="rounded-search" stylesheets="@styles.css" />
+            <PasswordField layoutX="55.0" layoutY="264.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" styleClass="rounded-search" stylesheets="@styles.css" />
             <Label layoutX="59.0" layoutY="159.0" text="Email" />
             <Label layoutX="60.0" layoutY="241.0" text="Password" />
             <ButtonBar layoutX="59.0" layoutY="370.0" prefHeight="40.0" prefWidth="227.0">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="32.0" text="Sign Up" />
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Sign In" />
+                <Button mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="32.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign Up" />
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" styleClass="btn" stylesheets="@styles.css" text="Sign In" />
               </buttons>
             </ButtonBar>
             <Label layoutX="61.0" layoutY="431.0" text="By continuing you agree to Local History Archive's" textFill="#949494">

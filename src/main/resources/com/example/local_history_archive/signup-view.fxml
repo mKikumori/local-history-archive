@@ -27,10 +27,10 @@
                   <Image url="@../../../images/book.png" />
                </image>
             </ImageView>
-            <TextField layoutX="54.0" layoutY="162.0" prefHeight="35.0" prefWidth="245.0" promptText="Full Name" />
-            <TextField layoutX="54.0" layoutY="225.0" prefHeight="35.0" prefWidth="245.0" promptText="Email" />
-            <PasswordField layoutX="55.0" layoutY="288.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" />
-            <Button layoutX="64.0" layoutY="367.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="233.0" text="Submit" />
+            <TextField layoutX="54.0" layoutY="162.0" prefHeight="35.0" prefWidth="245.0" promptText="Full Name" styleClass="rounded-search" stylesheets="@styles.css" />
+            <TextField layoutX="54.0" layoutY="225.0" prefHeight="35.0" prefWidth="245.0" promptText="Email" styleClass="rounded-search" stylesheets="@styles.css" />
+            <PasswordField layoutX="55.0" layoutY="288.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" styleClass="rounded-search" stylesheets="@styles.css" />
+            <Button layoutX="64.0" layoutY="367.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="233.0" styleClass="btn" stylesheets="@styles.css" text="Submit" />
             <Label layoutX="59.0" layoutY="208.0" text="Email" />
             <Label layoutX="59.0" layoutY="271.0" text="Password" />
             <Label layoutX="61.0" layoutY="431.0" text="By continuing you agree to Local History Archive's" textFill="#949494">
