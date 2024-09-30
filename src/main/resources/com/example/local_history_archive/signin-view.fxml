@@ -32,7 +32,7 @@
             <PasswordField layoutX="55.0" layoutY="264.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" styleClass="rounded-search" stylesheets="@styles.css" />
             <Label layoutX="59.0" layoutY="159.0" text="Email" />
             <Label layoutX="60.0" layoutY="241.0" text="Password" />
-            <ButtonBar layoutX="59.0" layoutY="370.0" prefHeight="40.0" prefWidth="227.0">
+            <ButtonBar layoutX="55.0" layoutY="351.0" prefHeight="40.0" prefWidth="227.0">
               <buttons>
                 <Button mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="32.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign Up" />
                   <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" styleClass="btn" stylesheets="@styles.css" text="Sign In" />
@@ -58,11 +58,12 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <Hyperlink layoutX="110.0" layoutY="329.0" onAction="#goToResetPasswordPage" text="Forgot your Password?">
+            <Hyperlink layoutX="112.0" layoutY="400.0" onAction="#goToResetPasswordPage" text="Forgot your Password?">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Hyperlink>
+            <CheckBox layoutX="122.0" layoutY="319.0" mnemonicParsing="false" text="Remember me?" />
          </children>
       </Group>
    </children>

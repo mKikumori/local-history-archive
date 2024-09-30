@@ -9,7 +9,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
    <children>
-      <Pagination layoutX="527.0" layoutY="742.0" prefHeight="30.0" prefWidth="282.0" />
       <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0">
          <items>
             <Group>
@@ -46,7 +45,7 @@
                         <Button fx:id="signupButton" mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
                      </buttons>
                   </ButtonBar>
-                  <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="btn" stylesheets="@styles.css" text="Profile" />
+                  <Button disable="true" layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="btn" stylesheets="@styles.css" text="Profile" />
                   <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
@@ -60,19 +59,32 @@
             </Group>
          </items>
       </ToolBar>
-      <Line endX="218.0" layoutX="1062.0" layoutY="80.0" startX="-1062.0" stroke="#8f8f8f96" />
-      <Separator layoutX="197.0" layoutY="81.0" orientation="VERTICAL" prefHeight="722.0" prefWidth="0.0" />
-      <Label layoutX="247.0" layoutY="102.0" text="Showing matches for" textFill="#949494">
+      <Label layoutX="278.0" layoutY="147.0" text="Display Name">
          <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <Label layoutX="269.0" layoutY="121.0" text="Search Query">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <GridPane layoutX="247.0" layoutY="178.0" prefHeight="554.0" prefWidth="963.0">
+            <Font name="System Bold" size="19.0" />
+         </font></Label>
+      <Circle fill="#949494" layoutX="188.0" layoutY="186.0" radius="69.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Button layoutX="425.0" layoutY="162.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" styleClass="btn" stylesheets="@styles.css" text="Edit Profile" />
+      <Label layoutX="277.0" layoutY="174.0" text="\@user/email (censor shi)" />
+      <Line endX="1173.0" endY="-6.0" layoutX="107.0" layoutY="295.0" startX="-100.0" stroke="#e1e0e0" />
+      <Button layoutX="1128.0" layoutY="222.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" styleClass="btn" text="Sign Out" />
+      <MenuBar layoutX="523.0" layoutY="311.0" style="-fx-background-color: fffff;">
+        <menus>
+          <Menu mnemonicParsing="false" text="Created">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Saved Collections">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Line endX="-51.0" layoutX="636.0" layoutY="337.0" startX="-100.0" strokeWidth="2.0" visible="false" />
+      <Line endX="-51.0" layoutX="716.0" layoutY="337.0" startX="-124.0" strokeWidth="2.0" visible="false" />
+      <GridPane gridLinesVisible="true" layoutX="64.0" layoutY="355.0" prefHeight="406.0" prefWidth="1159.0" visible="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -83,44 +95,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="398.0" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="435.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="365.0" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="407.0" GridPane.columnIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="373.0" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="321.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="294.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="139.0" prefWidth="310.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="298.0" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="319.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="289.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="313.0" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="293.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="138.0" prefWidth="304.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-         </children>
       </GridPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000033" height="722.0" layoutY="81.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1280.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="283.0" layoutX="443.0" layoutY="261.0" stroke="TRANSPARENT" strokeType="INSIDE" width="523.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#949494" height="250.0" layoutX="459.0" layoutY="274.0" stroke="TRANSPARENT" strokeType="INSIDE" width="182.0" />
-      <Label layoutX="662.0" layoutY="282.0" text="Document Title">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="662.0" layoutY="312.0" text="Category:" />
-      <Label layoutX="662.0" layoutY="340.0" text="Date Published">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="662.0" layoutY="360.0" text="Date Placeholder" />
-      <Label layoutX="662.0" layoutY="394.0" text="Mini Preview of Description " />
-      <Button layoutX="832.0" layoutY="472.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="106.0" styleClass="btn" stylesheets="@styles.css" text="View Document" />
-
+      <TableView layoutX="64.0" layoutY="355.0" prefHeight="430.0" prefWidth="1159.0" visible="false">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

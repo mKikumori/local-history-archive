@@ -4,47 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.HelloController">
    <children>
-      <!-- F-->
-      <GridPane hgap="10.0" layoutX="25.0" layoutY="100.0" prefHeight="640.0" prefWidth="1223.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="241.0" prefWidth="338.0">
-               <font>
-                  <Font size="1.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="381.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="302.0" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="329.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="314.0" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="296.0" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="350.0" GridPane.columnIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="317.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="315.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="155.0" prefWidth="344.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="326.0" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="347.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="291.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="154.0" prefWidth="329.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
-      <Pagination layoutX="478.0" layoutY="748.0" prefHeight="30.0" prefWidth="282.0" />
       <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0">
          <items>
             <Group>
@@ -95,6 +59,192 @@
             </Group>
          </items>
       </ToolBar>
+      <Pane layoutX="-5.0" layoutY="121.0" prefHeight="216.0" prefWidth="1288.0" style="-fx-background-color: 949494;">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f3f3" height="233.0" layoutX="6.0" layoutY="-25.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1280.0" />
+            <Label layoutX="557.0" layoutY="17.0" text="WELCOME TO">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="289.0" layoutY="29.0" text="Local History Archive">
+               <font>
+                  <Font name="Old English Text MT" size="79.0" />
+               </font>
+            </Label>
+            <Button layoutX="540.0" layoutY="138.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" styleClass="btn" text="Get Started" />
+            <Button layoutX="545.0" layoutY="138.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="141.0" styleClass="btn" text="Go to Profile" visible="false" />
+         </children>
+      </Pane>
+      <Label layoutX="526.0" layoutY="353.0" text="Recently Uploaded">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <GridPane hgap="10.0" layoutX="76.0" layoutY="400.0" prefHeight="139.0" prefWidth="1150.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="146.0" prefWidth="276.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+                  <Line endX="105.0" endY="138.4000244140625" layoutX="175.0" layoutY="2.0" startX="105.0" stroke="#ececec" />
+               </children></Pane>
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="146.0" prefWidth="276.0" GridPane.columnIndex="1">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+                  <Line endX="105.0" endY="138.4000244140625" layoutX="175.0" layoutY="2.0" startX="105.0" stroke="#ececec" />
+               </children>
+            </Pane>
+            <Pane layoutX="300.0" layoutY="10.0" prefHeight="146.0" prefWidth="276.0" GridPane.columnIndex="3">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+               </children>
+            </Pane>
+            <Pane layoutX="591.0" layoutY="10.0" prefHeight="146.0" prefWidth="276.0" GridPane.columnIndex="2">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+                  <Line endX="105.0" endY="138.4000244140625" layoutX="175.0" layoutY="2.0" startX="105.0" stroke="#ececec" />
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+      <Label layoutX="540.0" layoutY="570.0" text="You might like">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <GridPane hgap="10.0" layoutX="75.0" layoutY="602.0" prefHeight="139.0" prefWidth="1150.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Pane prefHeight="146.0" prefWidth="276.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+                  <Line endX="105.0" endY="138.4000244140625" layoutX="175.0" layoutY="2.0" startX="105.0" stroke="#ececec" />
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="146.0" prefWidth="276.0" GridPane.columnIndex="1">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+                  <Line endX="105.0" endY="138.4000244140625" layoutX="175.0" layoutY="2.0" startX="105.0" stroke="#ececec" />
+               </children>
+            </Pane>
+            <Pane layoutX="300.0" layoutY="10.0" prefHeight="146.0" prefWidth="276.0" GridPane.columnIndex="3">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+               </children>
+            </Pane>
+            <Pane layoutX="591.0" layoutY="10.0" prefHeight="146.0" prefWidth="276.0" GridPane.columnIndex="2">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="105.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="114.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: FFFFF;" text="Document Title">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="124.0" layoutY="36.0" text="Category:" />
+                  <Label layoutX="126.0" layoutY="66.0" text="Mini description" />
+                  <Line endX="105.0" endY="138.4000244140625" layoutX="175.0" layoutY="2.0" startX="105.0" stroke="#ececec" />
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
 
    </children>
 </AnchorPane>

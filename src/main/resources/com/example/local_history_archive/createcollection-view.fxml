@@ -21,11 +21,11 @@
                   <TextField layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
                   <ButtonBar layoutX="643.7999877929688" layoutY="19.0">
                      <buttons>
-                        <Button disable="true" mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Home">
+                        <Button mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Home">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
-                        <Button mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
+                        <Button disable="true" mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
@@ -39,13 +39,13 @@
                            </font></Button>
                      </buttons>
                   </ButtonBar>
-                  <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0">
+                  <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0" visible="false">
                      <buttons>
                         <Button fx:id="signInButton" mnemonicParsing="false" onAction="#goToSignInPage" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
                         <Button fx:id="signupButton" mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
                      </buttons>
                   </ButtonBar>
-                  <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="uploadDoc" stylesheets="@styles.css" text="Profile" visible="false" />
+                  <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="btn" stylesheets="@styles.css" text="Profile" />
                   <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
@@ -92,7 +92,7 @@
             </Group>
             <Group layoutX="12.0" layoutY="7.0">
                <children>
-                  <Line endX="-4.5928497314453125" endY="84.12130737304688" fill="#949494" layoutX="4.592861175537109" layoutY="2.0" startX="-4.5928497314453125" startY="-7.0" stroke="#949494" />
+                  <Line endX="-4.592845916748047" endY="52.7142333984375" fill="#949494" layoutX="4.592861175537109" layoutY="2.0" startX="-4.5928497314453125" startY="-7.0" stroke="#949494" />
                   <Circle fill="WHITE" layoutY="39.007110595703125" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
             </Group>
