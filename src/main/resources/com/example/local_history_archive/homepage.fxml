@@ -32,8 +32,8 @@
                   <Button disable="true" mnemonicParsing="false" text="Home" />
                   <Button mnemonicParsing="false" text="Upload" fx:id="uploadBtn" onAction="#onUploadBtnClick"/>
                   <Button mnemonicParsing="false" text="Collections" fx:id="collectionBtn" onAction="#onCollectionsBtnClick"/>
-                  <Button mnemonicParsing="false" text="Settings" fx:id="settingsBtn" />
-                  <Button mnemonicParsing="false" text="Profile" fx:id="profileBtn" />
+                  <Button mnemonicParsing="false" text="Settings" fx:id="settingsBtn" onAction="#onSettingsBtnClick"/>
+                  <Button mnemonicParsing="false" text="Profile" fx:id="profileBtn" onAction="#onProfileBtnClick"/>
                </buttons>
             </ButtonBar>
             <TextField layoutX="238.0" layoutY="11.0" prefHeight="31.0" prefWidth="334.0" promptText="Looking for something?" />

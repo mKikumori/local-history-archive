@@ -38,8 +38,6 @@ public class UploadDetailsController {
     @FXML
     private Label uploadNameLabel;
     @FXML
-    public Button uploadBtn;
-    @FXML
     private Label uploadDescriptionLabel;
     @FXML
     public ImageView uploadImage;
@@ -131,13 +129,6 @@ public class UploadDetailsController {
     public void onCollectionsBtnClick() throws IOException {
         Stage stage = (Stage) collectionBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("collections.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    public void onUploadBtnClick() throws IOException {
-        Stage stage = (Stage) uploadBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("upload-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

@@ -14,7 +14,7 @@
             <ButtonBar layoutX="786.0" layoutY="13.0">
                <buttons>
                   <Button fx:id="homeBtn" mnemonicParsing="false" text="Home" onAction="#onHomeBtnClick"/>
-                  <Button fx:id="uploadBtn" mnemonicParsing="false" text="Upload" onAction="#onUploadBtnClick"/>
+                  <Button fx:id="uploadBtn" mnemonicParsing="false" text="Upload" disable="true"/>
                   <Button fx:id="collectionBtn" mnemonicParsing="false" text="Collections" onAction="#onCollectionsBtnClick"/>
                   <Button fx:id="settingsBtn" mnemonicParsing="false" text="Settings" />
                   <Button fx:id="profileBtn" mnemonicParsing="false" text="Profile" />
