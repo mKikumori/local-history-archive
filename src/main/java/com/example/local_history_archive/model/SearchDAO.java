@@ -33,16 +33,12 @@ public class SearchDAO {
         return results;
     }
 
-    public List<SearchResult> searchByCategory(String searchQuery) {
+    public List<SearchResult> searchByCategory(String category) {
         List<SearchResult> results = new ArrayList<>();
-        searchQuery = "SELECT 'User' AS type, user_id AS id, username AS result FROM Users WHERE username LIKE ? " +
-                "UNION ALL " +
-                "SELECT 'Collection' AS type, collection_id AS id, collection_name AS result FROM Collections WHERE collection_name LIKE ?";
+        String query = "SELECT 'Collection' AS type, collection_id AS id, collection_name AS result FROM Collections WHERE upload_category LIKE ?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
-            preparedStatement.setString(1, "%" + searchQuery + "%");
-            preparedStatement.setString(2, "%" + searchQuery + "%");
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + category + "%");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 results.add(new SearchResult(
@@ -52,8 +48,9 @@ public class SearchDAO {
                 ));
             }
         } catch (SQLException e) {
-            System.err.println("Error during search operation: " + e.getMessage());
+            System.err.println("Error during search by category operation: " + e.getMessage());
         }
         return results;
     }
+
 }
