@@ -40,13 +40,13 @@ public class EditProfileController {
     @FXML
     public Button accManagementBtn;
     @FXML
-    private String encodedFile;
+    public String encodedFile;
 
     public String fileType;
 
     private UserUpload upload;
 
-    private UserAccountDAO userAccountDAO;
+    public UserAccountDAO userAccountDAO;
 
     public void initialize() {
         if (userAccountDAO == null) {
@@ -101,7 +101,7 @@ public class EditProfileController {
     }
 
     @FXML
-    private void onChangeBtnClick() {
+    public void onChangeBtnClick() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg")
@@ -129,23 +129,30 @@ public class EditProfileController {
     }
 
     @FXML
-    private void onPublishBtnClick() {
+    public void onPublishBtnClick() {
 
         UserAccount currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
-            String username = usernameTextField.getText();
+            // Check entered username, bio, and encodedFile; if empty, retain the current value
+            String username = (usernameTextField.getText().isEmpty()) ? currentUser.getUsername() : usernameTextField.getText();
+            String bio = (bioTextField.getText().isEmpty()) ? currentUser.getBio() : bioTextField.getText();
+            String fileBase64 = (encodedFile == null || encodedFile.isEmpty()) ? currentUser.getProfilePic() : encodedFile;
+
             int userId = currentUser.getUserId();
-            String user_email = currentUser.getUserEmail();
+            String user_email = currentUser.getUserEmail(); // Email and password remain unchanged
             String user_password = currentUser.getPassword();
-            String bio = bioTextField.getText();
-            String fileBase64 = encodedFile;
 
-            UserAccount userAccount = new UserAccount(userId, user_email, username, user_password, bio, fileBase64);
-            userAccountDAO.updateUser(userAccount);
+            // Create a new UserAccount object (using either existing or new values)
+            UserAccount updatedUser = new UserAccount(userId, user_email, username, user_password, bio, fileBase64);
 
+            // Save the updated user information to the database
+            userAccountDAO.updateUser(updatedUser);
+
+            // Display a success alert message
             showAlert(Alert.AlertType.INFORMATION, "Profile Edited Successfully", "Your profile has been updated.");
         } else {
+            // If no user session, display an error alert message
             showAlert(Alert.AlertType.ERROR, "Upload Error", "Please log in.");
         }
     }
