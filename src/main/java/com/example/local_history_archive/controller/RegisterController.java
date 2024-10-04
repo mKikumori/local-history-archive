@@ -96,12 +96,32 @@ public class RegisterController {
 
     @FXML
     private void registerSubmitBtn() {
-        String username = usernameTextField.getText();
+        String username = usernameTextField.getText().trim();
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Form Error!", "Please enter all required fields.");
+            return;
+        }
+
+        if (!userAccountDAO.isValidEmail(email)) {
+            showAlert(Alert.AlertType.ERROR, "Invalid Email", "Please enter a valid email address.");
+            return;
+        }
+
+        if (!userAccountDAO.isValidUsername(username)) {
+            showAlert(Alert.AlertType.ERROR, "Invalid Username", "Username must be valid (3-20 characters, no special characters).");
+            return;
+        }
+
+        if (userAccountDAO.isEmailDuplicate(email)) {
+            showAlert(Alert.AlertType.ERROR, "Duplicate Email", "This email is already registered.");
+            return;
+        }
+
+        if (userAccountDAO.isUsernameDuplicate(username)) {
+            showAlert(Alert.AlertType.ERROR, "Duplicate Username", "This username is already taken.");
             return;
         }
 

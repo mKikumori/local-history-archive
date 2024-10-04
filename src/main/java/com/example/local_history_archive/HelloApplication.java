@@ -1,11 +1,14 @@
 package com.example.local_history_archive;
 
+import com.example.local_history_archive.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
+// Shouldn't change
 public class HelloApplication extends Application {
 
     public static final String TITLE = "Local History Archive";
