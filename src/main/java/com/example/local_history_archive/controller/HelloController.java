@@ -26,6 +26,12 @@ public class HelloController {
     private Button loginBtn;
     @FXML
     private GridPane uploadsGrid;
+    @FXML
+    public Button collectionBtn;
+    @FXML
+    public Button settingsBtn;
+    @FXML
+    private Button uploadBtn;
 
     private UserUploadDAO userUploadDAO;
 
@@ -105,6 +111,27 @@ public class HelloController {
 
     public void onLoginBtnClick() throws IOException {
         Stage stage = (Stage) loginBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onUploadBtnClick() throws IOException {
+        Stage stage = (Stage) uploadBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onCollectionsBtnClick() throws IOException {
+        Stage stage = (Stage) collectionBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onSettingsBtnClick() throws IOException {
+        Stage stage = (Stage) settingsBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);

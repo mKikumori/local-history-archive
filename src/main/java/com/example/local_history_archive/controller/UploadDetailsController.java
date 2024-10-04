@@ -41,6 +41,8 @@ public class UploadDetailsController {
     private Label uploadDescriptionLabel;
     @FXML
     public ImageView uploadImage;
+    @FXML
+    private Button uploadBtn;
 
     private UserUpload upload;
 
@@ -129,6 +131,27 @@ public class UploadDetailsController {
     public void onCollectionsBtnClick() throws IOException {
         Stage stage = (Stage) collectionBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("collections.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onUploadBtnClick() throws IOException {
+        Stage stage = (Stage) uploadBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("upload-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onSettingsBtnClick() throws IOException {
+        Stage stage = (Stage) settingsBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("account-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onProfileBtnClick() throws IOException {
+        Stage stage = (Stage) profileBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

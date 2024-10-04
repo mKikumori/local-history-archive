@@ -27,6 +27,8 @@ public class RegisterController {
     @FXML
     public GridPane uploadsGrid;
     @FXML
+    public Hyperlink loginLink;
+    @FXML
     private TextField usernameTextField;
     @FXML
     private TextField emailTextField;
@@ -84,6 +86,13 @@ public class RegisterController {
                 row++;
             }
         }
+    }
+
+    public void onLoginClick() throws IOException {
+        Stage stage = (Stage) loginLink.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

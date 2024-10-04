@@ -1,6 +1,6 @@
 /* Style for the side menu container */
 .sidepane {
-    -fx-background-color: #efefef; /* Light background for the side menu */
+    -fx-background-color: #ffffff; /* Light background for the side menu */
     -fx-padding: 10px;             /* Padding around the menu items */
     -fx-spacing: 10px;             /* Spacing between menu items */
     -fx-border-radius: 5px;       /* Rounded corners for the side pane */
@@ -10,7 +10,8 @@
 
 /* Style for each button in the side menu */
 .uploadDoc {
-    -fx-background-color: #ececec;  /* Light background color for buttons */
+    -fx-background-color: #f4f3f3;
+    -fx-background-radius: 20px; /* Makes the button round */
     -fx-text-fill: #333;            /* Dark text color for better readability */
 }
 
@@ -59,4 +60,33 @@
     -fx-border-width: 1px; /* Set border width */
 }
 
+.btn2 {
+    -fx-background-color: #c3c3c3; /* Pinterest red color */
+    -fx-cursor: hand; /* Show hand cursor on hover */
+    -fx-background-insets: 0;
+}
+
+.btn2:hover {
+    -fx-background-color: #9c9c9c; /* Darker shade for hover effect */
+        -fx-font-weight: bold;
+}
+
+/* Basic style for the menu labels */
+.menu-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+    -fx-padding: 5px;
+}
+
+/* For hover effect */
+.menu-label:hover {
+    -fx-text-fill: #555; /* Change text color when hovered */
+    -fx-cursor: hand;
+}
+
+/* Active menu item with underline */
+.active-menu {
+    -fx-underline: true; /* Adds underline for the active item */
+    -fx-font-weight: bold; /* Optional: Bold to highlight */
+}
 
