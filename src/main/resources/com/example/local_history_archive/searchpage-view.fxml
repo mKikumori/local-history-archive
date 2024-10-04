@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
    <children>
-       <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0">
+       <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0" styleClass="uploadDoc">
            <items>
                <Group>
                    <children>
@@ -59,7 +59,6 @@
                </Group>
            </items>
        </ToolBar>
-      <Line endX="218.0" layoutX="1062.0" layoutY="80.0" startX="-1062.0" stroke="#8f8f8f96" />
       <Separator layoutX="197.0" layoutY="81.0" orientation="VERTICAL" prefHeight="722.0" prefWidth="0.0" />
       <Label layoutX="247.0" layoutY="102.0" text="Showing matches for" textFill="#949494">
          <font>
