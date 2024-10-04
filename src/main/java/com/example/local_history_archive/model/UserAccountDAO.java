@@ -11,6 +11,11 @@ public class UserAccountDAO {
         connection = DatabaseConnection.getInstance();
     }
 
+    // Overloaded constructor for testing or passing a custom Connection
+    public UserAccountDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     public void createTable() {
         try {
             Statement createTable = connection.createStatement();
