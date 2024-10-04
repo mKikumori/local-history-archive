@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Upload Page Content -->
-      <Line endX="-37.5" endY="-77.60000610351562" layoutX="238.0" layoutY="152.0" startX="-37.5" startY="648.0" stroke="#8f8f8f96" />
+      <Line endX="-37.5" endY="-77.60000610351562" layoutX="238.0" layoutY="152.0" startX="-37.5" startY="648.0" stroke="#f4f3f396" />
       <Label layoutX="236.0" layoutY="103.0" text="Upload Document">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -21,8 +21,7 @@
       <Button layoutX="325.0" layoutY="553.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" styleClass="btn" stylesheets="@styles.css" text="Upload File" />
       <TextField layoutX="624.0" layoutY="168.0" prefHeight="38.0" prefWidth="355.0" promptText="Title" styleClass="rounded-search" stylesheets="@styles.css" />
       <TextArea layoutX="624.0" layoutY="233.0" prefHeight="171.0" prefWidth="355.0" promptText="Enter Description..." stylesheets="@styles.css" />
-      <DatePicker layoutX="624.0" layoutY="447.0" prefHeight="30.0" prefWidth="220.0" promptText="Select date" stylesheets="@styles.css" />
-      <ComboBox layoutX="624.0" layoutY="510.0" prefHeight="31.0" prefWidth="227.0" promptText="Choose category" styleClass="rounded-search" stylesheets="@styles.css" />
+      <ComboBox layoutX="624.0" layoutY="439.0" prefHeight="31.0" prefWidth="227.0" promptText="Choose category" styleClass="rounded-search" stylesheets="@styles.css" />
       <ButtonBar layoutX="827.0" layoutY="602.0" prefHeight="40.0" prefWidth="247.0" stylesheets="@styles.css">
          <buttons>
             <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" styleClass="round-btn" stylesheets="@styles.css" text="Discard" />
@@ -31,8 +30,7 @@
       </ButtonBar>
       <Label layoutX="626.0" layoutY="145.0" text="Title" />
       <Label layoutX="626.0" layoutY="213.0" text="Description" />
-      <Label layoutX="624.0" layoutY="423.0" text="Date of Event" />
-      <Label layoutX="624.0" layoutY="489.0" text="Categories" />
+      <Label layoutX="624.0" layoutY="420.0" text="Categories" />
       <Label layoutX="302.0" layoutY="607.0" text="To avoid getting your upload flagged,">
          <font>
             <Font size="11.0" />
@@ -44,7 +42,7 @@
          </font>
       </Label>
       <Label layoutX="326.0" layoutY="620.0" text="view our" />
-      <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0">
+      <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0" styleClass="uploadDoc">
          <items>
             <Group>
                <children>
