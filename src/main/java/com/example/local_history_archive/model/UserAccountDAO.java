@@ -8,12 +8,8 @@ public class UserAccountDAO {
     private Connection connection;
 
     public UserAccountDAO() {
-        connection = DatabaseConnection.getInstance();
-    }
-
-    // Overloaded constructor for testing or passing a custom Connection
-    public UserAccountDAO(Connection connection) {
-        this.connection = connection;
+        connection = DatabaseConnection.getInstance(); // DatabaseConnection is called
+        createTable();
     }
 
     public void createTable() {

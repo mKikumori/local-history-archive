@@ -9,6 +9,7 @@ public class UserUploadDAO {
 
     public UserUploadDAO() {
         connection = DatabaseConnection.getInstance();
+        createUploadTable();
     }
 
     public void createUploadTable() {
