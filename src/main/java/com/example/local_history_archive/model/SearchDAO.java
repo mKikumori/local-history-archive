@@ -35,8 +35,9 @@ public class SearchDAO {
 
     public List<SearchResult> searchByCategory(String category) {
         List<SearchResult> results = new ArrayList<>();
-        String query = "SELECT 'Collection' AS type, collection_id AS id, collection_name AS result FROM Collections WHERE upload_category LIKE ?";
-
+        String query = "SELECT 'Upload' AS type, upload_id AS id, upload_name AS result "
+                    +  "FROM userUploads "
+                    +  "WHERE upload_categories LIKE ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, "%" + category + "%");
             ResultSet rs = preparedStatement.executeQuery();
