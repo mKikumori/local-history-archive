@@ -101,6 +101,44 @@ public class CollectionDAO {
             System.err.println(SQLEx);
         }
     }
+    public void shareCollectionWithUsers(int collection_id, List<Integer> user_ids) {
+        try {
+            // Create an instance of UserAccountDAO to access getById
+            UserAccountDAO userAccountDAO = new UserAccountDAO();
+
+            // Prepare the shared_with string from the list of user IDs
+            StringBuilder sharedWithBuilder = new StringBuilder();
+
+            for (int i = 0; i < user_ids.size(); i++) {
+                int user_id = user_ids.get(i);
+
+                // Call getById to ensure the user exists
+                UserAccount userAccount = userAccountDAO.getById(user_id);
+                if (userAccount != null) {
+                    sharedWithBuilder.append(user_id);
+                    if (i < user_ids.size() - 1) {
+                        sharedWithBuilder.append(",");
+                    }
+                } else {
+                    System.err.println("User with ID " + user_id + " does not exist.");
+                }
+            }
+
+            String sharedWith = sharedWithBuilder.toString();
+
+            // Update the collection with the shared_with field
+            PreparedStatement shareWithUsers = connection.prepareStatement(
+                    "UPDATE Collections SET shared_with = ? WHERE collection_id = ?"
+            );
+            shareWithUsers.setString(1, sharedWith);
+            shareWithUsers.setInt(2, collection_id);
+            shareWithUsers.executeUpdate();
+
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
+    }
+
 
 
 }
