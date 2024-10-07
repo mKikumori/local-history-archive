@@ -20,7 +20,7 @@ public class CollectionDAO {
                             + "creator_id INTEGER FOREIGN KEY,"
                             + "upload_id INTEGER FOREIGN KEY,"
                             + "collection_name TEXT NOT NULL,"
-                            + "shared_with INTEGER,"
+                            + "shared_with TEXT,"
                             + "created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))"
                             + ")"
             );
@@ -89,4 +89,18 @@ public class CollectionDAO {
             System.err.println(SQLEx);
         }
     }
+
+    public void makeCollectionPublic(int collection_id) {
+        try {
+            PreparedStatement makePublic = connection.prepareStatement(
+                    "UPDATE Collections SET shared_with = '-1' WHERE collection_id = ?"
+            );
+            makePublic.setInt(1, collection_id);
+            makePublic.executeUpdate();
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
+    }
+
+
 }
