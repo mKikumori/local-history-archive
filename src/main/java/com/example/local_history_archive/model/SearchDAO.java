@@ -54,4 +54,32 @@ public class SearchDAO {
         return results;
     }
 
+    public List<SearchResult> searchAccessibleCollections(String searchQuery, int userId) {
+        List<SearchResult> results = new ArrayList<>();
+
+        // Modified query to check if the collection is shared with the user or public
+        String query = "SELECT 'Collection' AS type, collection_id AS id, collection_name AS result " +
+                "FROM Collections " +
+                "WHERE collection_name LIKE ? " +
+                "AND (shared_with = '-1' OR shared_with LIKE ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + searchQuery + "%");  // For collection name search
+            preparedStatement.setString(2, "%," + userId + ",%");  // To check if userId is in the shared_with list
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                results.add(new SearchResult(
+                        rs.getString("type"),
+                        rs.getInt("id"),
+                        rs.getString("result")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error during search operation: " + e.getMessage());
+        }
+
+        return results;
+    }
+
 }

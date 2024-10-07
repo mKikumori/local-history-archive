@@ -31,13 +31,24 @@ public class SearchController {
 
     @FXML
     private void onSearchClicked() throws IOException {
-        String query = searchField.getText().trim();
-        if (query.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Search Error", "Please enter a search query.");
-            return;
+        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+
+        if (currentUser != null) {
+            String query = searchField.getText().trim();
+            int userId = currentUser.getUserId();  // Correct variable is 'userId', not 'userID'
+
+            if (query.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
+                return;
+            }
+
+            // Use 'userId' to perform the search
+            List<SearchResult> results = searchDAO.searchAccessibleCollections(query, userId);
+            displaySearchResults(results);
+
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
         }
-        List<SearchResult> results = searchDAO.searchAcrossTables(query);
-        displaySearchResults(results);
     }
 
     private void displaySearchResults(List<SearchResult> results) {
