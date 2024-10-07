@@ -134,25 +134,21 @@ public class EditProfileController {
         UserAccount currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
-            // Check entered username, bio, and encodedFile; if empty, retain the current value
             String username = (usernameTextField.getText().isEmpty()) ? currentUser.getUsername() : usernameTextField.getText();
             String bio = (bioTextField.getText().isEmpty()) ? currentUser.getBio() : bioTextField.getText();
             String fileBase64 = (encodedFile == null || encodedFile.isEmpty()) ? currentUser.getProfilePic() : encodedFile;
 
             int userId = currentUser.getUserId();
-            String user_email = currentUser.getUserEmail(); // Email and password remain unchanged
+            String user_email = currentUser.getUserEmail();
             String user_password = currentUser.getPassword();
 
-            // Create a new UserAccount object (using either existing or new values)
             UserAccount updatedUser = new UserAccount(userId, user_email, username, user_password, bio, fileBase64);
 
-            // Save the updated user information to the database
             userAccountDAO.updateUser(updatedUser);
 
-            // Display a success alert message
             showAlert(Alert.AlertType.INFORMATION, "Profile Edited Successfully", "Your profile has been updated.");
+
         } else {
-            // If no user session, display an error alert message
             showAlert(Alert.AlertType.ERROR, "Upload Error", "Please log in.");
         }
     }

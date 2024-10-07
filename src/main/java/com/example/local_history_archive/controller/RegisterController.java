@@ -1,10 +1,7 @@
 package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.HelloApplication;
-import com.example.local_history_archive.model.UserAccount;
-import com.example.local_history_archive.model.UserAccountDAO;
-import com.example.local_history_archive.model.UserUpload;
-import com.example.local_history_archive.model.UserUploadDAO;
+import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,8 +22,6 @@ public class RegisterController {
     @FXML
     public Button registerBtn;
     @FXML
-    public GridPane uploadsGrid;
-    @FXML
     public Hyperlink loginLink;
     @FXML
     private TextField usernameTextField;
@@ -45,47 +40,6 @@ public class RegisterController {
             userUploadDAO = new UserUploadDAO();
         }
         userAccountDAO = new UserAccountDAO();
-        loadUploadsFromDatabase();
-    }
-
-    private void loadUploadsFromDatabase() {
-        if (userUploadDAO == null) {
-            System.err.println("UserUploadDAO is not initialized.");
-            return;
-        }
-
-        List<UserUpload> uploads = userUploadDAO.allUploads();
-
-        int column = 0;
-        int row = 0;
-
-        for (UserUpload upload: uploads) {
-            Button uploadBtn = new Button(upload.getUploadName());
-            ImageView imageView = new ImageView();
-
-            if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
-
-                byte[] imageBytes = Base64.getDecoder().decode(upload.getImageData());
-                InputStream imageStream = new ByteArrayInputStream(imageBytes);
-
-                Image image = new Image(imageStream);
-                imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setPreserveRatio(true);
-
-                uploadBtn.setGraphic(imageView);
-            } else {
-                uploadBtn.setText(upload.getUploadName());
-            }
-
-            uploadsGrid.add(uploadBtn, column, row);
-
-            column++;
-            if (column == 3) {
-                column = 0;
-                row++;
-            }
-        }
     }
 
     public void onLoginClick() throws IOException {
@@ -118,14 +72,17 @@ public class RegisterController {
 
         try {
             userAccountDAO.newUser(newUser);
-            showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "User registered successfully.");
+
+            UserAccount userAccount = userAccountDAO.getByEmail(email);
+            SessionManager.setCurrentUser(userAccount);
+            showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "User " + userAccount.getUsername() + "registered successfully.");
 
             usernameTextField.clear();
             emailTextField.clear();
             passwordTextField.clear();
 
             Stage stage = (Stage) registerBtn.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
 

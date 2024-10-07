@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -27,13 +28,15 @@ public class ManagementController {
     @FXML
     public TextField emailTextField;
     @FXML
-    public TextField passwordTextField;
+    public PasswordField passwordTextField;
     @FXML
     public Button deleteBtn;
     @FXML
-    public Button changeBtn;
+    public Button saveBtn;
     @FXML
     public Button editProfileBtn;
+    @FXML
+    public Button changeBtn;
 
     private UserAccountDAO userAccountDAO;
 
@@ -64,6 +67,13 @@ public class ManagementController {
         stage.setScene(scene);
     }
 
+    public void onChangeBtnClick() throws IOException {
+        Stage stage = (Stage) uploadBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("resetpassword-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -80,7 +90,7 @@ public class ManagementController {
     }
 
     @FXML
-    private void onChangeBtnClick() {
+    private void onSaveBtnClick() {
 
         UserAccount currentUser = SessionManager.getCurrentUser();
 
@@ -92,10 +102,18 @@ public class ManagementController {
             String bio = currentUser.getBio();
             String profile_picture = currentUser.getProfilePic();
 
-            UserAccount userAccount = new UserAccount(userId, user_email, username, user_password, bio, profile_picture);
-            userAccountDAO.updateUser(userAccount);
-            showAlert(Alert.AlertType.INFORMATION, "Account Edited Successfully", "Your account information has been updated.");
+            if (user_email.isEmpty() || user_password.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Form Error!", "Please enter all required fields.");
+                return;
+            }
 
+            if (currentUser.getPassword().equals(user_password)) {
+                UserAccount userAccount = new UserAccount(userId, user_email, username, currentUser.getPassword(), bio, profile_picture);
+                userAccountDAO.updateUser(userAccount);
+                showAlert(Alert.AlertType.INFORMATION, "Email Edited Successfully", "Your account information has been updated.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Error", "Incorrect password. Please try again.");
+            }
         } else {
             showAlert(Alert.AlertType.ERROR, "Upload Error", "Please log in.");
         }
@@ -110,12 +128,13 @@ public class ManagementController {
             int userId = currentUser.getUserId();
             userAccountDAO.deleteAccount(userId);
 
+            SessionManager.clearSession();
+
             Stage stage = (Stage) uploadBtn.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
             stage.setScene(scene);
 
-            SessionManager.clearSession();
             showAlert(Alert.AlertType.INFORMATION, "Account Deletion Successfully", "Your account has been deleted.");
 
         } else {

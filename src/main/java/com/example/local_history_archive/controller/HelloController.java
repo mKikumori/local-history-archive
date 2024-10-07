@@ -1,11 +1,15 @@
 package com.example.local_history_archive.controller;
 
+import com.example.local_history_archive.Base64ToImage;
 import com.example.local_history_archive.HelloApplication;
+import com.example.local_history_archive.model.SessionManager;
+import com.example.local_history_archive.model.UserAccount;
 import com.example.local_history_archive.model.UserUpload;
 import com.example.local_history_archive.model.UserUploadDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -26,12 +30,6 @@ public class HelloController {
     private Button loginBtn;
     @FXML
     private GridPane uploadsGrid;
-    @FXML
-    public Button collectionBtn;
-    @FXML
-    public Button settingsBtn;
-    @FXML
-    private Button uploadBtn;
 
     private UserUploadDAO userUploadDAO;
 
@@ -40,6 +38,16 @@ public class HelloController {
             userUploadDAO = new UserUploadDAO();
         }
         loadUploadsFromDatabase();
+    }
+
+    UserAccount currentUser = SessionManager.getCurrentUser();
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void loadUploadsFromDatabase() {
@@ -59,10 +67,8 @@ public class HelloController {
 
             if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
 
-                byte[] imageBytes = Base64.getDecoder().decode(upload.getImageData());
-                InputStream imageStream = new ByteArrayInputStream(imageBytes);
+                Image image = Base64ToImage.base64ToImage(upload.getImageData());
 
-                Image image = new Image(imageStream);
                 imageView.setImage(image);
                 imageView.setFitHeight(100);
                 imageView.setPreserveRatio(true);
@@ -91,15 +97,20 @@ public class HelloController {
     }
 
     private void openUploadDetails(UserUpload upload) throws IOException {
-        Stage stage = (Stage) uploadsGrid.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-clicked.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        if (currentUser != null) {
+            Stage stage = (Stage) uploadsGrid.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-clicked.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
 
-        // Pass the upload object to the next controller
-        UploadDetailsController controller = fxmlLoader.getController();
-        controller.setUpload(upload);
+            // Pass the upload object to the next controller
+            UploadDetailsController controller = fxmlLoader.getController();
+            controller.setUpload(upload);
 
-        stage.setScene(scene);
+            stage.setScene(scene);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "User Error", "Please log in.");
+        }
+
     }
 
     public void onRegisterBtnClick() throws IOException {
@@ -117,23 +128,14 @@ public class HelloController {
     }
 
     public void onUploadBtnClick() throws IOException {
-        Stage stage = (Stage) uploadBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+        showAlert(Alert.AlertType.ERROR, "User Error", "Please log in.");
     }
 
     public void onCollectionsBtnClick() throws IOException {
-        Stage stage = (Stage) collectionBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+        showAlert(Alert.AlertType.ERROR, "User Error", "Please log in.");
     }
 
     public void onSettingsBtnClick() throws IOException {
-        Stage stage = (Stage) settingsBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+        showAlert(Alert.AlertType.ERROR, "User Error", "Please log in.");
     }
 }

@@ -21,9 +21,9 @@ import java.util.List;
 public class LoginController {
 
     @FXML
-    public GridPane uploadsGrid;
+    public Hyperlink registerLink;
     @FXML
-    private Button registerBtn;
+    public Button registerBtn;
     @FXML
     private Button loginBtn;
     @FXML
@@ -41,47 +41,6 @@ public class LoginController {
             userUploadDAO = new UserUploadDAO();
         }
         userAccountDAO = new UserAccountDAO();
-        loadUploadsFromDatabase();
-    }
-
-    private void loadUploadsFromDatabase() {
-        if (userUploadDAO == null) {
-            System.err.println("UserUploadDAO is not initialized.");
-            return;
-        }
-
-        List<UserUpload> uploads = userUploadDAO.allUploads();
-
-        int column = 0;
-        int row = 0;
-
-        for (UserUpload upload: uploads) {
-            Button uploadBtn = new Button(upload.getUploadName());
-            ImageView imageView = new ImageView();
-
-            if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
-
-                byte[] imageBytes = Base64.getDecoder().decode(upload.getImageData());
-                InputStream imageStream = new ByteArrayInputStream(imageBytes);
-
-                Image image = new Image(imageStream);
-                imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setPreserveRatio(true);
-
-                uploadBtn.setGraphic(imageView);
-            } else {
-                uploadBtn.setText(upload.getUploadName());
-            }
-
-            uploadsGrid.add(uploadBtn, column, row);
-
-            column++;
-            if (column == 3) {
-                column = 0;
-                row++;
-            }
-        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
@@ -95,6 +54,13 @@ public class LoginController {
     public void registerSubmitBtn() throws IOException {
         Stage stage = (Stage) registerBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void registerLink() throws IOException {
+        Stage stage = (Stage) registerLink.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("resetpassword-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
@@ -119,7 +85,7 @@ public class LoginController {
 
             SessionManager.setCurrentUser(userAccount);
 
-            showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + userAccount.getUsername() + "!");
+            showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome back, " + userAccount.getUsername() + "!");
 
             Stage stage = (Stage) loginBtn.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));

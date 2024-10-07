@@ -25,15 +25,15 @@
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button fx:id="uploadBtn" mnemonicParsing="false" onAction="#onUploadBtnClick" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
+                                <Button mnemonicParsing="false" onAction="#onUploadBtnClick" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button fx:id="collectionBtn" mnemonicParsing="false" onAction="#onCollectionsBtnClick" styleClass="uploadDoc" text="Collections">
+                                <Button mnemonicParsing="false" onAction="#onCollectionsBtnClick" styleClass="uploadDoc" text="Collections">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#onSettingsBtnClick" styleClass="uploadDoc" text="Settings">
+                                <Button mnemonicParsing="false" onAction="#onSettingsBtnClick" styleClass="uploadDoc" text="Settings">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>

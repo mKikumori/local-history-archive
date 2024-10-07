@@ -34,8 +34,8 @@
                 <Label layoutX="60.0" layoutY="241.0" text="Password" />
                 <ButtonBar layoutX="55.0" layoutY="351.0" prefHeight="40.0" prefWidth="227.0">
                     <buttons>
-                        <Button mnemonicParsing="false" onAction="#registerSubmitBtn" prefHeight="32.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign Up" />
-                        <Button mnemonicParsing="false" onAction="#loginSubmitBtn" prefHeight="33.0" prefWidth="111.0" styleClass="btn" stylesheets="@styles.css" text="Sign In" />
+                        <Button mnemonicParsing="false" onAction="#registerSubmitBtn" prefHeight="32.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign Up" fx:id="registerBtn"/>
+                        <Button mnemonicParsing="false" onAction="#loginSubmitBtn" prefHeight="33.0" prefWidth="111.0" styleClass="btn" stylesheets="@styles.css" text="Sign In" fx:id="loginBtn"/>
                     </buttons>
                 </ButtonBar>
                 <Label layoutX="61.0" layoutY="431.0" text="By continuing you agree to Local History Archive's" textFill="#949494">
@@ -58,7 +58,7 @@
                         <Font size="11.0" />
                     </font>
                 </Label>
-                <Hyperlink layoutX="112.0" layoutY="400.0" text="Forgot your Password?">
+                <Hyperlink layoutX="112.0" layoutY="400.0" text="Forgot your Password?" fx:id="registerLink" onAction="#registerLink">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>

@@ -61,35 +61,36 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <TextField layoutX="252.0" layoutY="219.0" prefHeight="38.0" prefWidth="334.0" promptText="Edit Email" styleClass="rounded-search" stylesheets="@styles.css" fx:id="emailTextField"/>
+        <TextField fx:id="emailTextField" layoutX="252.0" layoutY="219.0" prefHeight="38.0" prefWidth="334.0" promptText="Edit Email" styleClass="rounded-search" stylesheets="@styles.css" />
         <ButtonBar layoutX="552.0" layoutY="531.0" prefHeight="40.0" prefWidth="247.0">
             <buttons>
-                <Button mnemonicParsing="false" prefHeight="37.0" styleClass="btn" stylesheets="@styles.css" text="Save" onAction="#onDiscardBtnClick"/>
+                <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveBtnClick" prefHeight="37.0" styleClass="btn" stylesheets="@styles.css" text="Save" />
+                <Button mnemonicParsing="false" onAction="#onDiscardBtnClick" prefHeight="37.0" styleClass="round-btn" stylesheets="@styles.css" text="Discard" />
             </buttons>
         </ButtonBar>
         <Label layoutX="258.0" layoutY="198.0" text="Email" />
         <Label layoutX="254.0" layoutY="137.0" text="Make changes to your personal information or account type." />
-        <Label layoutX="239.0" layoutY="172.0" text="Your Account">
+        <Label layoutX="239.0" layoutY="172.0" text="Edit your email">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font></Label>
         <Label layoutX="258.0" layoutY="267.0" text="Password" />
-        <TextField layoutX="255.0" layoutY="287.0" prefHeight="38.0" prefWidth="236.0" promptText="Password" styleClass="rounded-search" stylesheets="@styles.css" fx:id="passwordTextField"/>
+        <PasswordField fx:id="passwordTextField" layoutX="255.0" layoutY="287.0" prefHeight="38.0" prefWidth="236.0" promptText="Your Password" styleClass="rounded-search" stylesheets="@styles.css" />
         <Label layoutX="242.0" layoutY="350.0" text="Account Deletion">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Button layoutX="510.0" layoutY="289.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" styleClass="btn" stylesheets="@styles.css" text="Change" fx:id="changeBtn" onAction="#onChangeBtnClick"/>
+        <Button fx:id="changeBtn" layoutX="510.0" layoutY="289.0" mnemonicParsing="false" onAction="#onChangeBtnClick" prefHeight="31.0" prefWidth="75.0" styleClass="btn" stylesheets="@styles.css" text="Change" />
         <Label layoutX="258.0" layoutY="455.0" text="Delete Account" />
         <Label layoutX="263.0" layoutY="473.0" text="Permanently delete your account" textFill="#949494" />
         <Label layoutX="263.0" layoutY="487.0" />
-        <Button layoutX="459.0" layoutY="452.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" styleClass="round-btn" stylesheets="@styles.css" text="Delete Account" fx:id="deleteBtn" onAction="#onDeleteBtnClick"/>
+        <Button fx:id="deleteBtn" layoutX="459.0" layoutY="452.0" mnemonicParsing="false" onAction="#onDeleteBtnClick" prefHeight="31.0" prefWidth="130.0" styleClass="round-btn" stylesheets="@styles.css" text="Delete Account" />
         <Group layoutX="25.0" layoutY="166.49288940429688">
             <children>
                 <Group layoutX="18.0" layoutY="3.507110595703125">
                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Edit Profile" fx:id="editProfileBtn" onAction="#onEditProfileClick"/>
+                        <Button fx:id="editProfileBtn" mnemonicParsing="false" onAction="#onEditProfileClick" style="-fx-background-color: FFFF;" text="Edit Profile" />
                         <Button layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Account Management">
                             <font>
                                 <Font name="System Bold" size="12.0" />

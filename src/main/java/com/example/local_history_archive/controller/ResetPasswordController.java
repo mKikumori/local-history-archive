@@ -1,22 +1,34 @@
 package com.example.local_history_archive.controller;
 
-import com.example.local_history_archive.model.UserAccountDAO;
-import com.example.local_history_archive.model.UserUpload;
-import com.example.local_history_archive.model.UserUploadDAO;
+import com.example.local_history_archive.HelloApplication;
+import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
 public class ResetPasswordController {
     @FXML
-    public GridPane uploadsGrid;
+    public Button submitBtn;
+    @FXML
+    private TextField emailTextField;
+    @FXML
+    private PasswordField passwordTextField;
+    @FXML
+    private PasswordField confirmTextField;
 
     private UserAccountDAO userAccountDAO;
 
@@ -28,46 +40,54 @@ public class ResetPasswordController {
             userUploadDAO = new UserUploadDAO();
         }
         userAccountDAO = new UserAccountDAO();
-        loadUploadsFromDatabase();
     }
 
-    private void loadUploadsFromDatabase() {
-        if (userUploadDAO == null) {
-            System.err.println("UserUploadDAO is not initialized.");
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void onResetPasswordBtnClick() throws IOException {
+        String email = emailTextField.getText();
+        String password = passwordTextField.getText();
+        String confirmPassword = confirmTextField.getText();
+        UserAccount currentUser = SessionManager.getCurrentUser();
+        int userId = currentUser.getUserId();
+        String bio = currentUser.getBio();
+        String username = currentUser.getUsername();
+        String profile_pic = currentUser.getProfilePic();
+
+        if (confirmPassword.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Form Error!", "Please enter all required fields.");
             return;
         }
 
-        List<UserUpload> uploads = userUploadDAO.allUploads();
+        UserAccount userAccount = userAccountDAO.getByEmail(email);
 
-        int column = 0;
-        int row = 0;
+        if (userAccount == null) {
+            showAlert(Alert.AlertType.ERROR, "Login Error", "No user found with the given email.");
+            return;
+        }
 
-        for (UserUpload upload: uploads) {
-            Button uploadBtn = new Button(upload.getUploadName());
-            ImageView imageView = new ImageView();
+        if (userAccount.getPassword().equals(password)) {
 
-            if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
+            UserAccount updatedUser = new UserAccount(userId, email, username, confirmPassword, bio, profile_pic);
 
-                byte[] imageBytes = Base64.getDecoder().decode(upload.getImageData());
-                InputStream imageStream = new ByteArrayInputStream(imageBytes);
+            userAccountDAO.updateUser(updatedUser);
 
-                Image image = new Image(imageStream);
-                imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setPreserveRatio(true);
+            showAlert(Alert.AlertType.INFORMATION, "Password Edited Successfully", "Your password has been updated.");
 
-                uploadBtn.setGraphic(imageView);
-            } else {
-                uploadBtn.setText(upload.getUploadName());
-            }
+            Stage stage = (Stage) submitBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            stage.setScene(scene);
 
-            uploadsGrid.add(uploadBtn, column, row);
-
-            column++;
-            if (column == 3) {
-                column = 0;
-                row++;
-            }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Upload Error", "Password update failed.");
         }
     }
 }
