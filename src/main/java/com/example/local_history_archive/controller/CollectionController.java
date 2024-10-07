@@ -14,11 +14,14 @@ public class CollectionController {
 
     private CollectionDAO collectionDAO;
     @FXML
-    public Button updateBtn;
+    public Button updateCollectionBtn;
+
 
 
     @FXML
     private TextField collectionNameField;
+
+    private TextField categoryField;
 
     public CollectionController() {
         // Initialize the CollectionDAO

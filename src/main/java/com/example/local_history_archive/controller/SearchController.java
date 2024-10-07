@@ -5,10 +5,7 @@ import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -25,7 +22,10 @@ public class SearchController {
     private Button searchBtn; // Button to initiate search
     @FXML
     private GridPane resultsGrid; // Grid to display search results
-
+    @FXML
+    private TextField categoryField;  // Text field where the user will input the search category
+    @FXML
+    private ListView<String> resultListView;  // ListView to display the search results
     private SearchDAO searchDAO;
 
 
@@ -71,6 +71,29 @@ public class SearchController {
                     column = 0;
                     row++;
                 }
+            }
+        }
+    }
+
+    @FXML
+    private void onSearchByCategory() {
+        String category = categoryField.getText().trim();
+
+        if (category.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please enter a category to search.");
+            return;
+        }
+
+        // Perform the search using searchByCategory method in SearchDAO
+        List<SearchResult> results = searchDAO.searchByCategory(category);
+
+        if (results.isEmpty()) {
+            showAlert(Alert.AlertType.INFORMATION, "No Results", "No uploads found for this category.");
+        } else {
+            // Display results in the ListView
+            resultListView.getItems().clear();  // Clear previous results
+            for (SearchResult result : results) {
+                resultListView.getItems().add(result.getResult());
             }
         }
     }
