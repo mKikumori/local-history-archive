@@ -16,17 +16,33 @@ import java.sql.Connection;
 import java.util.List;
 
 public class SearchController {
+    @FXML
+    public Button homeBtn;
+    @FXML
+    public Button registerBtn;
+    @FXML
+    private Button loginBtn;
+    @FXML
+    public Button collectionBtn;
+    @FXML
+    public Button settingsBtn;
+    @FXML
+    public Button profileBtn;
+    @FXML
+    public Label uploadDate;
+    @FXML
+    private Button uploadBtn;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button searchBtn;
+    @FXML
+    private GridPane resultsGrid;
+    @FXML
+    private TextField categoryField;
+    @FXML
+    private ListView<String> resultListView;
 
-    @FXML
-    private TextField searchField; // TextField for entering search query
-    @FXML
-    private Button searchBtn; // Button to initiate search
-    @FXML
-    private GridPane resultsGrid; // Grid to display search results
-    @FXML
-    private TextField categoryField;  // Text field where the user will input the search category
-    @FXML
-    private ListView<String> resultListView;  // ListView to display the search results
     private SearchDAO searchDAO;
 
 
@@ -101,6 +117,55 @@ public class SearchController {
 
     private void showDetail(SearchResult result) throws IOException {
         showAlert(Alert.AlertType.INFORMATION, "Result", "Detail for: " + result.getResult());
+    }
+
+    public void onHomeBtnClick() throws IOException {
+        Stage stage = (Stage) homeBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onCollectionsBtnClick() throws IOException {
+        Stage stage = (Stage) collectionBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("collections.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onSettingsBtnClick() throws IOException {
+        Stage stage = (Stage) settingsBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("account-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onUploadBtnClick() throws IOException {
+        Stage stage = (Stage) uploadBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("upload-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onProfileBtnClick() throws IOException {
+        Stage stage = (Stage) profileBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onRegisterBtnClick() throws IOException {
+        Stage stage = (Stage) registerBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onLoginBtnClick() throws IOException {
+        Stage stage = (Stage) loginBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {

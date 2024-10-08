@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.CollectionController">
     <children>
         <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0">
             <items>
@@ -18,22 +18,22 @@
                                 <Image url="@../../../images/logo1.png" />
                             </image>
                         </ImageView>
-                        <TextField layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
+                        <TextField fx:id="searchField" layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
                         <ButtonBar layoutX="643.7999877929688" layoutY="19.0">
                             <buttons>
                                 <Button mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Home">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
+                                <Button mnemonicParsing="false" onAction="#onUploadBtnClick" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button disable="true" mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" text="Collections">
+                                <Button disable="true" mnemonicParsing="false" onAction="#CollectionController" styleClass="uploadDoc" text="Collections">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button mnemonicParsing="false" onAction="#goToSignInPage" styleClass="uploadDoc" text="Settings">
+                                <Button mnemonicParsing="false" onAction="#onSettingsBtnClick" styleClass="uploadDoc" text="Settings">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
@@ -41,8 +41,8 @@
                         </ButtonBar>
                         <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0" visible="false">
                             <buttons>
-                                <Button fx:id="signInButton" mnemonicParsing="false" onAction="#goToSignInPage" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
-                                <Button fx:id="signupButton" mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
+                                <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#onLoginBtnClick" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
+                                <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#onRegisterBtnClick" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
                             </buttons>
                         </ButtonBar>
                         <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="btn" stylesheets="@styles.css" text="Profile" />

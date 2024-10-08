@@ -12,27 +12,40 @@ public class CollectionDAO {
     }
 
     public void createCollectionTable() {
-        try {
-            Statement createTable = connection.createStatement();
+        try (Statement createTable = connection.createStatement()) {
             createTable.execute(
                     "CREATE TABLE IF NOT EXISTS Collections ("
-                            + "collection_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                            + "creator_id INTEGER FOREIGN KEY,"
-                            + "upload_id INTEGER FOREIGN KEY,"
-                            + "collection_name TEXT NOT NULL,"
-                            + "shared_with TEXT,"
-                            + "created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))"
-                            + ")"
+                            + "collection_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                            + "creator_id INTEGER, "
+                            + "upload_id INTEGER, "
+                            + "collection_name TEXT NOT NULL, "
+                            + "category TEXT"
+                            + "shared_with TEXT, "
+                            + "created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), "
+                            + "FOREIGN KEY (creator_id) REFERENCES Users(user_id), "
+                            + "FOREIGN KEY (upload_id) REFERENCES Uploads(upload_id))"
             );
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
     }
+
+    public void assignCategoryToCollection(int collection_id, String category) {
+        try (PreparedStatement assignCategory = connection.prepareStatement(
+                "UPDATE Collections SET category = ? WHERE collection_id = ?")) {
+            assignCategory.setString(1, category);
+            assignCategory.setInt(2, collection_id);
+            assignCategory.executeUpdate();
+        } catch (SQLException SQLEx) {
+            System.err.println(SQLEx);
+        }
+    }
+
+
     public List<Collection> getAll() {
         List<Collection> collections = new ArrayList<>();
-        try {
-            Statement getAll = connection.createStatement();
-            ResultSet rs = getAll.executeQuery("SELECT * FROM Collections");
+        try (Statement getAll = connection.createStatement();
+             ResultSet rs = getAll.executeQuery("SELECT * FROM Collections")) {
 
             while (rs.next()) {
                 collections.add(
@@ -48,95 +61,78 @@ public class CollectionDAO {
         return collections;
     }
 
-    public void newCollection(Collection Collection) {
-        try {
-            PreparedStatement newCollection = connection.prepareStatement(
-                    "INSERT INTO Collections (collection_id, creator_id, upload_id, collection_name, shared_with, created_at) "
-                            + "VALUES (?, ?, ?, ?, ?, datetime('now', 'localtime'))"
-            );
-            newCollection.setInt(1, Collection.getCollection_id());
-            newCollection.setInt(2, Collection.getCreator_id());
-            newCollection.setInt(3, Collection.getUpload_id());
-            newCollection.setString(4, Collection.getCollection_name());
-            newCollection.setInt(5, Collection.getShared_with());
-            newCollection.setString(6, Collection.getCreated_at());
+    public void newCollection(Collection collection) {
+        try (PreparedStatement newCollection = connection.prepareStatement(
+                "INSERT INTO Collections (creator_id, upload_id, collection_name, shared_with, created_at) "
+                        + "VALUES (?, ?, ?, ?, datetime('now', 'localtime'))")) {
+            newCollection.setInt(1, collection.getCreator_id());
+            newCollection.setInt(2, collection.getUpload_id());
+            newCollection.setString(3, collection.getCollection_name());
+            newCollection.setInt(4, collection.getShared_with());
 
+            newCollection.executeUpdate();
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
     }
 
-    public void updateCollection(Collection Collection) {
-        try {
-            PreparedStatement updateCollection = connection.prepareStatement(
-                    "UPDATE Collections SET collection_name = ?, shared_with = ?"
-            );
-            updateCollection.setString(1, Collection.getCollection_name());
-            updateCollection.setInt(2, Collection.getShared_with());
+    public void updateCollection(Collection collection) {
+        try (PreparedStatement updateCollection = connection.prepareStatement(
+                "UPDATE Collections SET collection_name = ?, shared_with = ? WHERE collection_id = ?")) {
+            updateCollection.setString(1, collection.getCollection_name());
+            updateCollection.setInt(2, collection.getShared_with());
+            updateCollection.setInt(3, collection.getCollection_id());
 
-            updateCollection.execute();
+            updateCollection.executeUpdate();
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
     }
 
     public void deleteCollection(int collection_id) {
-        try{
-            PreparedStatement deleteCollection = connection.prepareStatement("DELETE FROM Collections WHERE Collection_id = ?");
+        try (PreparedStatement deleteCollection = connection.prepareStatement(
+                "DELETE FROM Collections WHERE collection_id = ?")) {
             deleteCollection.setInt(1, collection_id);
-            deleteCollection.execute();
+            deleteCollection.executeUpdate();
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
     }
 
     public void makeCollectionPublic(int collection_id) {
-        try {
-            PreparedStatement makePublic = connection.prepareStatement(
-                    "UPDATE Collections SET shared_with = '-1' WHERE collection_id = ?"
-            );
+        try (PreparedStatement makePublic = connection.prepareStatement(
+                "UPDATE Collections SET shared_with = '-1' WHERE collection_id = ?")) {
             makePublic.setInt(1, collection_id);
             makePublic.executeUpdate();
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
     }
+
     public void shareCollectionWithUsers(int collection_id, List<Integer> user_ids) {
         try {
-            // Create an instance of UserAccountDAO to access getById
-            UserAccountDAO userAccountDAO = new UserAccountDAO();
-
             // Prepare the shared_with string from the list of user IDs
             StringBuilder sharedWithBuilder = new StringBuilder();
 
             for (int i = 0; i < user_ids.size(); i++) {
-                int user_id = user_ids.get(i);
-
-                // Call getById to ensure the user exists
-                UserAccount userAccount = userAccountDAO.getById(user_id);
-                if (userAccount != null) {
-                    sharedWithBuilder.append(user_id);
-                    if (i < user_ids.size() - 1) {
-                        sharedWithBuilder.append(",");
-                    }
-                } else {
-                    System.err.println("User with ID " + user_id + " does not exist.");
+                sharedWithBuilder.append(user_ids.get(i));
+                if (i < user_ids.size() - 1) {
+                    sharedWithBuilder.append(",");
                 }
             }
 
             String sharedWith = sharedWithBuilder.toString();
 
             // Update the collection with the shared_with field
-            PreparedStatement shareWithUsers = connection.prepareStatement(
-                    "UPDATE Collections SET shared_with = ? WHERE collection_id = ?"
-            );
-            shareWithUsers.setString(1, sharedWith);
-            shareWithUsers.setInt(2, collection_id);
-            shareWithUsers.executeUpdate();
+            try (PreparedStatement shareWithUsers = connection.prepareStatement(
+                    "UPDATE Collections SET shared_with = ? WHERE collection_id = ?")) {
+                shareWithUsers.setString(1, sharedWith);
+                shareWithUsers.setInt(2, collection_id);
+                shareWithUsers.executeUpdate();
+            }
 
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
     }
-
 }
