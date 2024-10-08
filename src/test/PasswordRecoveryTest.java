@@ -14,7 +14,7 @@ public class PasswordRecoveryTest {
     public void setup() {
         // Initialize the DAO and prepare the test environment
         userAccountDAO = new UserAccountDAO();
-        userAccountDAO.createUserTable(); // Create the table again before each test
+        userAccountDAO.createTable(); // Create the table again before each test
 
         // Insert a sample user for testing password recovery
         UserAccount testUser = new UserAccount(

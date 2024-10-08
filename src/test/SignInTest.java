@@ -13,7 +13,7 @@ public class SignInTest {
     public void setUp() {
         // Initialize the in-memory database and create the user table
         userAccountDAO = new UserAccountDAO();
-        userAccountDAO.createUserTable();
+        userAccountDAO.createTable();
 
         // Add a sample user to the database for sign-in testing
         UserAccount user = new UserAccount("testemail@example.com", "testuser", "password123", "Sample bio", "profilePic.jpg");
