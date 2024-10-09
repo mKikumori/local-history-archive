@@ -57,6 +57,24 @@ public class CollectionDAO {
         }
     }
 
+    public String getCollectionNameByUserId(int userId) {
+        String collectionName = null;
+        String query = "SELECT collection_name FROM Collections WHERE creator_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                collectionName = rs.getString("collection_name");
+            }
+        } catch (SQLException SQLEx) {
+            System.err.println("Error fetching collection name for user: " + SQLEx.getMessage());
+        }
+
+        return collectionName;
+    }
+
     // Method to check if a user has a collection
     public boolean userHasCollection(int userId) {
         String query = "SELECT COUNT(*) FROM Collections WHERE creator_id = ?";
@@ -110,7 +128,7 @@ public class CollectionDAO {
                         rs.getString("upload_description"),
                         rs.getBoolean("is_pinned"),
                         rs.getString("image_data"),
-                        rs.getString("uploadedAt")
+                        rs.getString("uploaded_at")
                 );
                 uploads.add(upload);
             }

@@ -1,5 +1,6 @@
 package com.example.local_history_archive.controller;
 
+import com.example.local_history_archive.Base64ToImage;
 import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.model.*;
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -17,29 +19,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CollectionController implements Initializable {
 
+
+
     private CollectionDAO collectionDAO;
     private SearchDAO searchDAO;
+    private Collection collection;
+    private UserAccountDAO userAccountDAO;
 
     @FXML
     public GridPane collectionsGrid;
+    @FXML
+    public ImageView userImage;
+    @FXML
+    public Label collectiionName;
+    @FXML
+    public Label userName;
+    @FXML
+    public Button profileBtn;
     @FXML
     public Button homeBtn;
     @FXML
     public Button searchBtn;
     @FXML
-    public Button updateCollectionBtn;
-    @FXML
-    public ToggleButton publicBtn;
-    @FXML
     public Button collectionBtn;
     @FXML
     private TextField collectionNameField;
-    @FXML
-    private TextField categoryField;
     @FXML
     public Button settingsBtn;
     @FXML
@@ -53,11 +62,13 @@ public class CollectionController implements Initializable {
     @FXML
     private Button uploadBtn;
 
+    UserAccount currentUser = SessionManager.getCurrentUser();
 
     public CollectionController() {
         // Initialize the CollectionDAO and SearchDAO
         this.collectionDAO = new CollectionDAO();
         this.searchDAO = new SearchDAO();
+        this.userAccountDAO = new UserAccountDAO();
         this.categoryComboBox = new ComboBox<>();
     }
 
@@ -72,8 +83,24 @@ public class CollectionController implements Initializable {
                 "War contributions and impacts", "Arts and Entertainment",
                 "Natural resource usage"
         );
+
+        collectiionName.setText(collectionDAO.getCollectionNameByUserId(currentUser.getUserId()));
+        String username = userAccountDAO.getById(currentUser.getUserId()).getUsername();
+        userName.setText("by: " + username);
         categoryComboBox.getItems().addAll(categories);
+
         loadCollectionsFromDatabase();
+
+        Image placeholderImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image-placeholder.png")));
+        Image image = Base64ToImage.base64ToImage(currentUser.getProfilePic());
+
+        if (image == null) {
+            userImage.setFitHeight(100);
+            userImage.setImage(placeholderImage);
+        } else {
+            userImage.setFitHeight(100);
+            userImage.setImage(image);
+        }
     }
 
     private void loadCollectionsFromDatabase() {
@@ -83,8 +110,52 @@ public class CollectionController implements Initializable {
         int column = 0;
         int row = 0;
 
+        List<UserUpload> uploads = collectionDAO.getUploadsForUser(currentUser.getUserId());
 
+        for (UserUpload upload: uploads) {
+            Button uploadBtn = new Button(upload.getUploadName());
+            ImageView imageView = new ImageView();
 
+            if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
+                Image image = Base64ToImage.base64ToImage(upload.getImageData());
+
+                imageView.setImage(image);
+                imageView.setFitHeight(100);
+                imageView.setPreserveRatio(true);
+
+                uploadBtn.setGraphic(imageView);
+            } else {
+                uploadBtn.setText(upload.getUploadName());
+            }
+
+            uploadBtn.setOnAction(actionEvent -> {
+                try {
+                    openUploadDetails(upload);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            collectionsGrid.add(uploadBtn, column, row);
+
+            column++;
+            if (column == 3) {
+                column = 0;
+                row++;
+            }
+        }
+    }
+
+    private void openUploadDetails(UserUpload upload) throws IOException {
+        Stage stage = (Stage) collectionsGrid.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-clicked.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+        // Pass the upload object to the next controller
+        UploadDetailsController controller = fxmlLoader.getController();
+        controller.setUpload(upload);
+
+        stage.setScene(scene);
     }
 
     public void createCollectionBtn() throws IOException {
@@ -143,6 +214,13 @@ public class CollectionController implements Initializable {
     public void onSettingsBtnClick() throws IOException {
         Stage stage = (Stage) settingsBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("account-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void onProfileBtnClick() throws IOException {
+        Stage stage = (Stage) profileBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
