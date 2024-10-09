@@ -75,7 +75,7 @@ public class RegisterController {
 
             UserAccount userAccount = userAccountDAO.getByEmail(email);
             SessionManager.setCurrentUser(userAccount);
-            showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "User " + userAccount.getUsername() + "registered successfully.");
+            showAlert(Alert.AlertType.INFORMATION, "Registration Successful!", "User " + userAccount.getUsername() + " registered successfully.");
 
             usernameTextField.clear();
             emailTextField.clear();
