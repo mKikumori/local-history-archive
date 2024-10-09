@@ -18,7 +18,7 @@
                         <Image url="@../../../images/logo1.png" />
                      </image>
                   </ImageView>
-                  <TextField layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
+                  <TextField layoutX="248.1999969482422" layoutY="10.999999523162842" fx:id="searchField" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
                   <ButtonBar layoutX="643.7999877929688" layoutY="19.0">
                      <buttons>
                         <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#onHomeBtnClick" styleClass="uploadDoc" stylesheets="@styles.css" text="Home">
@@ -41,7 +41,7 @@
                      </buttons>
                   </ButtonBar>
                   <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="uploadDoc" stylesheets="@styles.css" text="Profile" visible="false" />
-                  <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;">
+                  <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;" fx:id="searchBtn" onAction="#onSearchClicked">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>

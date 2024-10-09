@@ -46,11 +46,17 @@ public class UploadController implements Initializable {
     @FXML
     public ImageView uploadImage;
     @FXML
+    public Button searchBtn;
+    @FXML
+    public TextField searchField;
+    @FXML
     private String encodedFile;
 
     public String fileType;
 
     private UserUploadDAO userUploadDAO;
+
+    private SearchDAO searchDAO;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,6 +65,37 @@ public class UploadController implements Initializable {
         uploadCategory.getItems().addAll(categories);
         Image placeholderImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image-placeholder.png")));
         uploadImage.setImage(placeholderImage);
+        if (searchDAO == null) {
+            searchDAO = new SearchDAO();
+        }
+    }
+
+    public void onSearchClicked() throws IOException {
+        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+
+        if (currentUser != null) {
+            String query = searchField.getText().trim();
+
+            if (query.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
+                return;
+            }
+
+            List<SearchResult> results = searchDAO.searchAcrossTables(query);
+
+            Stage stage = (Stage) searchBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+            // Pass the search object to the next controller
+            SearchController controller = fxmlLoader.getController();
+            controller.setSearch(results, query);
+
+            stage.setScene(scene);
+
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
+        }
     }
 
     public void onHomeBtnClick() throws IOException {
