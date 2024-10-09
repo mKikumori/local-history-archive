@@ -30,7 +30,7 @@
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
-                                <Button disable="true" mnemonicParsing="false" onAction="#onCollectionsBtnClick" styleClass="uploadDoc" text="Collections">
+                                <Button disable="true" mnemonicParsing="false" styleClass="uploadDoc" text="Collections">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font></Button>
@@ -42,8 +42,8 @@
                         </ButtonBar>
                         <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0" visible="false">
                             <buttons>
-                                <Button fx:id="signInButton" mnemonicParsing="false" onAction="#onLoginBtnClick" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
-                                <Button fx:id="signupButton" mnemonicParsing="false" onAction="#onRegisterBtnClick" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
+                                <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
+                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
                             </buttons>
                         </ButtonBar>
                         <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" stylesheets="@styles.css" text="Profile">
@@ -76,6 +76,5 @@
                 <TableColumn prefWidth="75.0" text="C2" />
             </columns>
         </TableView>
-
     </children>
 </AnchorPane>

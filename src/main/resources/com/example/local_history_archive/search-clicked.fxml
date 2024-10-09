@@ -64,7 +64,7 @@
       <ImageView fx:id="uploadImage" fitHeight="253.0" fitWidth="428.0" layoutX="176.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
       <ButtonBar layoutX="178.0" layoutY="393.0" prefHeight="40.0" prefWidth="396.0" stylesheets="@styles.css">
          <buttons>
-            <Button mnemonicParsing="false" styleClass="round-btn" text="Save to Collection" />
+            <Button mnemonicParsing="false" styleClass="round-btn" text="Save to Collection" onAction="#saveToCollection"/>
             <Button mnemonicParsing="false" styleClass="round-btn" text="Download" />
          </buttons>
       </ButtonBar>

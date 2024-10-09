@@ -23,6 +23,8 @@ import java.util.Base64;
 import java.util.List;
 
 public class UploadDetailsController {
+    // The active collection object, used to store the currently selected collection
+    private Collection activeCollection;
     @FXML
     public Button homeBtn;
     @FXML
@@ -56,6 +58,8 @@ public class UploadDetailsController {
 
     private SearchDAO searchDAO;
 
+    private CollectionDAO collectionDAO;
+
     public void initialize() {
         if (userUploadDAO == null) {
             userUploadDAO = new UserUploadDAO();
@@ -63,6 +67,9 @@ public class UploadDetailsController {
         loadUploadsFromDatabase();
         if (searchDAO == null) {
             searchDAO = new SearchDAO();
+        }
+        if (collectionDAO == null) {
+            collectionDAO = new CollectionDAO();
         }
     }
 
@@ -238,6 +245,22 @@ public class UploadDetailsController {
         } else {
             showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
         }
+    }
+
+    public void saveToCollection() {
+        UserAccount currentUser = SessionManager.getCurrentUser();
+        String collectionName = String.valueOf(uploadNameLabel);
+        int userId = currentUser.getUserId();
+        int uploadId = upload.getUploadId();
+
+        if (collectionName.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Collection name cannot be empty.");
+            return;
+        }
+
+        collectionDAO.addUploadToCollection(userId, uploadId);
+
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Upload saved successfully.");
     }
 }
 

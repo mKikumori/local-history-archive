@@ -1,33 +1,61 @@
 package com.example.local_history_archive.model;
 
-public class Collection {
-    private final int collection_id;
-    private int creator_id;
-    private int upload_id;
-    private String collection_name;
-    private int shared_with;
-    private String created_at;
-    private String category;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Collection(int collection_id, String collection_name) {
+public class Collection {
+    private int collection_id;
+    private int creator_id;
+    private String collection_name;
+    private String created_at;
+    private List<Integer> uploadIds;
+
+    // Constructor to initialize all fields
+    public Collection(int collection_id, int creator_id, String collection_name, String created_at) {
         this.collection_id = collection_id;
         this.creator_id = creator_id;
-        this.upload_id = upload_id;
         this.collection_name = collection_name;
-        this.shared_with = shared_with;
         this.created_at = created_at;
-        this.category = category;
+        this.uploadIds = new ArrayList<>();
     }
 
-    public int getCollection_id() {return collection_id;}
-    public int getCreator_id() {return creator_id;}
-    public int getUpload_id() {return upload_id;}
+    public Collection(int creator_id, String collection_name, String created_at, List<Integer> upload_ids) {
+        this.creator_id = creator_id;
+        this.collection_name = collection_name;
+        this.created_at = created_at;
+        this.uploadIds = new ArrayList<>();
+    }
+
+    // Getters
+    public int getCollection_id() {
+        return collection_id;
+    }
+
+    public void addUpload(int uploadId) {
+        uploadIds.add(uploadId);
+    }
+
+    public List<Integer> getUploadIds() {
+        return uploadIds;
+    }
+
+    public int getCreator_id() {
+        return creator_id;
+    }
+
     public String getCollection_name() {
         return collection_name;
     }
-    public int getShared_with() {
-        return shared_with;
+
+    public String getCreated_at() {
+        return created_at;
     }
-    public String getCreated_at() {return created_at;}
-    public String getCategory(){return category;}
+
+    public void setCollection_name(String collectionName) {
+        this.collection_name = collectionName;
+    }
+
+    public void setCollectionId(int collectionId) {
+        this.collection_id = collectionId;
+    }
 }

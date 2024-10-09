@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,10 +22,10 @@ import java.util.ResourceBundle;
 public class CollectionController implements Initializable {
 
     private CollectionDAO collectionDAO;
+    private SearchDAO searchDAO;
 
-    // The active collection object, used to store the currently selected collection
-    private Collection activeCollection;
-
+    @FXML
+    public GridPane collectionsGrid;
     @FXML
     public Button homeBtn;
     @FXML
@@ -45,138 +47,76 @@ public class CollectionController implements Initializable {
     @FXML
     private Button loginBtn;
     @FXML
-    public ComboBox categoryComboBox;
+    public ComboBox<String> categoryComboBox;
     @FXML
     private TextField searchField;
     @FXML
     private Button uploadBtn;
 
-    private SearchDAO searchDAO;
-
 
     public CollectionController() {
-        // Initialize the CollectionDAO
+        // Initialize the CollectionDAO and SearchDAO
         this.collectionDAO = new CollectionDAO();
-    }
-
-    // Method to set the active collection (called when a user selects a collection)
-    public void setActiveCollection(Collection collection) {
-        this.activeCollection = collection;
-        if (activeCollection != null) {
-            collectionNameField.setText(activeCollection.getCollection_name());
-            // Optionally, load the category into the ComboBox if the collection already has a category
-            categoryComboBox.setValue(activeCollection.getCategory());
-        }
+        this.searchDAO = new SearchDAO();
+        this.categoryComboBox = new ComboBox<>();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Populate the ComboBox with the category list
-        List<String> categories = Arrays.asList("Historical Events", "Natural disasters", "Cultural Heritage", "Local cuisine and recipes", "Architecture and Landmarks", "Old maps and plans",
-                "People and Personalities", "Government and Politics", "Photographs and Media", "War contributions and impacts", "Arts and Entertainment", "Natural resource usage");
+        List<String> categories = Arrays.asList(
+                "Historical Events", "Natural disasters", "Cultural Heritage",
+                "Local cuisine and recipes", "Architecture and Landmarks",
+                "Old maps and plans", "People and Personalities",
+                "Government and Politics", "Photographs and Media",
+                "War contributions and impacts", "Arts and Entertainment",
+                "Natural resource usage"
+        );
         categoryComboBox.getItems().addAll(categories);
-        if (searchDAO == null) {
-            searchDAO = new SearchDAO();
-        }
+        loadCollectionsFromDatabase();
     }
 
-    @FXML
-    private void createCollection() throws IOException {
-        String collectionName = collectionNameField.getText().trim();
+    private void loadCollectionsFromDatabase() {
 
-        if (collectionName.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Collection name cannot be empty.");
-            return;
-        }
+        UserAccount currentUser = SessionManager.getCurrentUser();
 
-        // Create a new Collection object
-        Collection collection = new Collection(0, collectionName); // 0 is a placeholder for the auto-incremented collection_id
-        collectionDAO.newCollection(collection);
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Collection created successfully.");
+        int column = 0;
+        int row = 0;
+
+
+
     }
 
-    @FXML
-    private void updateCollection() throws IOException {
-        if (activeCollection == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No active collection selected.");
-            return;
+    public void createCollectionBtn() throws IOException {
+
+        UserAccount currentUser = SessionManager.getCurrentUser();
+
+        if (currentUser != null) {
+
+            String collectionName = collectionNameField.getText();
+            int userId = currentUser.getUserId();
+
+            if (collectionName.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Information", "Please fill in the required field.");
+                return;
+            }
+
+            if (collectionDAO.userHasCollection(userId)) {
+                showAlert(Alert.AlertType.ERROR, "Creation Error", "User already have a collection.");
+                return;
+            }
+
+            Collection collection = new Collection(userId, collectionName, null, null);
+
+            collectionDAO = new CollectionDAO();
+            collectionDAO.newCollection(collection);
+            showAlert(Alert.AlertType.INFORMATION, "Collection Creation Successful", "Your collection has been created.");
+
+            Stage stage = (Stage) collectionBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("collections.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            stage.setScene(scene);
         }
-
-        String collectionName = collectionNameField.getText().trim();
-        if (collectionName.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Collection name cannot be empty.");
-            return;
-        }
-
-        // Pass the collection ID and updated name to the DAO
-        collectionDAO.updateCollection(new Collection(activeCollection.getCollection_id(), collectionName));
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Collection updated successfully.");
-    }
-
-    @FXML
-    private void deleteCollection() throws IOException {
-        if (activeCollection == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No active collection selected.");
-            return;
-        }
-
-        // Use the active collection's ID to delete the collection
-        collectionDAO.deleteCollection(activeCollection.getCollection_id());
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Collection deleted successfully.");
-    }
-
-    @FXML
-    private void makeCollectionPublic() throws IOException {
-        if (activeCollection == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No active collection selected.");
-            return;
-        }
-
-        // Use the active collection's ID to make it public
-        collectionDAO.makeCollectionPublic(activeCollection.getCollection_id());
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Collection made public.");
-    }
-
-    @FXML
-    private void shareCollectionWithUsers(List<Integer> userIds) throws IOException {
-        if (userIds.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No users to share the collection with.");
-            return;
-        }
-
-        if (activeCollection == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No active collection selected.");
-            return;
-        }
-
-        // Share the active collection with the provided user IDs
-        collectionDAO.shareCollectionWithUsers(activeCollection.getCollection_id(), userIds);
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Collection shared with users successfully.");
-    }
-    @FXML
-    private void assignCategoryToCollection() throws IOException {
-        if (activeCollection == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No active collection selected.");
-            return;
-        }
-
-        String selectedCategory = (String) categoryComboBox.getSelectionModel().getSelectedItem();
-        if (selectedCategory == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Please select a category.");
-            return;
-        }
-
-        // Assign the selected category to the active collection
-        collectionDAO.assignCategoryToCollection(activeCollection.getCollection_id(), selectedCategory);
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Category assigned successfully.");
-    }
-
-    // Navigation methods for UI buttons
-    public void onCollectionsBtnClick() throws IOException {
-        Stage stage = (Stage) collectionBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("collections.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
     }
 
     public void onHomeBtnClick() throws IOException {

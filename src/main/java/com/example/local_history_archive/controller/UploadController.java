@@ -3,6 +3,7 @@ package com.example.local_history_archive.controller;
 import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.ImageToBase64;
 import com.example.local_history_archive.model.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,6 +50,8 @@ public class UploadController implements Initializable {
     public Button searchBtn;
     @FXML
     public TextField searchField;
+    @FXML
+    public Button createCollectionBtn;
     @FXML
     private String encodedFile;
 
@@ -204,6 +207,13 @@ public class UploadController implements Initializable {
     public void onProfileBtnClick() throws IOException {
         Stage stage = (Stage) profileBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void createCollectionBtn() throws IOException {
+        Stage stage = (Stage) homeBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createcollection-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
