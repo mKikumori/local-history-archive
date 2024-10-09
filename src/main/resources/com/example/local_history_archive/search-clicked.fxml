@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.UploadDetailsController">
+   <children>
+      <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0" styleClass="uploadDoc">
+         <items>
+            <Group>
+               <children>
+                  <ImageView fitHeight="64.0" fitWidth="227.0" layoutY="7.999999523162842" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/logo1.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="searchField" layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
+                  <ButtonBar layoutX="643.7999877929688" layoutY="19.0">
+                     <buttons>
+                        <Button mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Home" fx:id="homeBtn" onAction="#onHomeBtnClick">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload" fx:id="uploadBtn" onAction="#onUploadBtnClick">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" fx:id="collectionBtn" onAction="#onCollectionsBtnClick" styleClass="uploadDoc" text="Collections">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" fx:id="settingsBtn" onAction="#onSettingsBtnClick" styleClass="uploadDoc" text="Settings">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0" visible="false">
+                     <buttons>
+                        <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
+                        <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
+                     </buttons>
+                  </ButtonBar>
+                  <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="btn" stylesheets="@styles.css" text="Profile" fx:id="profileBtn" onAction="#onProfileBtnClick"/>
+                  <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;" fx:id="searchBtn" onAction="#onSearchClicked">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/45.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Group>
+         </items>
+      </ToolBar>
+      <Separator layoutX="3.0" layoutY="444.0" prefHeight="1.0" prefWidth="1281.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="253.0" layoutX="176.0" layoutY="134.0" stroke="TRANSPARENT" strokeType="INSIDE" width="428.0" />
+      <ImageView fx:id="uploadImage" fitHeight="253.0" fitWidth="428.0" layoutX="176.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <ButtonBar layoutX="178.0" layoutY="393.0" prefHeight="40.0" prefWidth="396.0" stylesheets="@styles.css">
+         <buttons>
+            <Button mnemonicParsing="false" styleClass="round-btn" text="Save to Collection" onAction="#saveToCollection"/>
+            <Button mnemonicParsing="false" styleClass="round-btn" text="Download" />
+         </buttons>
+      </ButtonBar>
+      <Label layoutX="640.0" layoutY="143.0" text="Document Title" fx:id="uploadNameLabel">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="644.0" layoutY="183.0" text="Date of Publishment" fx:id="uploadDate"/>
+      <Label layoutX="644.0" layoutY="203.0" text="Category" fx:id="uploadCategory">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="644.0" layoutY="244.0" text="Description" fx:id="uploadDescriptionLabel">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="573.0" layoutY="461.0" text="Suggested Contents">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <HBox layoutX="94.0" layoutY="504.0" prefHeight="238.0" prefWidth="1137.0">
+         <children>
+            <GridPane hgap="20.0" prefHeight="238.0" prefWidth="1142.0" fx:id="uploadGrid">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </children>
+
+      </HBox>
+
+   </children>
+</AnchorPane>

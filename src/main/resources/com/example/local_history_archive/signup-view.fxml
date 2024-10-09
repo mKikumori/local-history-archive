@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.RegisterController">
+   <children>
+      <Group>
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="515.0" layoutX="9.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="20.0" width="342.0" />
+            <Label layoutX="50.0" layoutY="87.0" text="Local History Archive">
+               <font>
+                  <Font name="Old English Text MT" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="129.0" layoutY="66.0" text="Welcome to">
+               <font>
+                  <Font name="Old English Text MT" size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="167.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/book.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="54.0" layoutY="162.0" prefHeight="35.0" prefWidth="245.0" promptText="Full Name" styleClass="rounded-search" stylesheets="@styles.css" fx:id="usernameTextField"/>
+            <TextField layoutX="54.0" layoutY="225.0" prefHeight="35.0" prefWidth="245.0" promptText="Email" styleClass="rounded-search" stylesheets="@styles.css" fx:id="emailTextField"/>
+            <PasswordField layoutX="55.0" layoutY="288.0" prefHeight="35.0" prefWidth="245.0" promptText="Password" styleClass="rounded-search" stylesheets="@styles.css" fx:id="passwordTextField"/>
+            <Button layoutX="64.0" layoutY="367.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="233.0" styleClass="btn" stylesheets="@styles.css" text="Submit" fx:id="registerBtn" onAction="#registerSubmitBtn"/>
+            <Label layoutX="59.0" layoutY="208.0" text="Email" />
+            <Label layoutX="59.0" layoutY="271.0" text="Password" />
+            <Label layoutX="61.0" layoutY="431.0" text="By continuing you agree to Local History Archive's" textFill="#949494">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="446.0" text="Terms of Service">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label layoutX="144.0" layoutY="446.0" text="and acknowledge you've read our" textFill="#949494">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label layoutX="145.0" layoutY="461.0" text="Privacy Policy.">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="146.0" text="Your Full Name" />
+            <Hyperlink layoutX="98.0" layoutY="333.0" fx:id="loginLink" onAction="#onLoginClick" text="Already a member? Log In">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Hyperlink>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
