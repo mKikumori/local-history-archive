@@ -66,6 +66,10 @@ public class UploadDetailsController {
         }
     }
 
+    public UploadDetailsController() {
+        this.userUploadDAO = new UserUploadDAO();
+    }
+
     private void loadUploadsFromDatabase() {
         if (userUploadDAO == null) {
             System.err.println("UserUploadDAO is not initialized.");
@@ -182,6 +186,24 @@ public class UploadDetailsController {
         }
     }
 
+    public void setUpload(SearchResult result) {
+        UserUpload upload = userUploadDAO.getUploadById(result.getId());
+
+        if (upload != null) {
+            uploadNameLabel.setText(upload.getUploadName());
+            uploadDescriptionLabel.setText(upload.getUploadDescription());
+            uploadDate.setText(upload.getUploadedAt());
+            uploadCategory.setText(upload.getUploadCategories());
+
+
+            if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
+                uploadImage.setImage(Base64ToImage.base64ToImage(upload.getImageData()));
+            } else {
+                uploadImage.setImage(null);
+            }
+        }
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -201,7 +223,7 @@ public class UploadDetailsController {
                 return;
             }
 
-            List<SearchResult> results = searchDAO.searchAcrossTables(query);
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
 
             Stage stage = (Stage) searchBtn.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));

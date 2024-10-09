@@ -168,7 +168,7 @@ public class ManagementController {
                 return;
             }
 
-            List<SearchResult> results = searchDAO.searchAcrossTables(query);
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
 
             Stage stage = (Stage) searchBtn.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));

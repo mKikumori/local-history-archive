@@ -1,11 +1,14 @@
 package com.example.local_history_archive.controller;
 
+import com.example.local_history_archive.Base64ToImage;
 import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -29,7 +32,7 @@ public class SearchController {
     @FXML
     private TextField searchField;
     @FXML
-    private GridPane resultsGrid;
+    public GridPane resultsGrid;
 
     private SearchDAO searchDAO;
 
@@ -46,21 +49,21 @@ public class SearchController {
 
         if (currentUser != null) {
             String query = searchField.getText().trim();
-            searchQuery.setText(query);
 
             if (query.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
                 return;
             }
 
-            // Use 'userId' to perform the search
-            List<SearchResult> results = searchDAO.searchAcrossTables(query);
+            // Use the query to perform the upload title search
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
             displaySearchResults(results);
 
         } else {
             showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
         }
     }
+
 
     private void displaySearchResults(List<SearchResult> results) {
         resultsGrid.getChildren().clear(); // Clear previous results
@@ -69,17 +72,55 @@ public class SearchController {
         } else {
             int row = 0, column = 0;
             for (SearchResult result : results) {
-                Button resultButton = new Button(result.getResult().toString());
-                resultButton.setOnAction(event -> {
-                    showAlert(Alert.AlertType.INFORMATION, "Result", "Detail for: " + result.getResult());
+
+                Button searchedBtn = new Button(result.getResult().get(0));
+                ImageView imageView = new ImageView();
+
+                if (result.getUploadType().equals("image") && result.getImageData() != null) {
+                    Image image = Base64ToImage.base64ToImage(result.getImageData());
+
+                    if (image != null) {
+                        imageView.setImage(image);
+                        imageView.setFitHeight(100);
+                        imageView.setPreserveRatio(true);
+                        searchedBtn.setGraphic(imageView);
+
+                        System.out.println(image);
+
+                    } else {
+                        searchedBtn.setText(result.getResult().get(0));
+                    }
+                } else {
+                    searchedBtn.setText(result.getResult().get(0));
+                }
+
+                searchedBtn.setOnAction(event -> {
+                    try {
+                        openUploadDetails(result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
-                resultsGrid.add(resultButton, column++, row);
-                if (column > 2) {
+                resultsGrid.add(searchedBtn, column++, row);
+
+                if (column == 3) {
                     column = 0;
                     row++;
                 }
             }
         }
+    }
+
+    private void openUploadDetails(SearchResult result) throws IOException {
+        Stage stage = (Stage) resultsGrid.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-clicked.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+        // Pass the upload object to the upload controller
+        UploadDetailsController controller = fxmlLoader.getController();
+        controller.setUpload(result);
+
+        stage.setScene(scene);
     }
 
     public void onHomeBtnClick() throws IOException {
@@ -133,12 +174,37 @@ public class SearchController {
         } else {
             int row = 0, column = 0;
             for (SearchResult result : results) {
-                Button resultButton = new Button(result.getResult().toString());
-                resultButton.setOnAction(event -> {
-                    showAlert(Alert.AlertType.INFORMATION, "Result", "Detail for: " + result.getResult());
+
+                Button searchedBtn = new Button(result.getResult().get(0));
+                ImageView imageView = new ImageView();
+
+                if (result.getUploadType().equals("image") && result.getImageData() != null) {
+                    Image image = Base64ToImage.base64ToImage(result.getImageData());
+                    if (image != null) {
+                        imageView.setImage(image);
+                        imageView.setFitHeight(100);
+                        imageView.setPreserveRatio(true);
+                        searchedBtn.setGraphic(imageView);
+
+                        System.out.println(image);
+
+                    } else {
+                        searchedBtn.setText(result.getResult().get(0));
+                    }
+                } else {
+                    searchedBtn.setText(result.getResult().get(0));
+                }
+
+                searchedBtn.setOnAction(event -> {
+                    try {
+                        openUploadDetails(result);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
-                resultsGrid.add(resultButton, column++, row);
-                if (column > 2) {
+                resultsGrid.add(searchedBtn, column++, row);
+
+                if (column == 3) {
                     column = 0;
                     row++;
                 }
