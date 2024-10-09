@@ -18,18 +18,18 @@
                         <Image url="@../../../images/logo1.png" />
                      </image>
                   </ImageView>
-                  <TextField layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
+                  <TextField fx:id="searchField" layoutX="248.1999969482422" layoutY="10.999999523162842" prefHeight="40.0" prefWidth="394.0" promptText="Looking for something?" styleClass="rounded-search" stylesheets="@styles.css" />
                   <ButtonBar layoutX="643.7999877929688" layoutY="19.0">
                      <buttons>
                         <Button mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Home">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
-                        <Button disable="true" mnemonicParsing="false" onAction="#onUploadBtnClick" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
+                        <Button disable="true" mnemonicParsing="false" styleClass="uploadDoc" stylesheets="@styles.css" text="Upload">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
-                        <Button mnemonicParsing="false" onAction="#onCollectionsBtnClick" styleClass="uploadDoc" text="Collections">
+                        <Button disable="true" mnemonicParsing="false" styleClass="uploadDoc" text="Collections">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Button>
@@ -46,7 +46,7 @@
                      </buttons>
                   </ButtonBar>
                   <Button layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" prefHeight="22.0" prefWidth="86.0" styleClass="btn" stylesheets="@styles.css" text="Profile" />
-                  <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;">
+                  <Button layoutX="598.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;" fx:id="searchBtn" onAction="#onSearchClicked">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -66,24 +66,19 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField layoutX="268.0" layoutY="197.0" prefHeight="39.0" prefWidth="413.0" promptText="Enter Collection Name" styleClass="rounded-search" stylesheets="@styles.css" />
+      <TextField layoutX="268.0" layoutY="197.0" prefHeight="39.0" prefWidth="413.0" promptText="Enter Collection Name" styleClass="rounded-search" stylesheets="@styles.css" fx:id="collectionNameField" />
       <Label layoutX="268.0" layoutY="170.0" text="Collection Name" />
-      <ToggleButton fx:id="publicBtn" layoutX="611.0" layoutY="261.0" mnemonicParsing="false" onAction="#makeCollectionPublic" prefHeight="30.0" prefWidth="64.0" styleClass="round-btn" stylesheets="@styles.css" text="Public" />
-      <Label layoutX="268.0" layoutY="261.0" text="Make this collection private" />
-      <Label layoutX="268.0" layoutY="278.0" text="Only you can see it. Learn more." textFill="#949494" />
-      <ComboBox fx:id="categoryComboBox" layoutX="266.0" layoutY="333.0" onAction="#assignCategoryToCollection" prefHeight="39.0" prefWidth="413.0" promptText="Choose Category" styleClass="rounded-search" stylesheets="@styles.css" />
-      <Label layoutX="268.0" layoutY="312.0" text="Collection Category" />
       <ButtonBar layoutX="552.0" layoutY="465.0" prefHeight="40.0" prefWidth="227.0" stylesheets="@styles.css">
          <buttons>
             <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" styleClass="round-btn" text="Cancel" />
-            <Button mnemonicParsing="false" prefHeight="38.0" styleClass="btn" text="Create" />
+            <Button mnemonicParsing="false" prefHeight="38.0" styleClass="btn" text="Create" onAction="#createCollectionBtn"/>
          </buttons>
       </ButtonBar>
       <Group layoutX="25.0" layoutY="166.49288940429688">
          <children>
             <Group layoutX="18.0" layoutY="3.507110595703125">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Upload Document" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Upload Document" fx:id="uploadBtn" onAction="#onUploadBtnClick"/>
                   <Button layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: FFFF;" text="Create Collection">
                      <font>
                         <Font name="System Bold" size="12.0" />

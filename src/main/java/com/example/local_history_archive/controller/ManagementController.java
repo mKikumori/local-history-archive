@@ -1,9 +1,7 @@
 package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.HelloApplication;
-import com.example.local_history_archive.model.SessionManager;
-import com.example.local_history_archive.model.UserAccount;
-import com.example.local_history_archive.model.UserAccountDAO;
+import com.example.local_history_archive.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class ManagementController {
@@ -37,12 +36,21 @@ public class ManagementController {
     public Button editProfileBtn;
     @FXML
     public Button changeBtn;
+    @FXML
+    public TextField searchField;
+    @FXML
+    public Button searchBtn;
 
     private UserAccountDAO userAccountDAO;
+
+    private SearchDAO searchDAO;
 
     public void initialize() {
         if (userAccountDAO == null) {
             userAccountDAO = new UserAccountDAO();
+        }
+        if (searchDAO == null) {
+            searchDAO = new SearchDAO();
         }
     }
 
@@ -147,5 +155,33 @@ public class ManagementController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
+    }
+
+    public void onSearchClicked() throws IOException {
+        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+
+        if (currentUser != null) {
+            String query = searchField.getText().trim();
+
+            if (query.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
+                return;
+            }
+
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
+
+            Stage stage = (Stage) searchBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+            // Pass the search object to the next controller
+            SearchController controller = fxmlLoader.getController();
+            controller.setSearch(results, query);
+
+            stage.setScene(scene);
+
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
+        }
     }
 }

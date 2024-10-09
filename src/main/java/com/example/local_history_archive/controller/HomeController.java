@@ -1,13 +1,15 @@
 package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.HelloApplication;
-import com.example.local_history_archive.model.UserUpload;
+import com.example.local_history_archive.model.*;
 import com.example.local_history_archive.Base64ToImage;
-import com.example.local_history_archive.model.UserUploadDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -29,13 +31,22 @@ public class HomeController {
     @FXML
     public GridPane uploadGrid;
     @FXML
+    public Button searchBtn;
+    @FXML
+    public TextField searchField;
+    @FXML
     private Button uploadBtn;
 
     private UserUploadDAO userUploadDAO;
 
+    private SearchDAO searchDAO;
+
     public void initialize() {
         if (userUploadDAO == null) {
             userUploadDAO = new UserUploadDAO();
+        }
+        if (searchDAO == null) {
+            searchDAO = new SearchDAO();
         }
         loadUploadsFromDatabase();
     }
@@ -124,5 +135,41 @@ public class HomeController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void onSearchClicked() throws IOException {
+        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+
+        if (currentUser != null) {
+            String query = searchField.getText().trim();
+
+            if (query.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
+                return;
+            }
+
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
+
+            Stage stage = (Stage) searchBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+            // Pass the search object to the next controller
+            SearchController controller = fxmlLoader.getController();
+            controller.setSearch(results, query);
+
+            stage.setScene(scene);
+
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
+        }
     }
 }

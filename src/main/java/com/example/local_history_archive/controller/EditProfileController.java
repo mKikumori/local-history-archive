@@ -4,6 +4,7 @@ import com.example.local_history_archive.Base64ToImage;
 import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.ImageToBase64;
 import com.example.local_history_archive.model.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Objects;
 
 public class EditProfileController {
@@ -43,10 +45,16 @@ public class EditProfileController {
     public String encodedFile;
 
     public String fileType;
+    @FXML
+    public Button searchBtn;
+    @FXML
+    public TextField searchField;
 
     private UserUpload upload;
 
     public UserAccountDAO userAccountDAO;
+
+    private SearchDAO searchDAO;
 
     public void initialize() {
         if (userAccountDAO == null) {
@@ -54,8 +62,38 @@ public class EditProfileController {
         }
         Image placeholderImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image-placeholder.png")));
         uploadImage.setImage(placeholderImage);
+        if (searchDAO == null) {
+            searchDAO = new SearchDAO();
+        }
     }
 
+    public void onSearchClicked() throws IOException {
+        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+
+        if (currentUser != null) {
+            String query = searchField.getText().trim();
+
+            if (query.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
+                return;
+            }
+
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
+
+            Stage stage = (Stage) searchBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+            // Pass the search object to the next controller
+            SearchController controller = fxmlLoader.getController();
+            controller.setSearch(results, query);
+
+            stage.setScene(scene);
+
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
+        }
+    }
 
     public void onHomeBtnClick() throws IOException {
         Stage stage = (Stage) homeBtn.getScene().getWindow();

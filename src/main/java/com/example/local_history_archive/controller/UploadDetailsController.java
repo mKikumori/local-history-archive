@@ -2,9 +2,11 @@ package com.example.local_history_archive.controller;
 
 import com.example.local_history_archive.Base64ToImage;
 import com.example.local_history_archive.HelloApplication;
-import com.example.local_history_archive.model.UserUpload;
-import com.example.local_history_archive.model.UserUploadDAO;
+import com.example.local_history_archive.model.*;
+
 import java.util.Collections;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +23,8 @@ import java.util.Base64;
 import java.util.List;
 
 public class UploadDetailsController {
+    // The active collection object, used to store the currently selected collection
+    private Collection activeCollection;
     @FXML
     public Button homeBtn;
     @FXML
@@ -36,6 +40,10 @@ public class UploadDetailsController {
     @FXML
     public GridPane uploadGrid;
     @FXML
+    public TextField searchField;
+    @FXML
+    public Button searchBtn;
+    @FXML
     private Label uploadNameLabel;
     @FXML
     private Label uploadDescriptionLabel;
@@ -48,11 +56,25 @@ public class UploadDetailsController {
 
     private UserUploadDAO userUploadDAO;
 
+    private SearchDAO searchDAO;
+
+    private CollectionDAO collectionDAO;
+
     public void initialize() {
         if (userUploadDAO == null) {
             userUploadDAO = new UserUploadDAO();
         }
         loadUploadsFromDatabase();
+        if (searchDAO == null) {
+            searchDAO = new SearchDAO();
+        }
+        if (collectionDAO == null) {
+            collectionDAO = new CollectionDAO();
+        }
+    }
+
+    public UploadDetailsController() {
+        this.userUploadDAO = new UserUploadDAO();
     }
 
     private void loadUploadsFromDatabase() {
@@ -169,6 +191,76 @@ public class UploadDetailsController {
         } else {
             uploadImage.setImage(null);
         }
+    }
+
+    public void setUpload(SearchResult result) {
+        UserUpload upload = userUploadDAO.getUploadById(result.getId());
+
+        if (upload != null) {
+            uploadNameLabel.setText(upload.getUploadName());
+            uploadDescriptionLabel.setText(upload.getUploadDescription());
+            uploadDate.setText(upload.getUploadedAt());
+            uploadCategory.setText(upload.getUploadCategories());
+
+
+            if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
+                uploadImage.setImage(Base64ToImage.base64ToImage(upload.getImageData()));
+            } else {
+                uploadImage.setImage(null);
+            }
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void onSearchClicked() throws IOException {
+        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+
+        if (currentUser != null) {
+            String query = searchField.getText().trim();
+
+            if (query.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Missing Query", "Please enter a search query.");
+                return;
+            }
+
+            List<SearchResult> results = searchDAO.searchUploadsByTitle(query);
+
+            Stage stage = (Stage) searchBtn.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("searchpage-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+
+            // Pass the search object to the next controller
+            SearchController controller = fxmlLoader.getController();
+            controller.setSearch(results, query);
+
+            stage.setScene(scene);
+
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Search Error", "Please log in first.");
+        }
+    }
+
+    public void saveToCollection() {
+        UserAccount currentUser = SessionManager.getCurrentUser();
+        String collectionName = String.valueOf(uploadNameLabel);
+        int userId = currentUser.getUserId();
+        int uploadId = upload.getUploadId();
+
+        if (collectionName.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Collection name cannot be empty.");
+            return;
+        }
+
+        collectionDAO.addUploadToCollection(userId, uploadId);
+
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Upload saved successfully.");
     }
 }
 
