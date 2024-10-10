@@ -18,7 +18,7 @@ public class SearchResult {
         this.uploadType = uploadType;
     }
 
-    // Getters
+    // Getterss
     public String getType() {
         return type;
     }
