@@ -3,7 +3,6 @@ module com.example.local_history_archive {
     requires javafx.fxml;
     requires java.sql;
 
-
     opens com.example.local_history_archive to javafx.fxml;
     exports com.example.local_history_archive;
     exports com.example.local_history_archive.controller;

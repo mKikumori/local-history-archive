@@ -18,33 +18,25 @@ public class EditProfileTest {
     @BeforeAll
     public static void initToolkit() {
         Platform.startup(() -> {
-            // JavaFX 애플리케이션 스레드 시작
             System.out.println("JavaFX Platform initialized");
         });
     }
 
     @BeforeAll
     public static void setUpAll() throws SQLException {
-        // Initialize the connection and pass it to the DAO
-        connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-        if (connection != null) {
-            connection.setAutoCommit(false);  // Disable auto-commit for transaction management
-            userAccountDAO = new UserAccountDAO(connection);  // Set up DAO with connection
-            userAccountDAO.createTable();  // Set up the table for testing
-            System.out.println("Database table created.");
-        } else {
-            throw new SQLException("Connection is null.");
-        }
+        // Use a memory-based SQLite database
+        connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        connection.setAutoCommit(false);  // Set manual commit mode
+        userAccountDAO = new UserAccountDAO();
+        userAccountDAO.createTable();  // Create Table
+        System.out.println("Database table created.");
     }
 
     @BeforeEach
-    public void setUpEach() throws SQLException {
-        if (connection != null) {
-            connection.setAutoCommit(false);  // Disable auto-commit for each test
-        }
+    public void setUpEach() {
         controller = new EditProfileController();
         mockUserAccount = new UserAccount(1, "test@example.com", "testuser", "password", "bio", null);
-        controller.userAccountDAO = userAccountDAO; // Inject DAO instance
+        controller.userAccountDAO = userAccountDAO;
     }
 
     @Test
@@ -82,6 +74,8 @@ public class EditProfileTest {
         assertEquals("updatedBio", updatedUser.getBio());
         assertEquals("updatedPic", updatedUser.getProfilePic());
         System.out.println("User update verified successfully.");
+
+        connection.commit();  // 트랜잭션 커밋
     }
 
     @Test
@@ -104,12 +98,14 @@ public class EditProfileTest {
         UserAccount deletedUser = userAccountDAO.getById(createdUser.getUserId());
         assertNull(deletedUser, "User should have been deleted but still exists.");
         System.out.println("Verified user was deleted successfully.");
+
+        connection.commit();  // 트랜잭션 커밋
     }
 
     @AfterEach
     public void tearDownEach() throws SQLException {
-        if (connection != null) {
-            connection.rollback();  // Rollback transaction after each test
+        if (connection != null && !connection.getAutoCommit()) {
+            connection.rollback();  // 트랜잭션 롤백
             System.out.println("Transaction rolled back.");
         }
     }
@@ -117,11 +113,13 @@ public class EditProfileTest {
     @AfterAll
     public static void tearDownAll() throws SQLException {
         if (connection != null) {
-            connection.close();  // Close the connection after all tests
+            connection.close();  // 연결 종료
             System.out.println("Database connection closed.");
         }
     }
 }
+
+
 
 
 
