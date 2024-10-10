@@ -3,6 +3,7 @@ package com.example.local_history_archive.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseConnection {
     private static Connection instance = null;
@@ -12,6 +13,8 @@ public class DatabaseConnection {
 
         try {
             instance = DriverManager.getConnection(url); // This tries to connect using the URL but it fails due to smt idk, maybe the "org.xerial:sqlite-jdbc:3.36.0.3"
+            Statement statement = instance.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON");
         } catch (SQLException sqlEx) {
             System.err.println(sqlEx); // This is giving out the "java.sql.SQLException: No suitable driver found for jdbc:sqlite:database.db" error
         }
