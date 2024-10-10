@@ -3,17 +3,24 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SignInTest {
 
     private static UserAccountDAO userAccountDAO;
+    private static Connection connection;
 
     @BeforeAll
-    public static void setUpAll() {
-        // Initialize the in-memory database and create the user table
+    public static void setUpAll() throws SQLException {
+        // Use a memory-based SQLite database
+        connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        connection.setAutoCommit(false);  // Set manual commit mode
         userAccountDAO = new UserAccountDAO();
-        userAccountDAO.createTable();
+        userAccountDAO.createTable();   // Create Table
 
         // Add a sample user to the database for sign-in testing
         UserAccount user = new UserAccount("testemail@example.com", "testuser", "password123", "Sample bio", "profilePic.jpg");
@@ -21,11 +28,21 @@ public class SignInTest {
     }
 
     @AfterAll
-    public static void tearDownAll() {
+    public static void tearDownAll() throws SQLException {
+        // Delete data and close connection after testing
         userAccountDAO.deleteByEmail("testemail@example.com");
         userAccountDAO.deleteByEmail("nonexistent@example.com");
         userAccountDAO.deleteByEmail("");
-        userAccountDAO.close();
+
+        // commit transaction
+        if (connection != null && !connection.getAutoCommit()) {
+            connection.commit();
+        }
+
+        // End connection
+        if (connection != null) {
+            connection.close();
+        }
     }
 
     // 1. Test successful sign-in with correct email and password

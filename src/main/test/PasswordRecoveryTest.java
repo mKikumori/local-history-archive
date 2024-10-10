@@ -7,34 +7,48 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.example.local_history_archive.model.UserAccountDAO;
 import com.example.local_history_archive.model.UserAccount;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class PasswordRecoveryTest {
 
     private static UserAccountDAO userAccountDAO;
+    private static Connection connection;
 
     @BeforeAll
-    public static void setUpAll() {
-        // Initialize the DAO and prepare the test environment
+    public static void setUpAll() throws SQLException {
+        // Use a memory-based SQLite database
+        connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        connection.setAutoCommit(false);  // Set manual commit mode
         userAccountDAO = new UserAccountDAO();
-        userAccountDAO.createTable(); // Create the table before all tests
+        userAccountDAO.createTable(); // Create Table
     }
 
     @AfterAll
-    public static void tearDownAll() {
-        // Close the database connection after all tests
-        userAccountDAO.close();
+    public static void tearDownAll() throws SQLException {
+        // End connection
+        if (connection != null) {
+            connection.close();
+        }
     }
 
     @AfterEach
-    public void cleanUp() {
-        // Delete test data based on the email used in each test
+    public void cleanUp() throws SQLException {
+        // Delete data and close connection after testing
         userAccountDAO.deleteByEmail("testemail@example.com");
         userAccountDAO.deleteByEmail("wrongemail@example.com");
         userAccountDAO.deleteByEmail("");
+
+        // commit transaction
+        if (connection != null && !connection.getAutoCommit()) {
+            connection.commit();
+        }
     }
 
     // Test successful password recovery with correct email
     @Test
-    public void testPasswordRecoverySuccess() {
+    public void testPasswordRecoverySuccess() throws SQLException {
         // Insert a sample user for testing password recovery
         UserAccount testUser = new UserAccount(
                 "testemail@example.com",
@@ -55,7 +69,7 @@ public class PasswordRecoveryTest {
 
     // Test password recovery with incorrect email
     @Test
-    public void testPasswordRecoveryIncorrectEmail() {
+    public void testPasswordRecoveryIncorrectEmail() throws SQLException {
         // Insert a sample user
         UserAccount testUser = new UserAccount(
                 "testemail@example.com",
@@ -76,7 +90,7 @@ public class PasswordRecoveryTest {
 
     // Test password recovery with empty email field
     @Test
-    public void testPasswordRecoveryEmptyFields() {
+    public void testPasswordRecoveryEmptyFields() throws SQLException {
         String emptyUser = userAccountDAO.recoverPassword("");
         assertNull(emptyUser, "User should not be found with an empty email.");
 
@@ -86,7 +100,7 @@ public class PasswordRecoveryTest {
 
     // Test changing the password successfully
     @Test
-    public void testChangePasswordSuccess() {
+    public void testChangePasswordSuccess() throws SQLException {
         // Insert a sample user for testing password change
         UserAccount testUser = new UserAccount(
                 "testemail@example.com",
@@ -114,7 +128,7 @@ public class PasswordRecoveryTest {
 
     // Test changing the password for a non-existent email
     @Test
-    public void testChangePasswordNonExistentEmail() {
+    public void testChangePasswordNonExistentEmail() throws SQLException {
         // Try to change the password for an email not in the database
         boolean isPasswordChanged = userAccountDAO.changePassword("nonexistent@example.com", "newPassword456");
 
@@ -125,5 +139,8 @@ public class PasswordRecoveryTest {
         System.out.println("testChangePasswordNonExistentEmail: Password change correctly failed for nonexistent@example.com");
     }
 }
+
+
+
 
 

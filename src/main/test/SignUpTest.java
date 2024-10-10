@@ -2,28 +2,28 @@ import com.example.local_history_archive.model.*;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SignUpTest {
 
     private static UserAccountDAO userAccountDAO;
+    private static Connection connection;
 
     @BeforeAll
-    public static void setUpAll(){
-        // Create a table before testing, and initialise the testing environment
+    public static void setUpAll() throws SQLException {
+        // Use a memory-based SQLite database
+        connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+        connection.setAutoCommit(false);  // Set manual commit mode
         userAccountDAO = new UserAccountDAO();
-        userAccountDAO.createTable();
+        userAccountDAO.createTable();  // Create Table
     }
 
     @AfterAll
-    public static void tearDownAll(){
-        // After testing, the database close automatically
-        userAccountDAO.close();
-    }
-
-    @AfterEach
-    public void cleanUp(){
-        // Delete data based on the email and username used in each test.
+    public static void tearDownAll() throws SQLException {
+        // Delete data and close connection after testing
         userAccountDAO.deleteByEmail("newuser@example.com");
         userAccountDAO.deleteByEmail("duplicate@example.com");
         userAccountDAO.deleteByEmail("duplicateusername@example.com");
@@ -32,12 +32,39 @@ public class SignUpTest {
         userAccountDAO.deleteByEmail("user2@example.com");
         userAccountDAO.deleteByEmail("user3@example.com");
         userAccountDAO.deleteByEmail("");
+
+        // commit transaction
+        if (connection != null && !connection.getAutoCommit()) {
+            connection.commit();
+        }
+
+        // End connection
+        if (connection != null) {
+            connection.close();
+        }
     }
 
+    @AfterEach
+    public void cleanUp() throws SQLException {
+        // Delete data from each email after testing
+        userAccountDAO.deleteByEmail("newuser@example.com");
+        userAccountDAO.deleteByEmail("duplicate@example.com");
+        userAccountDAO.deleteByEmail("duplicateusername@example.com");
+        userAccountDAO.deleteByEmail("user6@example.com");
+        userAccountDAO.deleteByEmail("user5@example.com");
+        userAccountDAO.deleteByEmail("user2@example.com");
+        userAccountDAO.deleteByEmail("user3@example.com");
+        userAccountDAO.deleteByEmail("");
+
+        // commit transaction
+        if (connection != null && !connection.getAutoCommit()) {
+            connection.commit();
+        }
+    }
 
     // 1. Test for successful add user
     @Test
-    public void testSignUpSuccess(){
+    public void testSignUpSuccess() {
         UserAccount newUser = new UserAccount("newuser@example.com", "newuser", "password123", "bio", "profilePic.jpg");
         userAccountDAO.newUser(newUser);
 
@@ -124,3 +151,4 @@ public class SignUpTest {
         assertFalse(result, "Sign up should fail if the email address is invalid.");
     }
 }
+

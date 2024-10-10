@@ -299,6 +299,25 @@ public class UserAccountDAO {
         }
     }
 
+    public int getUserIdByEmail(String email) {
+        int userId = -1;
+        String query = "SELECT user_id FROM userAccounts WHERE user_email = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                userId = rs.getInt("user_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving user_id: " + e.getMessage());
+        }
+
+        return userId;
+    }
+
     public void close() {
         try {
             connection.close();
@@ -306,4 +325,21 @@ public class UserAccountDAO {
             System.err.println(SQLEx);
         }
     }
+
+    public boolean userExists(int userId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT COUNT(*) FROM userAccounts WHERE user_id = ?"
+            );
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking user existence: " + e.getMessage());
+        }
+        return false;
+    }
+
 }
