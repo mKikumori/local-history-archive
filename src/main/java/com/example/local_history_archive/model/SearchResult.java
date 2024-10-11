@@ -1,6 +1,7 @@
 package com.example.local_history_archive.model;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class SearchResult {
 
@@ -41,6 +42,13 @@ public class SearchResult {
 
     @Override
     public String toString() {
-        return "Type: " + type + ", ID: " + id + ", Result: " + result + ", Image Data: " + imageData + ", Upload Type: " + uploadType;
+        return new StringJoiner(", ", SearchResult.class.getSimpleName() + "[", "]")
+                .add("type='" + type + "'")
+                .add("id=" + id)
+                .add("result=" + result)
+                .add("imageData='" + imageData + "'")
+                .add("uploadType='" + uploadType + "'")
+                .toString();
     }
+
 }
