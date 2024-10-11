@@ -184,6 +184,10 @@ public class EditProfileController {
 
             userAccountDAO.updateUser(updatedUser);
 
+            currentUser.setBio(bio);
+            currentUser.setUsername(username);
+            currentUser.setProfilePic(fileBase64);
+
             showAlert(Alert.AlertType.INFORMATION, "Profile Edited Successfully", "Your profile has been updated.");
 
         } else {
