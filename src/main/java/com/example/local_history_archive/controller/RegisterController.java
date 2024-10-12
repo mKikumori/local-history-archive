@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -43,10 +44,22 @@ public class RegisterController {
     }
 
     public void onLoginClick() throws IOException {
-        Stage stage = (Stage) loginLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+        try {
+            // Load the sign-in FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+            Stage signInStage = new Stage();
+            signInStage.initModality(Modality.APPLICATION_MODAL);  // Set modality to block other windows
+            signInStage.setTitle("Sign In");
+
+            // Create and set the scene with specified dimensions
+            Scene scene = new Scene(fxmlLoader.load());
+            signInStage.setScene(scene);
+
+            // Show the sign-in modal window
+            signInStage.showAndWait();  // Use showAndWait to block interaction with other windows
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

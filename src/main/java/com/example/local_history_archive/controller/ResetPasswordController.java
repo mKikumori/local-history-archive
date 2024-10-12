@@ -5,13 +5,11 @@ import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -21,6 +19,8 @@ import java.util.Base64;
 import java.util.List;
 
 public class ResetPasswordController {
+    @FXML
+    public Hyperlink registerLink;
     @FXML
     public Button submitBtn;
     @FXML
@@ -33,6 +33,7 @@ public class ResetPasswordController {
     private UserAccountDAO userAccountDAO;
 
     private UserUploadDAO userUploadDAO;
+
 
     @FXML
     public void initialize() {
@@ -48,6 +49,25 @@ public class ResetPasswordController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void onRegisterBtnClick() throws IOException {
+        try {
+            // Load the sign-up FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
+            Stage signUpStage = new Stage();
+            signUpStage.initModality(Modality.APPLICATION_MODAL);  // Set modality to block other windows
+            signUpStage.setTitle("Sign Up");
+
+            // Create and set the scene with specified dimensions
+            Scene scene = new Scene(fxmlLoader.load());
+            signUpStage.setScene(scene);
+
+            // Show the sign-up modal window
+            signUpStage.showAndWait();  // Use showAndWait to block interaction with other windows
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

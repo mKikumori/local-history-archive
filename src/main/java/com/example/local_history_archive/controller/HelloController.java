@@ -116,13 +116,18 @@ public class HelloController {
 
     public void onRegisterBtnClick() throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("signup-view.fxml"));
+            // Load the sign-up FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
             Stage signUpStage = new Stage();
-            signUpStage.initModality(Modality.APPLICATION_MODAL);
+            signUpStage.initModality(Modality.APPLICATION_MODAL);  // Set modality to block other windows
             signUpStage.setTitle("Sign Up");
-            Scene scene = new Scene(loader.load());
+
+            // Create and set the scene with specified dimensions
+            Scene scene = new Scene(fxmlLoader.load());
             signUpStage.setScene(scene);
-            signUpStage.show();
+
+            // Show the sign-up modal window
+            signUpStage.showAndWait();  // Use showAndWait to block interaction with other windows
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,17 +136,17 @@ public class HelloController {
     public void onLoginBtnClick() throws IOException {
         try {
             // Load the sign-in FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("signin-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
             Stage signInStage = new Stage();
-            signInStage.initModality(Modality.APPLICATION_MODAL);
+            signInStage.initModality(Modality.APPLICATION_MODAL);  // Set modality to block other windows
             signInStage.setTitle("Sign In");
 
-            // Create and set the scene
-            Scene scene = new Scene(loader.load());
+            // Create and set the scene with specified dimensions
+            Scene scene = new Scene(fxmlLoader.load());
             signInStage.setScene(scene);
 
-            // Show the sign-in pop-up
-            signInStage.showAndWait();
+            // Show the sign-in modal window
+            signInStage.showAndWait();  // Use showAndWait to block interaction with other windows
         } catch (Exception e) {
             e.printStackTrace();
         }

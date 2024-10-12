@@ -23,7 +23,7 @@ public class LoginController {
     @FXML
     public Hyperlink registerLink;
     @FXML
-    public Button registerBtn;
+    public Button onRegisterBtnClick;
     @FXML
     private Button loginBtn;
     @FXML
@@ -39,7 +39,7 @@ public class LoginController {
     @FXML
     private void goToResetPasswordPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("resetpassword-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("resetpassword-view.fxml"));
             Stage resetPasswordStage = new Stage();
             resetPasswordStage.initModality(Modality.APPLICATION_MODAL);
             resetPasswordStage.setTitle("Reset Password");
@@ -67,11 +67,23 @@ public class LoginController {
         alert.showAndWait();
     }
 
-    public void registerSubmitBtn() throws IOException {
-        Stage stage = (Stage) registerBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
+    public void onRegisterBtnClick() throws IOException {
+        try {
+            // Load the sign-up FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
+            Stage signUpStage = new Stage();
+            signUpStage.initModality(Modality.APPLICATION_MODAL);  // Set modality to block other windows
+            signUpStage.setTitle("Sign Up");
+
+            // Create and set the scene with specified dimensions
+            Scene scene = new Scene(fxmlLoader.load());
+            signUpStage.setScene(scene);
+
+            // Show the sign-up modal window
+            signUpStage.showAndWait();  // Use showAndWait to block interaction with other windows
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void registerLink() throws IOException {
