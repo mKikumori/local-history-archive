@@ -113,6 +113,16 @@ public class SearchController {
 
                     }
 
+                        // Add text regardless of the image presence
+                        Label uploadLabel = new Label(result.getResult().get(0));
+                        uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+                        uploadLabel.setMaxWidth(120);  // Limit the width of the text
+                        uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+                        // Set the VBox as the button's graphic
+                        searchedBtn.setGraphic(contentBox);
+
+                }
                     // Add text regardless of the image presence
                     Label uploadLabel = new Label(result.getResult().get(0));
                     uploadLabel.setWrapText(true); // Wrap text to fit inside the button
@@ -121,16 +131,6 @@ public class SearchController {
 
                     // Set the VBox as the button's graphic
                     searchedBtn.setGraphic(contentBox);
-
-                }
-                // Add text regardless of the image presence
-                Label uploadLabel = new Label(result.getResult().get(0));
-                uploadLabel.setWrapText(true); // Wrap text to fit inside the button
-                uploadLabel.setMaxWidth(120);  // Limit the width of the text
-                uploadLabel.setPrefHeight(30); // Set a fixed height for the label
-
-                // Set the VBox as the button's graphic
-                searchedBtn.setGraphic(contentBox);
 
 
                 searchedBtn.setOnAction(event -> {

@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 public class CollectionController implements Initializable {
 
 
+
     private CollectionDAO collectionDAO;
     private SearchDAO searchDAO;
     private Collection collection;
@@ -119,7 +120,7 @@ public class CollectionController implements Initializable {
         collectionsGrid.setVgap(10); // Vertical gap between rows
         collectionsGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
 
-        for (UserUpload upload : uploads) {
+        for (UserUpload upload: uploads) {
 
             Button uploadBtn = new Button(upload.getUploadName());
             uploadBtn.setPrefWidth(302); // Set button width
