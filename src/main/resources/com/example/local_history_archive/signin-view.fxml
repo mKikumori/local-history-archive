@@ -58,7 +58,7 @@
                         <Font size="11.0" />
                     </font>
                 </Label>
-                <Hyperlink layoutX="112.0" layoutY="400.0" text="Forgot your Password?" fx:id="registerLink" onAction="#registerLink">
+                <Hyperlink layoutX="112.0" layoutY="400.0" text="Forgot your Password?" fx:id="registerLink" onAction="#goToResetPasswordPage">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>

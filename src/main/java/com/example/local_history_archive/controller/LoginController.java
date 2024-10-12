@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
+import javafx.stage.Modality;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +34,22 @@ public class LoginController {
     private UserAccountDAO userAccountDAO;
 
     private UserUploadDAO userUploadDAO;
+
+
+    @FXML
+    private void goToResetPasswordPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("resetpassword-view.fxml"));
+            Stage resetPasswordStage = new Stage();
+            resetPasswordStage.initModality(Modality.APPLICATION_MODAL);
+            resetPasswordStage.setTitle("Reset Password");
+            Scene scene = new Scene(loader.load());
+            resetPasswordStage.setScene(scene);
+            resetPasswordStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize() {
