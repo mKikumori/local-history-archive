@@ -5,11 +5,14 @@ import com.example.local_history_archive.HelloApplication;
 import com.example.local_history_archive.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
@@ -70,10 +73,30 @@ public class SearchController {
         if (results.isEmpty()) {
             showAlert(Alert.AlertType.INFORMATION, "No Results", "No results found for your search.");
         } else {
+
+            // Set grid properties: gaps and alignment
+            resultsGrid.setHgap(10); // Horizontal gap between columns
+            resultsGrid.setVgap(10); // Vertical gap between rows
+            resultsGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+
             int row = 0, column = 0;
+
             for (SearchResult result : results) {
 
                 Button searchedBtn = new Button(result.getResult().get(0));
+                searchedBtn.setPrefWidth(302); // Set button width
+                searchedBtn.setPrefHeight(107); // Set button height
+                searchedBtn.setMaxWidth(302);   // Limit max button width
+                searchedBtn.setMaxHeight(107);  // Limit max button height
+
+                // Apply uniform style
+                searchedBtn.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-text-fill: black;");
+
+                // Create a VBox to stack the image and the text
+                VBox contentBox = new VBox();
+                contentBox.setAlignment(Pos.CENTER); // Center alignment for the content
+                contentBox.setSpacing(5); // Space between image and text
+
                 ImageView imageView = new ImageView();
 
                 if (result.getUploadType().equals("image") && result.getImageData() != null) {
@@ -81,18 +104,34 @@ public class SearchController {
 
                     if (image != null) {
                         imageView.setImage(image);
-                        imageView.setFitHeight(100);
-                        imageView.setPreserveRatio(true);
-                        searchedBtn.setGraphic(imageView);
+                        imageView.setFitHeight(70); // Adjust uniform image height
+                        imageView.setFitWidth(120);  // Adjust uniform image width
+                        imageView.setPreserveRatio(true); // Preserve the aspect ratio
+                        imageView.setSmooth(true); // Improve image quality
 
-                        System.out.println(image);
+                        contentBox.getChildren().add(imageView); // Add image to VBox
 
-                    } else {
-                        searchedBtn.setText(result.getResult().get(0));
                     }
-                } else {
-                    searchedBtn.setText(result.getResult().get(0));
+
+                        // Add text regardless of the image presence
+                        Label uploadLabel = new Label(result.getResult().get(0));
+                        uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+                        uploadLabel.setMaxWidth(120);  // Limit the width of the text
+                        uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+                        // Set the VBox as the button's graphic
+                        searchedBtn.setGraphic(contentBox);
+
                 }
+                    // Add text regardless of the image presence
+                    Label uploadLabel = new Label(result.getResult().get(0));
+                    uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+                    uploadLabel.setMaxWidth(120);  // Limit the width of the text
+                    uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+                    // Set the VBox as the button's graphic
+                    searchedBtn.setGraphic(contentBox);
+
 
                 searchedBtn.setOnAction(event -> {
                     try {
@@ -103,7 +142,7 @@ public class SearchController {
                 });
                 resultsGrid.add(searchedBtn, column++, row);
 
-                if (column == 3) {
+                if (column > 3) {
                     column = 0;
                     row++;
                 }
@@ -172,28 +211,64 @@ public class SearchController {
         if (results.isEmpty()) {
             showAlert(Alert.AlertType.INFORMATION, "No Results", "No results found for " + query + " .");
         } else {
+
+            // Set grid properties: gaps and alignment
+            resultsGrid.setHgap(10); // Horizontal gap between columns
+            resultsGrid.setVgap(10); // Vertical gap between rows
+            resultsGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+
             int row = 0, column = 0;
             for (SearchResult result : results) {
 
                 Button searchedBtn = new Button(result.getResult().get(0));
+                searchedBtn.setPrefWidth(302); // Set button width
+                searchedBtn.setPrefHeight(107); // Set button height
+                searchedBtn.setMaxWidth(302);   // Limit max button width
+                searchedBtn.setMaxHeight(107);  // Limit max button height
+
+                // Apply uniform style
+                searchedBtn.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-text-fill: black;");
+
+                // Create a VBox to stack the image and the text
+                VBox contentBox = new VBox();
+                contentBox.setAlignment(Pos.CENTER); // Center alignment for the content
+                contentBox.setSpacing(5); // Space between image and text
+
                 ImageView imageView = new ImageView();
 
                 if (result.getUploadType().equals("image") && result.getImageData() != null) {
                     Image image = Base64ToImage.base64ToImage(result.getImageData());
+
                     if (image != null) {
                         imageView.setImage(image);
-                        imageView.setFitHeight(100);
-                        imageView.setPreserveRatio(true);
-                        searchedBtn.setGraphic(imageView);
+                        imageView.setFitHeight(70); // Adjust uniform image height
+                        imageView.setFitWidth(120);  // Adjust uniform image width
+                        imageView.setPreserveRatio(true); // Preserve the aspect ratio
+                        imageView.setSmooth(true); // Improve image quality
 
-                        System.out.println(image);
+                        contentBox.getChildren().add(imageView); // Add image to VBox
 
-                    } else {
-                        searchedBtn.setText(result.getResult().get(0));
                     }
-                } else {
-                    searchedBtn.setText(result.getResult().get(0));
+
+                    // Add text regardless of the image presence
+                    Label uploadLabel = new Label(result.getResult().get(0));
+                    uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+                    uploadLabel.setMaxWidth(120);  // Limit the width of the text
+                    uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+                    // Set the VBox as the button's graphic
+                    searchedBtn.setGraphic(contentBox);
+
                 }
+
+                // Add text regardless of the image presence
+                Label uploadLabel = new Label(result.getResult().get(0));
+                uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+                uploadLabel.setMaxWidth(120);  // Limit the width of the text
+                uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+                // Set the VBox as the button's graphic
+                searchedBtn.setGraphic(contentBox);
 
                 searchedBtn.setOnAction(event -> {
                     try {
@@ -204,7 +279,7 @@ public class SearchController {
                 });
                 resultsGrid.add(searchedBtn, column++, row);
 
-                if (column == 3) {
+                if (column > 3) {
                     column = 0;
                     row++;
                 }
