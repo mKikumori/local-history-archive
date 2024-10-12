@@ -9,7 +9,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     public static final String TITLE = "Local History Archive";
-    public static final int WIDTH = 1200;
+    public static final int WIDTH = 1280;
     public static final int HEIGHT = 800;
 
     @Override

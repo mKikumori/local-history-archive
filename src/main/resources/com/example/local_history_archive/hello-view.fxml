@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFF;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.local_history_archive.controller.HelloController">
     <children>
-        <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1288.0" styleClass="uploadDoc">
+        <ToolBar layoutX="-5.0" prefHeight="82.0" prefWidth="1280.0">
             <items>
                 <Group>
                     <children>
@@ -39,7 +39,7 @@
                                     </font></Button>
                             </buttons>
                         </ButtonBar>
-                        <ButtonBar layoutX="1016.5999755859375" prefHeight="63.0" prefWidth="169.0">
+                        <ButtonBar layoutX="1063.5999755859375" layoutY="-1.0" prefHeight="63.0" prefWidth="169.0">
                             <buttons>
                                 <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#onLoginBtnClick" prefHeight="0.0" prefWidth="109.0" styleClass="round-btn" stylesheets="@styles.css" text="Sign In" />
                                 <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#onRegisterBtnClick" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" />
@@ -61,7 +61,7 @@
         </ToolBar>
         <Pane layoutX="-5.0" layoutY="121.0" prefHeight="216.0" prefWidth="1288.0" style="-fx-background-color: 949494;">
             <children>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f3f3" height="233.0" layoutX="6.0" layoutY="-25.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1280.0" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f3f3" height="233.0" layoutX="4.0" layoutY="-55.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1280.0" />
                 <Label layoutX="557.0" layoutY="17.0" text="WELCOME TO">
                     <font>
                         <Font name="System Bold" size="18.0" />
