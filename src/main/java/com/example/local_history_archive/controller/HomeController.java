@@ -6,13 +6,17 @@ import com.example.local_history_archive.Base64ToImage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -59,43 +63,76 @@ public class HomeController {
 
         List<UserUpload> uploads = userUploadDAO.allUploads();
 
+        // Set grid properties: gaps and alignment
+        uploadGrid.setHgap(10); // Horizontal gap between columns
+        uploadGrid.setVgap(10); // Vertical gap between rows
+        uploadGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+
         int column = 0;
         int row = 0;
 
-        for (UserUpload upload: uploads) {
+        for (UserUpload upload : uploads) {
+            // Create a button for each upload
             Button uploadBtn = new Button(upload.getUploadName());
+            uploadBtn.setPrefWidth(302); // Set button width
+            uploadBtn.setPrefHeight(107); // Set button height
+            uploadBtn.setMaxWidth(302);   // Limit max button width
+            uploadBtn.setMaxHeight(107);  // Limit max button height
+
+            // Apply uniform style
+            uploadBtn.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-text-fill: black;");
+
+            // Create a VBox to stack the image and the text
+            VBox contentBox = new VBox();
+            contentBox.setAlignment(Pos.CENTER); // Center alignment for the content
+            contentBox.setSpacing(5); // Space between image and text
+
             ImageView imageView = new ImageView();
 
+            // If the upload is an image, display it
             if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
-
                 Image image = Base64ToImage.base64ToImage(upload.getImageData());
 
                 imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setPreserveRatio(true);
+                imageView.setFitHeight(70); // Adjust uniform image height
+                imageView.setFitWidth(120);  // Adjust uniform image width
+                imageView.setPreserveRatio(true); // Preserve the aspect ratio
+                imageView.setSmooth(true); // Improve image quality
 
-                uploadBtn.setGraphic(imageView);
-            } else {
-                uploadBtn.setText(upload.getUploadName());
+                contentBox.getChildren().add(imageView); // Add image to VBox
             }
 
+            // Add text regardless of the image presence
+            Label uploadLabel = new Label(upload.getUploadName());
+            uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+            uploadLabel.setMaxWidth(120);  // Limit the width of the text
+            uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+            // Set the VBox as the button's graphic
+            uploadBtn.setGraphic(contentBox);
+
+            // Set an action on button click
             uploadBtn.setOnAction(actionEvent -> {
                 try {
-                    openUploadDetails(upload);
+                    openUploadDetails(upload); // Function to open upload details
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
 
+            // Add button to the grid
             uploadGrid.add(uploadBtn, column, row);
 
+            // Update column and row for the grid
             column++;
-            if (column == 3) {
+            if (column > 3) { // 3 items per row, adjust to your needs
                 column = 0;
                 row++;
             }
         }
     }
+
+
 
     private void openUploadDetails(UserUpload upload) throws IOException {
         Stage stage = (Stage) uploadGrid.getScene().getWindow();
