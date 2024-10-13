@@ -14,13 +14,13 @@ public class EditProfileTest {
     private static Connection connection;
     private EditProfileController controller;
     private UserAccount mockUserAccount;
-
-    @BeforeAll
-    public static void initToolkit() {
-        Platform.startup(() -> {
-            System.out.println("JavaFX Platform initialized");
-        });
-    }
+//
+//    @BeforeAll
+//    public static void initToolkit() {
+//        Platform.startup(() -> {
+//            System.out.println("JavaFX Platform initialized");
+//        });
+//    }
 
     @BeforeAll
     public static void setUpAll() throws SQLException {
