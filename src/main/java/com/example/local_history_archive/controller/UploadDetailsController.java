@@ -9,11 +9,14 @@ import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -86,6 +89,11 @@ public class UploadDetailsController {
         List<UserUpload> uploads = userUploadDAO.allUploads();
         Collections.shuffle(uploads);
 
+        // Set grid properties: gaps and alignment
+        uploadGrid.setHgap(10); // Horizontal gap between columns
+        uploadGrid.setVgap(10); // Vertical gap between rows
+        uploadGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+
         int column = 0;
         int row = 0;
         int uploadCount = 0;
@@ -97,6 +105,20 @@ public class UploadDetailsController {
             }
 
             Button uploadBtn = new Button(upload.getUploadName());
+
+            uploadBtn.setPrefWidth(302); // Set button width
+            uploadBtn.setPrefHeight(107); // Set button height
+            uploadBtn.setMaxWidth(302);   // Limit max button width
+            uploadBtn.setMaxHeight(107);  // Limit max button height
+
+            // Apply uniform style
+            uploadBtn.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-text-fill: black;");
+
+            // Create a VBox to stack the image and the text
+            VBox contentBox = new VBox();
+            contentBox.setAlignment(Pos.CENTER); // Center alignment for the content
+            contentBox.setSpacing(5); // Space between image and text
+
             ImageView imageView = new ImageView();
 
             if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
@@ -104,13 +126,22 @@ public class UploadDetailsController {
                 Image image = Base64ToImage.base64ToImage(upload.getImageData());
 
                 imageView.setImage(image);
-                imageView.setFitHeight(100);
-                imageView.setPreserveRatio(true);
+                imageView.setFitHeight(70); // Adjust uniform image height
+                imageView.setFitWidth(120);  // Adjust uniform image width
+                imageView.setPreserveRatio(true); // Preserve the aspect ratio
+                imageView.setSmooth(true); // Improve image quality
 
-                uploadBtn.setGraphic(imageView);
-            } else {
-                uploadBtn.setText(upload.getUploadName());
+                contentBox.getChildren().add(imageView); // Add image to VBox
             }
+
+            // Add text regardless of the image presence
+            Label uploadLabel = new Label(upload.getUploadName());
+            uploadLabel.setWrapText(true); // Wrap text to fit inside the button
+            uploadLabel.setMaxWidth(120);  // Limit the width of the text
+            uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+
+            // Set the VBox as the button's graphic
+            uploadBtn.setGraphic(contentBox);
 
             uploadBtn.setOnAction(actionEvent -> {
                 try {
