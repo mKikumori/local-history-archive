@@ -138,4 +138,80 @@ public class CollectionDAO {
 
         return uploads;
     }
+
+    // Method to delete an upload by its creator (only the creator can delete it)
+    public boolean deleteUploadByCreator(int uploadId, int userId) {
+        boolean isDeleted = false;
+
+        // Step 1: Verify that the userId matches the creator of the upload
+        String checkQuery = "SELECT user_id FROM userUploads WHERE upload_id = ?";
+
+        try (PreparedStatement checkStmt = connection.prepareStatement(checkQuery)) {
+            checkStmt.setInt(1, uploadId);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                int creatorId = rs.getInt("user_id");
+
+                // Step 2: If the userId matches, delete the upload
+                if (creatorId == userId) {
+                    // Delete from CollectionUploads first (if it exists)
+                    String deleteFromCollectionUploads = "DELETE FROM CollectionUploads WHERE upload_id = ?";
+                    try (PreparedStatement deleteFromCollectionStmt = connection.prepareStatement(deleteFromCollectionUploads)) {
+                        deleteFromCollectionStmt.setInt(1, uploadId);
+                        deleteFromCollectionStmt.executeUpdate();
+                    }
+
+                    // Delete from userUploads
+                    String deleteUpload = "DELETE FROM userUploads WHERE upload_id = ?";
+                    try (PreparedStatement deleteUploadStmt = connection.prepareStatement(deleteUpload)) {
+                        deleteUploadStmt.setInt(1, uploadId);
+                        int rowsAffected = deleteUploadStmt.executeUpdate();
+                        isDeleted = (rowsAffected > 0);
+                    }
+                } else {
+                    System.err.println("Error: User is not the creator of the upload.");
+                }
+            } else {
+                System.err.println("Error: Upload not found.");
+            }
+
+        } catch (SQLException SQLEx) {
+            System.err.println("Error deleting upload: " + SQLEx.getMessage());
+        }
+        return isDeleted;
+    }
+
+    // Method to remove an upload from a collection (without deleting the upload itself)
+    public boolean removeUploadFromCollection(int uploadId, int userId) {
+        boolean isRemoved = false;
+
+        // Step 1: Verify that the collection belongs to the user
+        String verifyQuery = "SELECT collection_id FROM Collections WHERE creator_id = ?";
+
+        try (PreparedStatement verifyStmt = connection.prepareStatement(verifyQuery)) {
+            verifyStmt.setInt(1, userId);
+            ResultSet rs = verifyStmt.executeQuery();
+
+            if (rs.next()) {
+                int collectionId = rs.getInt("collection_id");
+
+                // Step 2: If the collection belongs to the user, remove the upload from the collection
+                String removeQuery = "DELETE FROM CollectionUploads WHERE collection_id = ? AND upload_id = ?";
+                try (PreparedStatement removeStmt = connection.prepareStatement(removeQuery)) {
+                    removeStmt.setInt(1, collectionId);
+                    removeStmt.setInt(2, uploadId);
+                    int rowsAffected = removeStmt.executeUpdate();
+                    isRemoved = (rowsAffected > 0);
+                }
+            } else {
+                System.err.println("Error: Collection not found for the user.");
+            }
+
+        } catch (SQLException SQLEx) {
+            System.err.println("Error removing upload from collection: " + SQLEx.getMessage());
+        }
+
+        return isRemoved;
+    }
 }

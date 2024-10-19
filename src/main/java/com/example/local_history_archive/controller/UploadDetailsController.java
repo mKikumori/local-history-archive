@@ -80,6 +80,32 @@ public class UploadDetailsController {
         this.userUploadDAO = new UserUploadDAO();
     }
 
+    public void deleteUpload() {
+        int uploadId = upload.getUploadId();
+        int userId = SessionManager.getCurrentUser().getUserId();
+
+        boolean isDeleted = collectionDAO.deleteUploadByCreator(uploadId, userId);
+
+        if (isDeleted) {
+            showAlert(Alert.AlertType.INFORMATION, "Upload Deletion", "Upload deleted successfully.");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Upload Deletion", "Failed to delete upload. You may not be the creator.");
+        }
+    }
+
+    public void deleteCollectionUpload() {
+        int uploadId = upload.getUploadId();
+        int userId = SessionManager.getCurrentUser().getUserId();
+
+        boolean isRemoved = collectionDAO.removeUploadFromCollection(uploadId, userId);
+
+        if (isRemoved) {
+            showAlert(Alert.AlertType.INFORMATION, "Upload Deletion from Collection", "Upload removed from collection successfully.");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Upload Deletion from Collection", "Failed to remove upload from collection.\nCheck if this upload is save into a collection in the first place.");
+        }
+    }
+
     private void loadUploadsFromDatabase() {
         if (userUploadDAO == null) {
             System.err.println("UserUploadDAO is not initialized.");
