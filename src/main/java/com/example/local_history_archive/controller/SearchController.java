@@ -78,7 +78,7 @@ public class SearchController {
         } else {
 
             resultsGrid.setHgap(10);
-            resultsGrid.setVgap(10)
+            resultsGrid.setVgap(10);
             resultsGrid.setPadding(new Insets(20, 20, 20, 20));
 
             int row = 0, column = 0;
