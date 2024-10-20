@@ -22,6 +22,9 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The controller class for the edit-profile page
+ */
 public class EditProfileController {
     @FXML
     public Button homeBtn;
@@ -68,7 +71,7 @@ public class EditProfileController {
     }
 
     public void onSearchClicked() throws IOException {
-        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+        UserAccount currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
             String query = searchField.getText().trim();

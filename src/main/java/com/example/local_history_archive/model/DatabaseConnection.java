@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * A simple class for establishing a connection with the sqlite database
+ */
 public class DatabaseConnection {
     private static Connection instance = null;
 
@@ -12,18 +15,17 @@ public class DatabaseConnection {
         String url = "jdbc:sqlite:database.db";
 
         try {
-            instance = DriverManager.getConnection(url); // This tries to connect using the URL but it fails due to smt idk, maybe the "org.xerial:sqlite-jdbc:3.36.0.3"
+            instance = DriverManager.getConnection(url);
             Statement statement = instance.createStatement();
             statement.execute("PRAGMA foreign_keys = ON");
         } catch (SQLException sqlEx) {
-            System.err.println(sqlEx); // This is giving out the "java.sql.SQLException: No suitable driver found for jdbc:sqlite:database.db" error
+            System.err.println(sqlEx);
         }
     }
 
     public static Connection getInstance() {
         if (instance == null) {
-            new DatabaseConnection(); // The DAOs call this function and instance is always null
-                                        // Because of that DatabaseConnection() is called
+            new DatabaseConnection();
         }
         return instance;
     }

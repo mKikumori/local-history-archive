@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A DAO class for the database operations regarding the collections
+ */
 public class CollectionDAO {
     private Connection connection;
 
@@ -13,6 +16,9 @@ public class CollectionDAO {
         createCollectionUploadsTable();
     }
 
+    /**
+     * Creates the collections table if not exists
+     */
     public void createCollectionTable() {
         try (Statement createTable = connection.createStatement()) {
             createTable.execute("PRAGMA foreign_keys = ON");
@@ -29,7 +35,9 @@ public class CollectionDAO {
         }
     }
 
-    // Method to create the linking table for collections and uploads
+    /**
+     * Creates the linking table for collections and uploads if not exists
+     */
     public void createCollectionUploadsTable() {
         try (Statement createTable = connection.createStatement()) {
             createTable.execute(
@@ -45,6 +53,10 @@ public class CollectionDAO {
         }
     }
 
+    /**
+     * Method for creating a new collection
+     * @param collection The param for getting the details of the collection name and the creator's ID
+     */
     public void newCollection(Collection collection) {
         try (PreparedStatement newCollection = connection.prepareStatement(
                 "INSERT INTO Collections (creator_id, collection_name, created_at) "
@@ -57,6 +69,11 @@ public class CollectionDAO {
         }
     }
 
+    /**
+     * Gets the collection name by the user's ID
+     * @param userId The user's ID
+     * @return Returns the name of the collection
+     */
     public String getCollectionNameByUserId(int userId) {
         String collectionName = null;
         String query = "SELECT collection_name FROM Collections WHERE creator_id = ?";
@@ -75,25 +92,31 @@ public class CollectionDAO {
         return collectionName;
     }
 
-    // Method to check if a user has a collection
+    /**
+     * Checks if a user already has a collection
+     * @param userId The user's ID
+     * @return Returns false if there's an exception or if no collection is found. Returns true otherwise
+     */
     public boolean userHasCollection(int userId) {
         String query = "SELECT COUNT(*) FROM Collections WHERE creator_id = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Returns true if the count is greater than 0
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException SQLEx) {
             System.err.println("Error checking if user has a collection: " + SQLEx);
         }
-
-        return false; // Default return false if there's an exception or no collection found
+        return false;
     }
 
-    // Method to add an upload to a collection based on creator_id
+    /**
+     * Method to add an upload to a collection based on the creator_id, as only the creator can add more uploads to the collection
+     * @param creatorId The ID of the creator of the collection
+     * @param uploadId The ID of the upload to be added
+     */
     public void addUploadToCollection(int creatorId, int uploadId) {
         try (PreparedStatement addUpload = connection.prepareStatement(
                 "INSERT INTO CollectionUploads (collection_id, upload_id) " +
@@ -106,7 +129,11 @@ public class CollectionDAO {
         }
     }
 
-    // Method to get all uploads for a given userId (creatorId)
+    /**
+     * Method to get all uploads in a collection for a given user ID
+     * @param userId The ID of the current user
+     * @return All uploads found in the collection for that user ID
+     */
     public List<UserUpload> getUploadsForUser(int userId) {
         List<UserUpload> uploads = new ArrayList<>();
         String query = "SELECT u.* FROM userUploads u " +
@@ -135,15 +162,18 @@ public class CollectionDAO {
         } catch (SQLException SQLEx) {
             System.err.println("Error fetching uploads for user: " + SQLEx);
         }
-
         return uploads;
     }
 
-    // Method to delete an upload by its creator (only the creator can delete it)
+    /**
+     * Method to delete an upload by its creator ID, as only the creator can delete it
+     * @param uploadId The upload ID to be deleted
+     * @param userId The user ID of the creator
+     * @return Returns false if there was an error. True otherwise
+     */
     public boolean deleteUploadByCreator(int uploadId, int userId) {
         boolean isDeleted = false;
 
-        // Step 1: Verify that the userId matches the creator of the upload
         String checkQuery = "SELECT user_id FROM userUploads WHERE upload_id = ?";
 
         try (PreparedStatement checkStmt = connection.prepareStatement(checkQuery)) {
@@ -153,16 +183,13 @@ public class CollectionDAO {
             if (rs.next()) {
                 int creatorId = rs.getInt("user_id");
 
-                // Step 2: If the userId matches, delete the upload
                 if (creatorId == userId) {
-                    // Delete from CollectionUploads first (if it exists)
                     String deleteFromCollectionUploads = "DELETE FROM CollectionUploads WHERE upload_id = ?";
                     try (PreparedStatement deleteFromCollectionStmt = connection.prepareStatement(deleteFromCollectionUploads)) {
                         deleteFromCollectionStmt.setInt(1, uploadId);
                         deleteFromCollectionStmt.executeUpdate();
                     }
 
-                    // Delete from userUploads
                     String deleteUpload = "DELETE FROM userUploads WHERE upload_id = ?";
                     try (PreparedStatement deleteUploadStmt = connection.prepareStatement(deleteUpload)) {
                         deleteUploadStmt.setInt(1, uploadId);
@@ -182,11 +209,15 @@ public class CollectionDAO {
         return isDeleted;
     }
 
-    // Method to remove an upload from a collection (without deleting the upload itself)
+    /**
+     * Method to remove an upload from a collection without deleting the upload itself
+     * @param uploadId The upload ID to be deleted
+     * @param userId The user ID of the creator
+     * @return Returns false if there is an error, true otherwise
+     */
     public boolean removeUploadFromCollection(int uploadId, int userId) {
         boolean isRemoved = false;
 
-        // Step 1: Verify that the collection belongs to the user
         String verifyQuery = "SELECT collection_id FROM Collections WHERE creator_id = ?";
 
         try (PreparedStatement verifyStmt = connection.prepareStatement(verifyQuery)) {
@@ -196,7 +227,6 @@ public class CollectionDAO {
             if (rs.next()) {
                 int collectionId = rs.getInt("collection_id");
 
-                // Step 2: If the collection belongs to the user, remove the upload from the collection
                 String removeQuery = "DELETE FROM CollectionUploads WHERE collection_id = ? AND upload_id = ?";
                 try (PreparedStatement removeStmt = connection.prepareStatement(removeQuery)) {
                     removeStmt.setInt(1, collectionId);

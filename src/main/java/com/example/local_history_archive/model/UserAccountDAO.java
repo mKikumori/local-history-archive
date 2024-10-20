@@ -4,14 +4,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A DAO class for the database operations regarding the user accounts
+ */
 public class UserAccountDAO {
     private Connection connection;
 
     public UserAccountDAO() {
-        connection = DatabaseConnection.getInstance(); // DatabaseConnection is called
+        connection = DatabaseConnection.getInstance();
         createTable();
     }
 
+    /**
+     * Creates the userAccounts table if not exists
+     */
     public void createTable() {
         try {
             Statement createTable = connection.createStatement();
@@ -31,14 +37,18 @@ public class UserAccountDAO {
         }
     }
 
-    // Method for password recovery by email
+    /**
+     * Method for password recovery by email
+     * @param userEmail The user's email
+     * @return Returns the password for the given email
+     */
     public String recoverPassword(String userEmail) {
         String password = null;
 
         String sql = "SELECT *  FROM userAccounts WHERE user_email = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, userEmail); // Bind the email to the query
+            pstmt.setString(1, userEmail);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -49,20 +59,24 @@ public class UserAccountDAO {
             System.out.println("Error recovering password: " + e.getMessage());
             e.printStackTrace();
         }
-
         return password;
     }
 
-    //method for changing password
+    /**
+     * Method for changing password for a given email
+     * @param userEmail The email whose password to change
+     * @param newPassword The new password for the given email
+     * @return Returns true if the password was successfully changed, false otherwise
+     */
     public boolean changePassword(String userEmail, String newPassword) {
         String sql = "UPDATE userAccounts SET password = ? WHERE user_email = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, newPassword);  // Bind the new password
-            pstmt.setString(2, userEmail);    // Bind the email
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, userEmail);
 
             int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;  // Return true if the password was successfully changed
+            return rowsAffected > 0;
         } catch (SQLException e) {
             System.out.println("Error changing password: " + e.getMessage());
             e.printStackTrace();
@@ -70,17 +84,25 @@ public class UserAccountDAO {
         }
     }
 
-
-    //Sign in
+    /**
+     * Method for signing in
+     * @param userEmail The email of the user
+     * @param password The password of the user
+     * @return Returns the user's details, null otherwise
+     */
     public UserAccount signIn(String userEmail, String password) {
-        UserAccount user = getByEmail(userEmail);  // Retrieve the user by email
-        if (user != null && user.getPassword().equals(password)) {  // Check if the password matches
-            return user;  // Successful sign-in
+        UserAccount user = getByEmail(userEmail);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
         }
-        return null;  // Sign-in failed
+        return null;
     }
 
-    // Email Duplicate Check
+    /**
+     * Method for checking if there is an email duplicate
+     * @param userEmail The email to be registered
+     * @return Returns the duplicate, false otherwise
+     */
     public boolean isEmailDuplicate(String userEmail){
         try {
             PreparedStatement checkEmailStmt;
@@ -94,7 +116,11 @@ public class UserAccountDAO {
         return false;
     }
 
-    // Username Duplicate Check
+    /**
+     * Method for checking if there is a username duplicate
+     * @param username The username to be checked
+     * @return Returns the duplicate, false otherwise
+     */
     public boolean isUsernameDuplicate(String username) {
         try {
             PreparedStatement checkUsernameStmt = connection.prepareStatement("SELECT * FROM userAccounts WHERE username = ?");
@@ -107,23 +133,34 @@ public class UserAccountDAO {
         return false;
     }
 
-    // Valid username checking
+    /**
+     * Method to check if the username is valid
+     * @param username The username to be checked
+     * @return Returns true if the username is valid, false otherwise
+     */
     public boolean isValidUsername(String username) {
         // Only usernames that consist of alphabets, numbers, underscores (_), and hyphens (-) are allowed.
         String usernamePattern = "^[a-zA-Z0-9_-]{3,20}$";  // 3 characters or more and 20 characters or less
         return username.matches(usernamePattern);
     }
 
-    // Checking email format
+    /**
+     * Method to check if the email is valid
+     * @param email The email to be checked
+     * @return Returns true if the email is valid, false otherwise
+     */
     public boolean isValidEmail(String email) {
         String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         return email.matches(emailPattern);
     }
 
-    // Checking Email Duplicate while registration
+    /**
+     * Method for creating a new user
+     * @param userAccount The registering user's details
+     * @return Returns true if successful, false otherwise
+     */
     public boolean newUser(UserAccount userAccount) {
 
-        // Check if required fields are empty
         if (userAccount.getUserEmail() == null || userAccount.getUserEmail().isEmpty()) {
             System.out.println("Email cannot be empty.");
             return false;
@@ -139,25 +176,21 @@ public class UserAccountDAO {
             return false;
         }
 
-        // Check if the username is invalid
         if (!isValidUsername(userAccount.getUsername())) {
             System.out.println("Invalid Username: " + userAccount.getUsername());
             return false;
         }
 
-        // Check if the email is invalid
         if (!isValidEmail(userAccount.getUserEmail())) {
             System.out.println("Invalid Email: " + userAccount.getUserEmail());
             return false;
         }
 
-        // Duplicate Email Checking
         if (isEmailDuplicate(userAccount.getUserEmail())) {
             System.out.println("There is duplicated Email: " + userAccount.getUserEmail());
             return false;
         }
 
-        // Duplicate Username Checking
         if (isUsernameDuplicate(userAccount.getUsername())) {
             System.out.println("There is a duplicated Username: " + userAccount.getUsername());
             return false;
@@ -174,21 +207,22 @@ public class UserAccountDAO {
             newUserAccount.setString(4, userAccount.getBio());
             newUserAccount.setString(5, userAccount.getProfilePic());
 
-            // Add new user account to DB
             int rowsAffected = newUserAccount.executeUpdate();
 
-            // If created successful (affected row = 1)
             if (rowsAffected > 0) {
                 System.out.println("'" + userAccount.getUsername() + "'" + " account creation success.");
-                return true;  // Account creation success
+                return true;
             }
-
         } catch (SQLException SQLEx) {
             System.err.println(SQLEx);
         }
-        return false; // Account creation failed
+        return false;
     }
 
+    /**
+     * Method ofr updating a user's details
+     * @param userAccount The details to be updated
+     */
     public void updateUser(UserAccount userAccount) {
         try {
             PreparedStatement updateAccount = connection.prepareStatement(
@@ -208,6 +242,10 @@ public class UserAccountDAO {
         }
     }
 
+    /**
+     * Method for deleting a user given a user ID
+     * @param user_id The user ID to be deleted
+     */
     public void deleteAccount(int user_id) {
         try{
             PreparedStatement deleteAccount = connection.prepareStatement("DELETE FROM userAccounts WHERE user_id = ?");
@@ -219,6 +257,10 @@ public class UserAccountDAO {
         }
     }
 
+    /**
+     * Method for retuning all users in the database
+     * @return Returns all user accounts on the database
+     */
     public List<UserAccount> getAll() {
         List<UserAccount> accounts = new ArrayList<>();
         try {
@@ -243,6 +285,11 @@ public class UserAccountDAO {
         return accounts;
     }
 
+    /**
+     * Method for getting a user given a user ID
+     * @param user_id The user ID to be searched
+     * @return Returns the user matching the given ID, null otherwise
+     */
     public UserAccount getById(int user_id) {
         try {
             PreparedStatement getAccount = connection.prepareStatement("SELECT * FROM userAccounts WHERE user_id = ?");
@@ -265,6 +312,11 @@ public class UserAccountDAO {
         return null;
     }
 
+    /**
+     * Method for getting a user given an email
+     * @param user_email The email to be searched
+     * @return Returns the user matching the given email, null otherwise
+     */
     public UserAccount getByEmail(String user_email) {
         try {
             PreparedStatement getAccount = connection.prepareStatement("SELECT * FROM userAccounts WHERE user_email = ?");
@@ -287,7 +339,10 @@ public class UserAccountDAO {
         return null;
     }
 
-    // For Testing
+    /**
+     * Method for deleting a user given a email
+     * @param email The email of the user to be deleted
+     */
     public void deleteByEmail(String email) {
         String sql = "DELETE FROM userAccounts WHERE user_email = ?";
 
@@ -298,48 +353,4 @@ public class UserAccountDAO {
             System.out.println(e.getMessage());
         }
     }
-
-    public int getUserIdByEmail(String email) {
-        int userId = -1;
-        String query = "SELECT user_id FROM userAccounts WHERE user_email = ?";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                userId = rs.getInt("user_id");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving user_id: " + e.getMessage());
-        }
-
-        return userId;
-    }
-
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException SQLEx) {
-            System.err.println(SQLEx);
-        }
-    }
-
-    public boolean userExists(int userId) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM userAccounts WHERE user_id = ?"
-            );
-            preparedStatement.setInt(1, userId);
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            System.err.println("Error checking user existence: " + e.getMessage());
-        }
-        return false;
-    }
-
 }

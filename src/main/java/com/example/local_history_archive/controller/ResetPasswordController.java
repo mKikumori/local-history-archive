@@ -20,6 +20,9 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * The controller class for the reset password page
+ */
 public class ResetPasswordController {
     @FXML
     public Button submitBtn;

@@ -1,5 +1,8 @@
 package com.example.local_history_archive.model;
 
+/**
+ * A simple model class representing a user account with an ID, username, password, email, bio, and profile picture.
+ */
 public class UserAccount {
 
     private int user_id;
@@ -9,6 +12,15 @@ public class UserAccount {
     private String bio;
     private String profile_pic;
 
+    /**
+     * Constructs a new UserAccount with the specified ID, email, username, password, bio, and profile picture.
+     * @param user_id The ID of the user
+     * @param user_email The email of the user
+     * @param username The username of the user
+     * @param password The password of the user
+     * @param bio The bio of the user
+     * @param profile_pic The profile picture of the user
+     */
     public UserAccount(int user_id, String user_email, String username, String password, String bio, String profile_pic) {
         this.user_id = user_id;
         this.user_email = user_email;
@@ -18,7 +30,14 @@ public class UserAccount {
         this.profile_pic = profile_pic;
     }
 
-
+    /**
+     * Constructs a new UserAccount with the specified email, username, password, bio, and profile picture.
+     * @param user_email The email of the user
+     * @param username The username of the user
+     * @param password The password of the user
+     * @param bio The bio of the user
+     * @param profile_pic The profile picture of the user
+     */
     public UserAccount(String user_email, String username, String password, String bio, String profile_pic) {
         this.user_email = user_email;
         this.username = username;

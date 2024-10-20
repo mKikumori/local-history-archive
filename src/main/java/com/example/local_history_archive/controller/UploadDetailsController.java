@@ -25,8 +25,11 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * The controller class for the upload details page
+ */
 public class UploadDetailsController {
-    // The active collection object, used to store the currently selected collection
+
     private Collection activeCollection;
     @FXML
     public Button homeBtn;
@@ -115,10 +118,9 @@ public class UploadDetailsController {
         List<UserUpload> uploads = userUploadDAO.allUploads();
         Collections.shuffle(uploads);
 
-        // Set grid properties: gaps and alignment
-        uploadGrid.setHgap(10); // Horizontal gap between columns
-        uploadGrid.setVgap(10); // Vertical gap between rows
-        uploadGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+        uploadGrid.setHgap(10);
+        uploadGrid.setVgap(10);
+        uploadGrid.setPadding(new Insets(20, 20, 20, 20));
 
         int column = 0;
         int row = 0;
@@ -132,18 +134,16 @@ public class UploadDetailsController {
 
             Button uploadBtn = new Button(upload.getUploadName());
 
-            uploadBtn.setPrefWidth(302); // Set button width
-            uploadBtn.setPrefHeight(107); // Set button height
-            uploadBtn.setMaxWidth(302);   // Limit max button width
-            uploadBtn.setMaxHeight(107);  // Limit max button height
+            uploadBtn.setPrefWidth(302);
+            uploadBtn.setPrefHeight(107);
+            uploadBtn.setMaxWidth(302);
+            uploadBtn.setMaxHeight(107);
 
-            // Apply uniform style
             uploadBtn.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-text-fill: black;");
 
-            // Create a VBox to stack the image and the text
             VBox contentBox = new VBox();
-            contentBox.setAlignment(Pos.CENTER); // Center alignment for the content
-            contentBox.setSpacing(5); // Space between image and text
+            contentBox.setAlignment(Pos.CENTER);
+            contentBox.setSpacing(5);
 
             ImageView imageView = new ImageView();
 
@@ -152,21 +152,19 @@ public class UploadDetailsController {
                 Image image = Base64ToImage.base64ToImage(upload.getImageData());
 
                 imageView.setImage(image);
-                imageView.setFitHeight(70); // Adjust uniform image height
-                imageView.setFitWidth(120);  // Adjust uniform image width
-                imageView.setPreserveRatio(true); // Preserve the aspect ratio
-                imageView.setSmooth(true); // Improve image quality
+                imageView.setFitHeight(70);
+                imageView.setFitWidth(120);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
 
-                contentBox.getChildren().add(imageView); // Add image to VBox
+                contentBox.getChildren().add(imageView);
             }
 
-            // Add text regardless of the image presence
             Label uploadLabel = new Label(upload.getUploadName());
-            uploadLabel.setWrapText(true); // Wrap text to fit inside the button
-            uploadLabel.setMaxWidth(120);  // Limit the width of the text
-            uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+            uploadLabel.setWrapText(true);
+            uploadLabel.setMaxWidth(120);
+            uploadLabel.setPrefHeight(30);
 
-            // Set the VBox as the button's graphic
             uploadBtn.setGraphic(contentBox);
 
             uploadBtn.setOnAction(actionEvent -> {
@@ -189,7 +187,7 @@ public class UploadDetailsController {
     }
     private void openUploadDetails(UserUpload upload) throws IOException {
         Stage stage = (Stage) uploadGrid.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-clicked.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("upload-details.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
 
         // Pass the upload object to the next controller

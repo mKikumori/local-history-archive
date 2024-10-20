@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-
+/**
+ * The controller class for the upload page
+ */
 public class UploadController implements Initializable {
     @FXML
     public Button homeBtn;
@@ -74,7 +76,7 @@ public class UploadController implements Initializable {
     }
 
     public void onSearchClicked() throws IOException {
-        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+        UserAccount currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
             String query = searchField.getText().trim();

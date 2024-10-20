@@ -1,5 +1,8 @@
 package com.example.local_history_archive.model;
 
+/**
+ * A simple model class representing an upload with an ID, uploader ID, name, category, type, description, is pinned, image data, and uploaded at.
+ */
 public class UserUpload {
 
     private int upload_id;
@@ -12,7 +15,18 @@ public class UserUpload {
     private String image_data;
     private String uploadedAt;
 
-
+    /**
+     * Constructs a new UserUpload with an ID, uploader ID, name, category, type, description, is pinned, image data, and uploaded at.
+     * @param upload_id The ID of the upload
+     * @param user_id The ID of the uploader
+     * @param upload_name The name of the upload
+     * @param upload_categories The category of the upload
+     * @param upload_type The type of upload
+     * @param upload_description The description of the upload
+     * @param is_pinned If the upload is pinned or not
+     * @param image_data The image data of the upload
+     * @param uploadedAt The time the upload was created
+     */
     public UserUpload(int upload_id, int user_id, String upload_name, String upload_categories, String upload_type, String upload_description, boolean is_pinned, String image_data, String uploadedAt) {
         this.upload_id = upload_id;
         this.user_id = user_id;
@@ -25,7 +39,17 @@ public class UserUpload {
         this.uploadedAt = uploadedAt;
     }
 
-    // Constructor without upload_id
+    /**
+     * Constructs a new UserUpload with the uploader ID, name, category, type, description, is pinned, image data, and uploaded at.
+     * @param user_id The ID of the uploader
+     * @param upload_name The name of the upload
+     * @param upload_categories The category of the upload
+     * @param upload_type The type of upload
+     * @param upload_description The description of the upload
+     * @param is_pinned If the upload is pinned or not
+     * @param image_data The image data of the upload
+     * @param uploadedAt The time the upload was created
+     */
     public UserUpload(int user_id, String upload_name, String upload_categories, String upload_type, String upload_description, boolean is_pinned, String image_data, String uploadedAt) {
         this.user_id = user_id;
         this.upload_name = upload_name;

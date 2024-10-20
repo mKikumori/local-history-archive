@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The controller class for the account-management page
+ */
 public class ManagementController {
     @FXML
     public Button collectionBtn;
@@ -158,7 +161,7 @@ public class ManagementController {
     }
 
     public void onSearchClicked() throws IOException {
-        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+        UserAccount currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
             String query = searchField.getText().trim();
