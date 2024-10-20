@@ -17,6 +17,9 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * The controller class for the sign-up page
+ */
 public class RegisterController {
 
     @FXML

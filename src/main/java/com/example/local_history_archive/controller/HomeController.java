@@ -25,13 +25,14 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * The controller class for the homepage
+ */
 public class HomeController {
     @FXML
     public Button collectionBtn;
     @FXML
     public Button settingsBtn;
-    @FXML
-    public Button profileBtn;
     @FXML
     public GridPane uploadGrid;
     @FXML
@@ -63,80 +64,68 @@ public class HomeController {
 
         List<UserUpload> uploads = userUploadDAO.allUploads();
 
-        // Set grid properties: gaps and alignment
-        uploadGrid.setHgap(10); // Horizontal gap between columns
-        uploadGrid.setVgap(10); // Vertical gap between rows
-        uploadGrid.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+        uploadGrid.setHgap(10);
+        uploadGrid.setVgap(10);
+        uploadGrid.setPadding(new Insets(20, 20, 20, 20));
 
         int column = 0;
         int row = 0;
 
         for (UserUpload upload : uploads) {
-            // Create a button for each upload
             Button uploadBtn = new Button(upload.getUploadName());
-            uploadBtn.setPrefWidth(302); // Set button width
-            uploadBtn.setPrefHeight(107); // Set button height
-            uploadBtn.setMaxWidth(302);   // Limit max button width
-            uploadBtn.setMaxHeight(107);  // Limit max button height
+            uploadBtn.setPrefWidth(302);
+            uploadBtn.setPrefHeight(107);
+            uploadBtn.setMaxWidth(302);
+            uploadBtn.setMaxHeight(107);
 
-            // Apply uniform style
             uploadBtn.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-text-fill: black;");
 
-            // Create a VBox to stack the image and the text
             VBox contentBox = new VBox();
-            contentBox.setAlignment(Pos.CENTER); // Center alignment for the content
-            contentBox.setSpacing(5); // Space between image and text
+            contentBox.setAlignment(Pos.CENTER);
+            contentBox.setSpacing(5);
 
             ImageView imageView = new ImageView();
 
-            // If the upload is an image, display it
             if (upload.getUploadType().equals("image") && upload.getImageData() != null) {
                 Image image = Base64ToImage.base64ToImage(upload.getImageData());
 
                 imageView.setImage(image);
-                imageView.setFitHeight(70); // Adjust uniform image height
-                imageView.setFitWidth(120);  // Adjust uniform image width
-                imageView.setPreserveRatio(true); // Preserve the aspect ratio
-                imageView.setSmooth(true); // Improve image quality
+                imageView.setFitHeight(70);
+                imageView.setFitWidth(120);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
 
-                contentBox.getChildren().add(imageView); // Add image to VBox
+                contentBox.getChildren().add(imageView);
             }
 
-            // Add text regardless of the image presence
             Label uploadLabel = new Label(upload.getUploadName());
-            uploadLabel.setWrapText(true); // Wrap text to fit inside the button
-            uploadLabel.setMaxWidth(120);  // Limit the width of the text
-            uploadLabel.setPrefHeight(30); // Set a fixed height for the label
+            uploadLabel.setWrapText(true);
+            uploadLabel.setMaxWidth(120);
+            uploadLabel.setPrefHeight(30);
 
-            // Set the VBox as the button's graphic
             uploadBtn.setGraphic(contentBox);
 
-            // Set an action on button click
             uploadBtn.setOnAction(actionEvent -> {
                 try {
-                    openUploadDetails(upload); // Function to open upload details
+                    openUploadDetails(upload);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
 
-            // Add button to the grid
             uploadGrid.add(uploadBtn, column, row);
 
-            // Update column and row for the grid
             column++;
-            if (column > 3) { // 3 items per row, adjust to your needs
+            if (column > 3) {
                 column = 0;
                 row++;
             }
         }
     }
 
-
-
     private void openUploadDetails(UserUpload upload) throws IOException {
         Stage stage = (Stage) uploadGrid.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-clicked.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("upload-details.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
 
         // Pass the upload object to the next controller
@@ -167,13 +156,6 @@ public class HomeController {
         stage.setScene(scene);
     }
 
-    public void onProfileBtnClick() throws IOException {
-        Stage stage = (Stage) profileBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -183,7 +165,7 @@ public class HomeController {
     }
 
     public void onSearchClicked() throws IOException {
-        UserAccount currentUser = SessionManager.getCurrentUser();  // Retrieve the current logged-in user
+        UserAccount currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
             String query = searchField.getText().trim();

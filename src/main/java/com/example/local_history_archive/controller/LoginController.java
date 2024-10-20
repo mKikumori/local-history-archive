@@ -18,10 +18,11 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * The controller class for the sign-in page
+ */
 public class LoginController {
 
-    @FXML
-    public Hyperlink registerLink;
     @FXML
     public Button registerBtn;
     @FXML
@@ -54,13 +55,6 @@ public class LoginController {
     public void registerSubmitBtn() throws IOException {
         Stage stage = (Stage) registerBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signup-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    public void registerLink() throws IOException {
-        Stage stage = (Stage) registerLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("resetpassword-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

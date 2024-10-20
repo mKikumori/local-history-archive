@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A DAO class for the database operations regarding the uploads
+ */
 public class UserUploadDAO {
     private Connection connection;
 
@@ -12,6 +15,9 @@ public class UserUploadDAO {
         createUploadTable();
     }
 
+    /**
+     * Creates the uploads table if not exists
+     */
     public void createUploadTable() {
         try {
             Statement createTable = connection.createStatement();
@@ -35,6 +41,11 @@ public class UserUploadDAO {
         }
     }
 
+    /**
+     * Method to check if a user with the given user ID exists
+     * @param userId The user ID to be checked
+     * @return Returns false if there's an exception or if no user is found, true otherwise
+     */
     public boolean userExists(int userId) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -49,6 +60,11 @@ public class UserUploadDAO {
         }
     }
 
+    /**
+     * Method for getting a user ID given a upload ID
+     * @param uploadId The upload ID to be searched
+     * @return Returns the user ID matching the given upload ID
+     */
     public int getUserIdByUploadId(int uploadId) {
         int userId = -1;
         String query = "SELECT user_id FROM userUploads WHERE upload_id = ?";
@@ -64,11 +80,13 @@ public class UserUploadDAO {
         } catch (SQLException e) {
             System.err.println("Error retrieving user_id: " + e.getMessage());
         }
-
         return userId;
     }
 
-
+    /**
+     * Method for creating a new upload
+     * @param userUpload The upload details
+     */
     public void newUpload(UserUpload userUpload) {
         if (userExists(userUpload.getUserId()))
         {
@@ -94,50 +112,10 @@ public class UserUploadDAO {
         }
     }
 
-    public void updateUpload(UserUpload userUpload) {
-        if (userExists(userUpload.getUserId())) {
-            try {
-                PreparedStatement updateUploadStmt = connection.prepareStatement(
-                        "UPDATE userUploads SET upload_name = ?, upload_categories = ?, upload_type = ?, upload_description = ?, is_pinned = ?, image_data = ? "
-                                + "WHERE upload_id = ?"
-                );
-                updateUploadStmt.setString(1, userUpload.getUploadName());
-                updateUploadStmt.setString(2, userUpload.getUploadCategories());
-                updateUploadStmt.setString(3, userUpload.getUploadType());
-                updateUploadStmt.setString(4, userUpload.getUploadDescription());
-                updateUploadStmt.setBoolean(5, userUpload.isPinned());
-                updateUploadStmt.setString(6, userUpload.getImageData());
-                updateUploadStmt.setInt(7, userUpload.getUploadId());
-
-                updateUploadStmt.executeUpdate();
-            } catch (SQLException SQLEx) {
-                System.err.println(SQLEx);
-            }
-        } else {
-            System.err.println("User with ID " + userUpload.getUserId() + " does not exist.");
-        }
-    }
-
-    public void deleteUpload(int upload_id) {
-
-        int userId = getUserIdByUploadId(upload_id);
-
-        if (userId != -1) {
-        try {
-            PreparedStatement deleteUploadStmt = connection.prepareStatement(
-                    "DELETE FROM userUploads WHERE upload_id = ?"
-            );
-            deleteUploadStmt.setInt(1, upload_id);
-            deleteUploadStmt.executeUpdate();
-            System.out.println("Upload with ID " + upload_id + " has been deleted.");
-        } catch (SQLException SQLEx) {
-            System.err.println("Error deleting upload: " + SQLEx.getMessage());
-        }
-        } else {
-            System.err.println("Upload with ID " + upload_id + " does not exist or has no associated user.");
-        }
-    }
-
+    /**
+     * Method for retuning all uploads in the database
+     * @return Returns all user uploads on the database
+     */
     public List<UserUpload> allUploads() {
         List<UserUpload> uploads = new ArrayList<>();
         try {
@@ -163,6 +141,11 @@ public class UserUploadDAO {
         return uploads;
     }
 
+    /**
+     * Method to get the upload details given the upload ID
+     * @param upload_id The upload ID to be searched
+     * @return Returns the upload matching the upload ID, null otherwise
+     */
     public UserUpload getUploadById(int upload_id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -188,46 +171,5 @@ public class UserUploadDAO {
             System.err.println(SQLEx);
         }
         return null;
-    }
-
-    public void dropTable() throws SQLException {
-        Statement statement = connection.createStatement();
-        try {
-            statement.execute("DROP TABLE IF EXISTS userUploads");
-            System.out.println("Table userUploads deleted successfully.");
-        } catch (SQLException e) {
-            System.err.println("Error deleting table: " + e.getMessage());
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                System.err.println("Error closing statement: " + e.getMessage());
-            }
-        }
-    }
-
-    public String getImageDataByUploadId(int uploadId) {
-        String imageData = null;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT image_data FROM userUploads WHERE upload_id = ?"
-            );
-            preparedStatement.setInt(1, uploadId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                imageData = resultSet.getString("image_data");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching image data: " + e.getMessage());
-        }
-        return imageData;
-    }
-
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException SQLEx) {
-            System.err.println(SQLEx);
-        }
     }
 }

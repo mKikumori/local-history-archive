@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A DAO class for the database operations regarding the search feature
+ */
 public class SearchDAO {
     private Connection connection;
 
@@ -12,25 +15,27 @@ public class SearchDAO {
         connection = DatabaseConnection.getInstance();
     }
 
-    // Search uploads by title (upload_name)
+    /**
+     * Search uploads by upload_name
+     * @param title The upload_name of the wanted upload
+     * @return Returns the all the uploads that match with the query
+     */
     public List<SearchResult> searchUploadsByTitle(String title) {
         List<SearchResult> results = new ArrayList<>();
         String query = "SELECT upload_id, upload_name, upload_description, upload_categories, upload_type, uploaded_at, image_data " +
                 "FROM userUploads WHERE upload_name LIKE ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, "%" + title + "%");  // Add wildcards for partial match on title
+            preparedStatement.setString(1, "%" + title + "%");
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                // Create a list of result details to store all the necessary fields
                 List<String> resultData = Arrays.asList(
                         rs.getString("upload_name"),
                         rs.getString("upload_description"),
                         rs.getString("upload_categories"),
-                        rs.getString("uploaded_at") // Exclude upload_type here, we'll add it to SearchResult directly
+                        rs.getString("uploaded_at")
                 );
-                // Add the SearchResult object containing the upload data, image data, and upload type
                 results.add(new SearchResult("Upload", rs.getInt("upload_id"), resultData, rs.getString("image_data"), rs.getString("upload_type")));
             }
         } catch (SQLException e) {
