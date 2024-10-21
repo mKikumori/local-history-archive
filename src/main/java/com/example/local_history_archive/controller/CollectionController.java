@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
  */
 public class CollectionController implements Initializable {
 
+
     private CollectionDAO collectionDAO;
     private SearchDAO searchDAO;
     private Collection collection;
@@ -37,6 +38,8 @@ public class CollectionController implements Initializable {
 
     @FXML
     public GridPane collectionsGrid;
+    @FXML
+    public Button userCollection;
     @FXML
     public ImageView userImage;
     @FXML
@@ -71,6 +74,11 @@ public class CollectionController implements Initializable {
         this.searchDAO = new SearchDAO();
         this.userAccountDAO = new UserAccountDAO();
         this.categoryComboBox = new ComboBox<>();
+        this.collectiionName = new Label();
+        this.userName = new Label();
+        this.collectionsGrid = new GridPane();
+        this.userImage = new ImageView();
+        this.collectionBtn = new Button();
     }
 
     @Override
@@ -230,6 +238,13 @@ public class CollectionController implements Initializable {
     public void onLoginBtnClick() throws IOException {
         Stage stage = (Stage) loginBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signin-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
+    public void userCollectionBtn() throws IOException {
+        Stage stage = (Stage) userCollection.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("collections.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

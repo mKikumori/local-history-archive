@@ -79,10 +79,6 @@
                         <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="92.0" styleClass="btn" text="Register" visible="false" />
                      </buttons>
                   </ButtonBar>
-                  <Button fx:id="profileBtn" layoutX="1164.0" layoutY="19.200000286102295" mnemonicParsing="false" onAction="#onProfileBtnClick" prefHeight="22.0" prefWidth="86.0" styleClass="uploadDoc" stylesheets="@styles.css" text="Profile">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Button>
                   <Button fx:id="searchBtn" layoutX="598.0" layoutY="16.0" mnemonicParsing="false" onAction="#onSearchClicked" prefHeight="27.0" prefWidth="13.0" style="-fx-background-color: FFFFFF;">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
