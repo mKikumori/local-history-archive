@@ -7,52 +7,44 @@ import java.util.List;
 /**
  * A DAO class for the database operations regarding the collections
  */
-public class CollectionDAO {
+public class CollectionDAO extends BaseDAO{
     private Connection connection;
 
-    public CollectionDAO() {
+    public CollectionDAO () {
         connection = DatabaseConnection.getInstance();
         createCollectionTable();
         createCollectionUploadsTable();
+
     }
 
     /**
      * Creates the collections table if not exists
      */
+
     public void createCollectionTable() {
-        try (Statement createTable = connection.createStatement()) {
-            createTable.execute("PRAGMA foreign_keys = ON");
-            createTable.execute(
-                    "CREATE TABLE IF NOT EXISTS Collections ("
-                            + "collection_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                            + "creator_id INTEGER, "
-                            + "collection_name TEXT NOT NULL, "
-                            + "created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), "
-                            + "FOREIGN KEY (creator_id) REFERENCES userAccounts(user_id))"
-            );
-        } catch (SQLException SQLEx) {
-            System.err.println(SQLEx);
-        }
+        String tableSQL = "CREATE TABLE IF NOT EXISTS Collections ("
+                + "collection_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "creator_id INTEGER, "
+                + "collection_name TEXT NOT NULL, "
+                + "created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), "
+                + "FOREIGN KEY (creator_id) REFERENCES userAccounts(user_id))";
+
+        // Call the method from BaseDAO and pass the table name and SQL statement
+        createTable("Collections", tableSQL);
     }
 
     /**
      * Creates the linking table for collections and uploads if not exists
      */
     public void createCollectionUploadsTable() {
-        try (Statement createTable = connection.createStatement()) {
-            createTable.execute(
-                    "CREATE TABLE IF NOT EXISTS CollectionUploads ("
-                            + "collection_id INTEGER NOT NULL, "
-                            + "upload_id INTEGER NOT NULL, "
-                            + "PRIMARY KEY (collection_id, upload_id), "
-                            + "FOREIGN KEY (collection_id) REFERENCES Collections(collection_id), "
-                            + "FOREIGN KEY (upload_id) REFERENCES userUploads(upload_id))"
-            );
-        } catch (SQLException SQLEx) {
-            System.err.println("Error creating CollectionUploads table: " + SQLEx.getMessage());
-        }
+        String tableSQL = "CREATE TABLE IF NOT EXISTS CollectionUploads ("
+                + "collection_id INTEGER NOT NULL, "
+                + "upload_id INTEGER NOT NULL, "
+                + "PRIMARY KEY (collection_id, upload_id), "
+                + "FOREIGN KEY (collection_id) REFERENCES Collections(collection_id), "
+                + "FOREIGN KEY (upload_id) REFERENCES userUploads(upload_id))";
+        createTable("CollectionUploads", tableSQL);
     }
-
     /**
      * Method for creating a new collection
      * @param collection The param for getting the details of the collection name and the creator's ID

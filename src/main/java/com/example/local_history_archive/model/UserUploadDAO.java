@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * A DAO class for the database operations regarding the uploads
  */
-public class UserUploadDAO {
+public class UserUploadDAO extends BaseDAO{
     private Connection connection;
 
-    public UserUploadDAO() {
+    public UserUploadDAO () {
         connection = DatabaseConnection.getInstance();
         createUploadTable();
     }
@@ -19,27 +19,22 @@ public class UserUploadDAO {
      * Creates the uploads table if not exists
      */
     public void createUploadTable() {
-        try {
-            Statement createTable = connection.createStatement();
-            createTable.execute("PRAGMA foreign_keys = ON");
-            createTable.execute(
-                    "CREATE TABLE IF NOT EXISTS userUploads ("
-                            + "upload_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                            + "user_id INTEGER NOT NULL, "
-                            + "upload_name TEXT NOT NULL, "
-                            + "upload_categories TEXT, "
-                            + "upload_type TEXT, "
-                            + "upload_description TEXT, "
-                            + "is_pinned BOOLEAN NOT NULL DEFAULT 0, "
-                            + "image_data TEXT, "
-                            + "uploaded_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), "
-                            + "FOREIGN KEY (user_id) REFERENCES userAccounts(user_id)"
-                            + ")"
-            );
-        } catch (SQLException SQLEx) {
-            System.err.println(SQLEx);
-        }
+        String tableSQL = "CREATE TABLE IF NOT EXISTS userUploads ("
+                + "upload_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "user_id INTEGER NOT NULL, "
+                + "upload_name TEXT NOT NULL, "
+                + "upload_categories TEXT, "
+                + "upload_type TEXT, "
+                + "upload_description TEXT, "
+                + "is_pinned BOOLEAN NOT NULL DEFAULT 0, "
+                + "image_data TEXT, "
+                + "uploaded_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')), "
+                + "FOREIGN KEY (user_id) REFERENCES userAccounts(user_id))";
+
+        // Use BaseDAO's createTable method
+        createTable("userUploads", tableSQL);
     }
+
 
     /**
      * Method to check if a user with the given user ID exists
@@ -65,23 +60,13 @@ public class UserUploadDAO {
      * @param uploadId The upload ID to be searched
      * @return Returns the user ID matching the given upload ID
      */
+
+
     public int getUserIdByUploadId(int uploadId) {
-        int userId = -1;
-        String query = "SELECT user_id FROM userUploads WHERE upload_id = ?";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, uploadId);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                userId = rs.getInt("user_id");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving user_id: " + e.getMessage());
-        }
-        return userId;
+        // Reuse the getSomeIntByInt method from BaseDAO
+        return getSomeIntByInt("userUploads", "user_id", "upload_id", uploadId);
     }
+
 
     /**
      * Method for creating a new upload
