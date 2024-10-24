@@ -64,7 +64,7 @@ public class BaseDAO {
 
     protected int getSomeIntByInt(String tableName, String columnName, String conditionField, int conditionValue) {
         int result = 0;
-        String query = "SELECT " + columnName + " FROM " + tableName + " WHERE creator_id = ?";
+        String query = "SELECT " + columnName + " FROM " + tableName + " WHERE " + conditionField + " = ? ";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, conditionValue);
