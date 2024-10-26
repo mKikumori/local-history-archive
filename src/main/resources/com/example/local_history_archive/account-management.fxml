@@ -75,7 +75,7 @@
                 <Font name="System Bold" size="14.0" />
             </font></Label>
         <Label layoutX="258.0" layoutY="267.0" text="Password" />
-        <PasswordField fx:id="passwordTextField" layoutX="255.0" layoutY="287.0" prefHeight="38.0" prefWidth="236.0" promptText="Your Password" styleClass="rounded-search" stylesheets="@styles.css" />
+        <PasswordField fx:id="passwordTextField" layoutX="255.0" layoutY="287.0" prefHeight="38.0" prefWidth="236.0" promptText="Confirm Your Password" styleClass="rounded-search" stylesheets="@styles.css" />
         <Label layoutX="242.0" layoutY="350.0" text="Account Deletion">
             <font>
                 <Font name="System Bold" size="14.0" />

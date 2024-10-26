@@ -38,8 +38,6 @@ public class UploadDetailsController {
     @FXML
     public Button settingsBtn;
     @FXML
-    public Button profileBtn;
-    @FXML
     public Label uploadDate;
     @FXML
     public Label uploadCategory;
@@ -222,13 +220,6 @@ public class UploadDetailsController {
     public void onSettingsBtnClick() throws IOException {
         Stage stage = (Stage) settingsBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("account-management.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    public void onProfileBtnClick() throws IOException {
-        Stage stage = (Stage) profileBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-profile.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
